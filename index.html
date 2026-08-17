@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveNet</title>
+    <title>LiveNet — Прямой эфир</title>
 
     <style>
         * {
@@ -14,8 +14,9 @@
 
         body {
             background: #050b12;
-            color: #fff;
+            color: #ffffff;
             font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
         }
 
         header {
@@ -112,8 +113,138 @@
             font-size: 14px;
         }
 
+        /* LIVE NET INFO */
+
+        .history {
+            margin-top: 55px;
+            background: #08111c;
+            border: 1px solid #162536;
+            border-radius: 18px;
+            padding: 35px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+        }
+
+        .history-header {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #162536;
+        }
+
+        .history-header h1 {
+            font-size: 36px;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .history-header p {
+            color: #8394a6;
+            font-size: 16px;
+        }
+
+        .history h2 {
+            margin-top: 35px;
+            margin-bottom: 14px;
+            color: #39aaff;
+            font-size: 25px;
+        }
+
+        .history h3 {
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-size: 19px;
+        }
+
+        .history p {
+            color: #c4d0dc;
+            margin-bottom: 14px;
+        }
+
+        .history ul {
+            margin: 10px 0 20px 25px;
+            color: #c4d0dc;
+        }
+
+        .history li {
+            margin-bottom: 8px;
+        }
+
+        .history strong {
+            color: #ffffff;
+        }
+
+        .timeline {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: #050b12;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .timeline th,
+        .timeline td {
+            padding: 13px 15px;
+            text-align: left;
+            border-bottom: 1px solid #162536;
+        }
+
+        .timeline th {
+            background: #0d1a29;
+            color: #39aaff;
+        }
+
+        .timeline td {
+            color: #c4d0dc;
+        }
+
+        .timeline tr:last-child td {
+            border-bottom: none;
+        }
+
+        .quote {
+            margin: 20px 0;
+            padding: 18px 20px;
+            border-left: 4px solid #39aaff;
+            background: #0d1a29;
+            border-radius: 8px;
+            color: #d5e0ea;
+            font-weight: 700;
+        }
+
+        .facts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin-top: 20px;
+        }
+
+        .fact {
+            background: #0d1a29;
+            border: 1px solid #162536;
+            border-radius: 10px;
+            padding: 18px;
+        }
+
+        .fact-number {
+            color: #39aaff;
+            font-size: 25px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .fact-text {
+            color: #9fb0c0;
+            font-size: 14px;
+        }
+
+        .conclusion {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid #162536;
+        }
+
         footer {
-            padding: 25px 32px 40px;
+            padding: 35px 32px 45px;
             color: #526477;
             font-size: 13px;
             text-align: center;
@@ -139,6 +270,24 @@
 
             .player-title h2 {
                 font-size: 19px;
+            }
+
+            .history {
+                padding: 22px;
+                border-radius: 12px;
+            }
+
+            .history-header h1 {
+                font-size: 28px;
+            }
+
+            .timeline {
+                font-size: 13px;
+            }
+
+            .timeline th,
+            .timeline td {
+                padding: 10px;
             }
         }
     </style>
@@ -246,6 +395,226 @@
             Twitch-канал hypertwitch112.
         </p>
     </section>
+
+    <!-- HISTORY -->
+    <article class="history">
+
+        <div class="history-header">
+            <h1>LiveNet (интернет-канал)</h1>
+            <p>
+                История, развитие и деятельность интернет-канала LiveNet.
+            </p>
+        </div>
+
+        <p>
+            <strong>LiveNet</strong> — российский интернет-канал и медиа-проект,
+            основанный в 2026 году. Специализируется на ретрансляции контента
+            сторонних каналов, авторских программах и тематических эфирах.
+            Известен своей неформальной атмосферой, использованием интернет-мемов
+            и тесным взаимодействием с аудиторией через Telegram и другие платформы.
+        </p>
+
+        <h2>🧬 История</h2>
+
+        <p>
+            Проект был запущен <strong>23 февраля 2026 года</strong> под названием
+            <strong>HyperWT</strong> пользователем Никитой (псевдоним —
+            <strong>blonder</strong>). Вдохновением послужил проект
+            <strong>HyperSAT</strong>, занимавшийся ретрансляцией
+            теледрочерского контента и новостей канала ТН.
+        </p>
+
+        <p>
+            <strong>25 февраля</strong> HyperWT был закрыт, но почти сразу переродился
+            в проект «Ретрансляции ИТВ Каналов на Твиче!».
+            <strong>6 марта</strong> был создан Telegram-канал, ставший основой
+            для аудитории.
+        </p>
+
+        <p>
+            <strong>19 марта</strong> канал был временно закрыт, но уже
+            <strong>20 марта</strong> открылся вновь под названием
+            <strong>HyperTwitch</strong>, которое стало первой «эрой» проекта.
+            <strong>21 марта</strong> прошёл первый ребрендинг.
+        </p>
+
+        <p>
+            <strong>4 апреля</strong> был запущен дочерний проект
+            <strong>NikNot</strong>, просуществовавший один день.
+            <strong>12 апреля</strong> состоялось пасхальное открытие обновлённого
+            HyperTwitch, владельцем которого стал AlexBit.
+            <strong>19 апреля</strong> стартовала авторская программа
+            <strong>«Время Ютуба!»</strong>, закрытая <strong>5 мая</strong>.
+        </p>
+
+        <p>
+            <strong>10 мая</strong> был закрыт NikNot и открыт ностальгический канал
+            <strong>OLD 2X2</strong>. С 1 по 16 мая HyperTwitch вёл ежедневные эфиры,
+            включая тематические марафоны 9 мая и евронеделю с 11 по 17 мая.
+        </p>
+
+        <p>
+            <strong>15 мая</strong> проект был переименован в
+            <strong>LiveNet</strong>.
+            <strong>15 июня</strong> OLD 2X2 был закрыт и заархивирован.
+            С этого момента LiveNet стал основным каналом.
+        </p>
+
+        <p>
+            В июле 2026 года произошёл конфликт с владельцем AlexBit, в результате
+            которого было создано новое Telegram-пространство
+            <strong>t.me/LiveNet112</strong>, а старый канал переведён в архивный режим.
+        </p>
+
+        <p>
+            <strong>1 ноября 2026 года</strong> анонсирован полный перезапуск
+            проекта в новом формате.
+        </p>
+
+        <h2>📅 Хронология ключевых событий</h2>
+
+        <table class="timeline">
+            <thead>
+                <tr>
+                    <th>Дата</th>
+                    <th>Событие</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr><td>23.02.2026</td><td>Запуск HyperWT</td></tr>
+                <tr><td>25.02.2026</td><td>Закрытие HyperWT, создание «Ретрансляций ИТВ»</td></tr>
+                <tr><td>06.03.2026</td><td>Создание Telegram-канала</td></tr>
+                <tr><td>19–20.03.2026</td><td>Временное закрытие, переоткрытие как HyperTwitch</td></tr>
+                <tr><td>21.03.2026</td><td>Первый ребрендинг</td></tr>
+                <tr><td>04.04.2026</td><td>Закрытие на неделю, запуск дочернего проекта NikNot</td></tr>
+                <tr><td>12.04.2026</td><td>Пасхальное открытие HyperTwitch, передача прав AlexBit</td></tr>
+                <tr><td>17.04.2026</td><td>Блокировка Twitch-аккаунта bobrdobrenok</td></tr>
+                <tr><td>19.04.2026</td><td>Запуск авторской программы «Время Ютуба!»</td></tr>
+                <tr><td>05.05.2026</td><td>Закрытие «Время Ютуба!»</td></tr>
+                <tr><td>10.05.2026</td><td>Закрытие NikNot, открытие OLD 2X2</td></tr>
+                <tr><td>01–16.05.2026</td><td>Ежедневные эфиры HyperTwitch</td></tr>
+                <tr><td>07–09.05.2026</td><td>Марафон 9 мая</td></tr>
+                <tr><td>11–17.05.2026</td><td>Евронеделя</td></tr>
+                <tr><td>15.05.2026</td><td>Переименование HyperTwitch в LiveNet</td></tr>
+                <tr><td>15.06.2026</td><td>Закрытие OLD 2X2, LiveNet становится основным проектом</td></tr>
+                <tr><td>16.06.2026</td><td>Перерыв до 1 июля, позже продлён</td></tr>
+                <tr><td>11.07.2026</td><td>День рождения создателя, поездка в Калининград</td></tr>
+                <tr><td>17.07.2026</td><td>Анонс перезапуска LiveNet 1 ноября</td></tr>
+                <tr><td>23.07.2026</td><td>Возвращение из деревни</td></tr>
+                <tr><td>26.07.2026</td><td>Марафон с участием ЭСС, Невоканала, Русика</td></tr>
+                <tr><td>28.07.2026</td><td>Пауза до сентября</td></tr>
+            </tbody>
+        </table>
+
+        <h2>🧠 Содержание и формат</h2>
+
+        <p>
+            LiveNet сочетает ретрансляции сторонних каналов, включая
+            <strong>Rusik</strong>, <strong>ЭСС</strong> и <strong>Невоканал</strong>,
+            с авторскими передачами.
+        </p>
+
+        <ul>
+            <li><strong>«Время Ютуба!»</strong> — авторская программа с видео-подборками.</li>
+            <li><strong>«Кот Платон в эфире»</strong> — импровизированная рубрика с котом-символом.</li>
+            <li><strong>«Тёмный час»</strong> — анонсированная ночная рубрика с архивным контентом.</li>
+            <li><strong>«История LiveNet»</strong> — тематические эфиры о развитии проекта.</li>
+            <li><strong>«Час с чатом»</strong> — общение со зрителями без подготовки.</li>
+            <li><strong>«Абсурдные вставки»</strong> — короткие мемные сегменты из эфиров.</li>
+        </ul>
+
+        <div class="quote">
+            «Туритай ту» — фирменная фраза LiveNet, используемая как приветствие,
+            прощание и символический якорь проекта.
+        </div>
+
+        <p>
+            В августе 2026 года фраза обрела статус интернет-мема среди зрителей.
+        </p>
+
+        <h2>👥 Аудитория и платформы</h2>
+
+        <ul>
+            <li><strong>Telegram</strong> — основной канал и резервный в MAX.</li>
+            <li><strong>Kick</strong> — стриминговая платформа.</li>
+            <li><strong>Twitch</strong> — ранее использовался, но был заблокирован.</li>
+        </ul>
+
+        <p>
+            Аудитория — преимущественно русскоязычная, сформирована вокруг
+            ностальгического контента, интернет-культуры и чувства общности.
+        </p>
+
+        <h2>📊 Статистика за 5 месяцев</h2>
+
+        <div class="facts">
+            <div class="fact">
+                <div class="fact-number">450+</div>
+                <div class="fact-text">стримов</div>
+            </div>
+
+            <div class="fact">
+                <div class="fact-number">5 суток</div>
+                <div class="fact-text">рекорд непрерывного вещания</div>
+            </div>
+
+            <div class="fact">
+                <div class="fact-number">5</div>
+                <div class="fact-text">платформ одновременно</div>
+            </div>
+
+            <div class="fact">
+                <div class="fact-number">3</div>
+                <div class="fact-text">ребрендинга</div>
+            </div>
+
+            <div class="fact">
+                <div class="fact-number">2</div>
+                <div class="fact-text">полных закрытия с возвращением</div>
+            </div>
+
+            <div class="fact">
+                <div class="fact-number">3</div>
+                <div class="fact-text">дочерних проекта</div>
+            </div>
+        </div>
+
+        <h2>🚀 Будущее проекта</h2>
+
+        <p>
+            <strong>1 ноября 2026 года</strong> LiveNet официально перезапускается
+            в новом формате. Детали не раскрыты, но, по словам создателя,
+            проект сменит структуру, сохранив «туритай ту» как ДНК канала.
+        </p>
+
+        <p>
+            В планах — регулярные ночные эфиры, больше авторского контента
+            и переход к более стабильной сетке вещания.
+        </p>
+
+        <h2>🧾 Интересные факты</h2>
+
+        <ul>
+            <li>Проект вдохновлён HyperSAT, закрывшимся в феврале 2026 года.</li>
+            <li>Кот Платон появился в эфире после того, как «игроки не пришли на шоу».</li>
+            <li>Первое название канала содержало слово «ретрансляции».</li>
+            <li>В июле 2026 года был создан отдельный Telegram-канал t.me/LiveNet112.</li>
+            <li>Фраза «Ду ю лайк вечер?» стала неофициальным гимном канала ЭСС.</li>
+        </ul>
+
+        <div class="conclusion">
+            <h2>📎 Заключение</h2>
+
+            <p>
+                LiveNet — это не просто канал, а живой организм, выросший из
+                любительского проекта в узнаваемое медиа. Его история — это история
+                становления, кризисов, творческих поисков и устойчивого желания
+                оставаться собой в мире шаблонного контента.
+            </p>
+        </div>
+
+    </article>
 
 </main>
 

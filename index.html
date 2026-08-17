@@ -3,164 +3,472 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LiveNet — Прямой эфир</title>
+
+    <title>LiveNet — интернет-канал</title>
+
+    <meta
+        name="description"
+        content="LiveNet — интернет-канал, ретрансляции, прямые эфиры и история проекта."
+    >
 
     <style>
+        :root {
+            --bg: #05070b;
+            --bg-soft: #0a0f17;
+            --card: rgba(15, 24, 38, 0.72);
+            --card-hover: rgba(20, 32, 50, 0.92);
+            --line: rgba(255, 255, 255, 0.08);
+            --text: #f4f7fb;
+            --muted: #8c9aad;
+            --blue: #42b8ff;
+            --blue-2: #2479ff;
+            --purple: #8e5cff;
+            --green: #53e600;
+            --red: #ff4242;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
-            background: #050b12;
-            color: #ffffff;
-            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 10% 10%, rgba(66, 184, 255, 0.09), transparent 25%),
+                radial-gradient(circle at 90% 20%, rgba(142, 92, 255, 0.08), transparent 28%),
+                linear-gradient(180deg, #05070b 0%, #060a10 45%, #04060a 100%);
+            color: var(--text);
+            font-family: Inter, Arial, Helvetica, sans-serif;
             line-height: 1.6;
         }
 
-        header {
-            height: 72px;
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        /* ---------------- HEADER ---------------- */
+
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            height: 74px;
+
             display: flex;
             align-items: center;
-            padding: 0 32px;
-            background: #08111c;
-            border-bottom: 1px solid #162536;
+            justify-content: space-between;
+
+            padding: 0 34px;
+
+            background: rgba(5, 7, 11, 0.74);
+            border-bottom: 1px solid var(--line);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
         }
 
-        .logo {
-            font-size: 28px;
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-
-        .logo .blue {
-            color: #39aaff;
-        }
-
-        .live-status {
-            margin-left: auto;
+        .brand {
             display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-mark {
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(135deg, var(--blue), var(--purple));
+
+            font-size: 19px;
+            font-weight: 900;
+
+            box-shadow:
+                0 0 28px rgba(66, 184, 255, 0.2);
+        }
+
+        .brand-name {
+            font-size: 22px;
+            font-weight: 850;
+            letter-spacing: -0.8px;
+        }
+
+        .brand-name span {
+            color: var(--blue);
+        }
+
+        .header-live {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+
+            padding: 8px 13px;
+
+            border: 1px solid rgba(255, 66, 66, 0.18);
+            border-radius: 999px;
+
+            background: rgba(255, 66, 66, 0.07);
+
+            color: #ffb2b2;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 0.4px;
+        }
+
+        .header-live-dot {
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+            background: var(--red);
+
+            box-shadow: 0 0 12px rgba(255, 66, 66, 0.9);
+
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.45;
+                transform: scale(0.82);
+            }
+        }
+
+        /* ---------------- MAIN ---------------- */
+
+        .container {
+            width: min(1220px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        .hero {
+            padding: 72px 0 46px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
             align-items: center;
             gap: 8px;
-            font-size: 13px;
-            font-weight: 700;
-            color: #b7c5d4;
-        }
 
-        .live-circle {
-            width: 9px;
-            height: 9px;
-            border-radius: 50%;
-            background: #ff3b30;
-            box-shadow: 0 0 10px rgba(255, 59, 48, 0.8);
-        }
+            padding: 8px 13px;
 
-        main {
-            width: min(1400px, 100%);
-            margin: auto;
-            padding: 32px;
-        }
+            border: 1px solid rgba(66, 184, 255, 0.16);
+            border-radius: 999px;
 
-        .player-section {
-            margin-bottom: 35px;
-        }
+            background: rgba(66, 184, 255, 0.07);
 
-        .player-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .player-title h2 {
-            font-size: 22px;
-        }
-
-        .badge {
-            padding: 5px 9px;
-            border-radius: 6px;
-            background: #e92f2f;
-            color: white;
-            font-size: 11px;
+            color: #a9dcff;
+            font-size: 12px;
             font-weight: 800;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
-        .player-wrapper {
-            width: 100%;
-            background: #000;
-            border-radius: 14px;
-            overflow: hidden;
-            border: 1px solid #182838;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        .hero-badge::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--blue);
+            box-shadow: 0 0 12px rgba(66, 184, 255, 0.9);
         }
 
-        .player {
-            width: 100%;
-            aspect-ratio: 16 / 9;
+        .hero h1 {
+            max-width: 850px;
+
+            margin-top: 20px;
+
+            font-size: clamp(42px, 7vw, 82px);
+            line-height: 0.98;
+            letter-spacing: -3.5px;
+            font-weight: 900;
         }
 
-        iframe {
-            width: 100%;
-            height: 100%;
-            display: block;
-            border: none;
+        .hero h1 span {
+            background:
+                linear-gradient(
+                    100deg,
+                    #ffffff 0%,
+                    #74caff 45%,
+                    #8d69ff 100%
+                );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
-        .description {
-            margin-top: 12px;
-            color: #8394a6;
+        .hero p {
+            max-width: 760px;
+
+            margin-top: 22px;
+
+            color: var(--muted);
+            font-size: 17px;
+            line-height: 1.75;
+        }
+
+        /* ---------------- CHANNELS ---------------- */
+
+        .section-heading {
+            display: flex;
+            align-items: end;
+            justify-content: space-between;
+            gap: 20px;
+
+            margin-bottom: 22px;
+        }
+
+        .section-heading h2 {
+            font-size: 28px;
+            line-height: 1.15;
+            letter-spacing: -0.8px;
+        }
+
+        .section-heading p {
+            max-width: 470px;
+            color: var(--muted);
             font-size: 14px;
         }
 
-        /* LIVE NET INFO */
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .channel-card {
+            width: 100%;
+
+            position: relative;
+
+            display: flex;
+            align-items: center;
+            gap: 17px;
+
+            padding: 20px;
+
+            border: 1px solid var(--line);
+            border-radius: 20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(19, 30, 48, 0.82),
+                    rgba(9, 15, 24, 0.78)
+                );
+
+            color: var(--text);
+            text-align: left;
+
+            cursor: pointer;
+
+            overflow: hidden;
+
+            transition:
+                transform 0.22s ease,
+                border-color 0.22s ease,
+                background 0.22s ease,
+                box-shadow 0.22s ease;
+        }
+
+        .channel-card::after {
+            content: "";
+
+            position: absolute;
+            inset: auto -30px -50px auto;
+
+            width: 150px;
+            height: 150px;
+
+            border-radius: 50%;
+
+            background: rgba(66, 184, 255, 0.07);
+
+            filter: blur(18px);
+        }
+
+        .channel-card:hover {
+            transform: translateY(-4px);
+
+            border-color: rgba(66, 184, 255, 0.34);
+
+            background: var(--card-hover);
+
+            box-shadow:
+                0 18px 50px rgba(0, 0, 0, 0.28),
+                0 0 0 1px rgba(66, 184, 255, 0.04);
+        }
+
+        .channel-icon {
+            position: relative;
+            z-index: 1;
+
+            width: 58px;
+            height: 58px;
+            flex: 0 0 58px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 16px;
+
+            color: white;
+            font-size: 23px;
+            font-weight: 900;
+
+            box-shadow:
+                inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        }
+
+        .channel-icon.twitch {
+            background: linear-gradient(135deg, #a76cff, #7434d5);
+        }
+
+        .channel-icon.etyatv {
+            background: linear-gradient(135deg, #42baff, #1a74e8);
+        }
+
+        .channel-icon.kick {
+            background: linear-gradient(135deg, #77f63e, #40b500);
+            color: #061008;
+        }
+
+        .channel-content {
+            position: relative;
+            z-index: 1;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .channel-content h3 {
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: -0.2px;
+        }
+
+        .channel-content p {
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .channel-arrow {
+            position: relative;
+            z-index: 1;
+
+            width: 36px;
+            height: 36px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background: rgba(255, 255, 255, 0.05);
+            color: #9aa9b9;
+
+            transition:
+                transform 0.2s ease,
+                background 0.2s ease,
+                color 0.2s ease;
+        }
+
+        .channel-card:hover .channel-arrow {
+            transform: translateX(3px);
+            background: rgba(66, 184, 255, 0.1);
+            color: var(--blue);
+        }
+
+        /* ---------------- HISTORY ---------------- */
 
         .history {
-            margin-top: 55px;
-            background: #08111c;
-            border: 1px solid #162536;
-            border-radius: 18px;
-            padding: 35px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+            margin-top: 70px;
+            padding: 42px;
+
+            border: 1px solid var(--line);
+            border-radius: 26px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(12, 19, 30, 0.95),
+                    rgba(7, 11, 18, 0.96)
+                );
+
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.26);
         }
 
         .history-header {
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #162536;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--line);
         }
 
-        .history-header h1 {
-            font-size: 36px;
-            line-height: 1.2;
-            margin-bottom: 10px;
+        .history-header .eyebrow {
+            color: var(--blue);
+            font-size: 12px;
+            font-weight: 850;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+        }
+
+        .history-header h2 {
+            margin-top: 9px;
+
+            font-size: 40px;
+            line-height: 1.08;
+            letter-spacing: -1.4px;
         }
 
         .history-header p {
-            color: #8394a6;
-            font-size: 16px;
-        }
-
-        .history h2 {
-            margin-top: 35px;
-            margin-bottom: 14px;
-            color: #39aaff;
-            font-size: 25px;
+            max-width: 700px;
+            margin-top: 12px;
+            color: var(--muted);
+            font-size: 15px;
         }
 
         .history h3 {
-            margin-top: 25px;
-            margin-bottom: 10px;
-            font-size: 19px;
+            margin-top: 38px;
+            margin-bottom: 15px;
+
+            font-size: 25px;
+            line-height: 1.2;
+            color: #a8dcff;
         }
 
         .history p {
-            color: #c4d0dc;
             margin-bottom: 14px;
+            color: #c4d0dc;
+            font-size: 15px;
         }
 
         .history ul {
-            margin: 10px 0 20px 25px;
+            margin: 10px 0 20px 22px;
             color: #c4d0dc;
         }
 
@@ -172,122 +480,297 @@
             color: #ffffff;
         }
 
+        /* ---------------- TIMELINE ---------------- */
+
+        .timeline-wrap {
+            overflow-x: auto;
+            margin-top: 20px;
+
+            border: 1px solid var(--line);
+            border-radius: 16px;
+        }
+
         .timeline {
             width: 100%;
+            min-width: 700px;
+
             border-collapse: collapse;
-            margin-top: 20px;
-            background: #050b12;
-            border-radius: 10px;
-            overflow: hidden;
         }
 
         .timeline th,
         .timeline td {
-            padding: 13px 15px;
+            padding: 14px 16px;
             text-align: left;
-            border-bottom: 1px solid #162536;
+            border-bottom: 1px solid var(--line);
         }
 
         .timeline th {
-            background: #0d1a29;
-            color: #39aaff;
+            background: rgba(255, 255, 255, 0.025);
+            color: #8fd5ff;
+            font-size: 13px;
         }
 
         .timeline td {
             color: #c4d0dc;
-        }
-
-        .timeline tr:last-child td {
-            border-bottom: none;
-        }
-
-        .quote {
-            margin: 20px 0;
-            padding: 18px 20px;
-            border-left: 4px solid #39aaff;
-            background: #0d1a29;
-            border-radius: 8px;
-            color: #d5e0ea;
-            font-weight: 700;
-        }
-
-        .facts {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 14px;
-            margin-top: 20px;
-        }
-
-        .fact {
-            background: #0d1a29;
-            border: 1px solid #162536;
-            border-radius: 10px;
-            padding: 18px;
-        }
-
-        .fact-number {
-            color: #39aaff;
-            font-size: 25px;
-            font-weight: 800;
-            margin-bottom: 5px;
-        }
-
-        .fact-text {
-            color: #9fb0c0;
             font-size: 14px;
         }
 
-        .conclusion {
-            margin-top: 35px;
-            padding-top: 25px;
-            border-top: 1px solid #162536;
+        .timeline tr:last-child td {
+            border-bottom: 0;
         }
 
-        footer {
-            padding: 35px 32px 45px;
-            color: #526477;
+        .timeline td:first-child {
+            width: 150px;
+            color: #8ca0b5;
+            white-space: nowrap;
+        }
+
+        /* ---------------- QUOTE ---------------- */
+
+        .quote {
+            margin: 24px 0;
+
+            padding: 19px 20px;
+
+            border: 1px solid rgba(66, 184, 255, 0.12);
+            border-left: 4px solid var(--blue);
+            border-radius: 14px;
+
+            background: rgba(66, 184, 255, 0.05);
+
+            color: #dceeff;
+            font-weight: 750;
+        }
+
+        /* ---------------- STATS ---------------- */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+
+            margin-top: 20px;
+        }
+
+        .stat {
+            padding: 19px;
+
+            border: 1px solid var(--line);
+            border-radius: 16px;
+
+            background: rgba(255, 255, 255, 0.025);
+        }
+
+        .stat-number {
+            color: var(--blue);
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: -0.8px;
+        }
+
+        .stat-label {
+            margin-top: 4px;
+            color: #8ea0b3;
             font-size: 13px;
-            text-align: center;
         }
 
-        @media (max-width: 700px) {
-            header {
-                height: 62px;
-                padding: 0 18px;
+        /* ---------------- MODAL PLAYER ---------------- */
+
+        .modal {
+            position: fixed;
+            inset: 0;
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            padding: 20px;
+
+            background: rgba(1, 3, 7, 0.86);
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            z-index: 2000;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-box {
+            width: min(1120px, 100%);
+
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 22px;
+
+            overflow: hidden;
+
+            background: #080d14;
+
+            box-shadow:
+                0 35px 100px rgba(0, 0, 0, 0.55);
+        }
+
+        .modal-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 15px 17px;
+
+            border-bottom: 1px solid var(--line);
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 800;
+        }
+
+        .modal-close {
+            width: 38px;
+            height: 38px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: 1px solid var(--line);
+            border-radius: 10px;
+
+            background: rgba(255, 255, 255, 0.04);
+            color: white;
+
+            cursor: pointer;
+            font-size: 20px;
+
+            transition: 0.18s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 66, 66, 0.14);
+            border-color: rgba(255, 66, 66, 0.22);
+        }
+
+        .modal-frame {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+
+        .modal-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        /* ---------------- FOOTER ---------------- */
+
+        .footer {
+            padding: 40px 20px 55px;
+            text-align: center;
+            color: #58697b;
+            font-size: 13px;
+        }
+
+        /* ---------------- RESPONSIVE ---------------- */
+
+        @media (max-width: 900px) {
+            .channels-grid {
+                grid-template-columns: 1fr;
             }
 
-            .logo {
-                font-size: 24px;
-            }
-
-            main {
-                padding: 18px;
-            }
-
-            .player-wrapper {
-                border-radius: 10px;
-            }
-
-            .player-title h2 {
-                font-size: 19px;
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .history {
+                padding: 30px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .header {
+                height: 64px;
+                padding: 0 16px;
+            }
+
+            .brand-mark {
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
+                font-size: 17px;
+            }
+
+            .brand-name {
+                font-size: 19px;
+            }
+
+            .header-live {
+                padding: 7px 10px;
+                font-size: 10px;
+            }
+
+            .container {
+                width: min(100% - 24px, 1220px);
+            }
+
+            .hero {
+                padding: 52px 0 35px;
+            }
+
+            .hero h1 {
+                letter-spacing: -2.2px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .section-heading {
+                display: block;
+            }
+
+            .section-heading p {
+                margin-top: 7px;
+            }
+
+            .history {
+                margin-top: 50px;
                 padding: 22px;
-                border-radius: 12px;
+                border-radius: 18px;
             }
 
-            .history-header h1 {
-                font-size: 28px;
+            .history-header h2 {
+                font-size: 31px;
             }
 
-            .timeline {
-                font-size: 13px;
+            .history h3 {
+                font-size: 22px;
             }
 
-            .timeline th,
-            .timeline td {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .channel-card {
+                padding: 16px;
+            }
+
+            .channel-icon {
+                width: 52px;
+                height: 52px;
+                flex-basis: 52px;
+                border-radius: 14px;
+            }
+
+            .modal {
                 padding: 10px;
+            }
+
+            .modal-box {
+                border-radius: 16px;
             }
         }
     </style>
@@ -295,332 +778,735 @@
 
 <body>
 
-<header>
-    <div class="logo">
-        <span class="blue">Live</span>Net
-    </div>
+    <!-- HEADER -->
 
-    <div class="live-status">
-        <span class="live-circle"></span>
-        ПРЯМОЙ ЭФИР
-    </div>
-</header>
+    <header class="header">
 
-<main>
+        <a href="#" class="brand">
+            <div class="brand-mark">L!</div>
 
-    <!-- KICK -->
-    <section class="player-section">
-        <div class="player-title">
-            <h2>LiveNet — Kick</h2>
-            <span class="badge">LIVE</span>
-        </div>
-
-        <div class="player-wrapper">
-            <div class="player">
-                <iframe
-                    src="https://player.kick.com/LiveNet1"
-                    frameborder="0"
-                    scrolling="no"
-                    allowfullscreen>
-                </iframe>
+            <div class="brand-name">
+                <span>Live</span>Net
             </div>
+        </a>
+
+        <div class="header-live">
+            <span class="header-live-dot"></span>
+            LIVE
         </div>
 
-        <p class="description">
-            Прямой эфир LiveNet через Kick.
-        </p>
-    </section>
+    </header>
 
-    <!-- ETOYATV -->
-    <section class="player-section">
-        <div class="player-title">
-            <h2>LiveNet — Альтернативный плеер</h2>
-            <span class="badge">LIVE</span>
-        </div>
 
-        <div class="player-wrapper">
-            <div class="player">
+    <main class="container">
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="hero-badge">
+                Интернет-канал
+            </div>
+
+            <h1>
+                <span>LiveNet</span><br>
+                всегда в эфире.
+            </h1>
+
+            <p>
+                Прямые трансляции, ретрансляции, авторские программы
+                и история проекта — всё собрано в одном месте.
+            </p>
+
+        </section>
+
+
+        <!-- CHANNELS -->
+
+        <section>
+
+            <div class="section-heading">
+
+                <div>
+                    <h2>Каналы LiveNet</h2>
+                </div>
+
+                <p>
+                    Нажмите на любой канал, чтобы открыть плеер
+                    прямо на этой странице.
+                </p>
+
+            </div>
+
+
+            <div class="channels-grid">
+
+                <!-- TWITCH MAIN -->
+
+                <button
+                    class="channel-card"
+                    type="button"
+                    onclick="openPlayer(
+                        'LiveNet Twitch (основной)',
+                        'https://player.twitch.tv/?channel=bobrdobrenok&parent=livenet.limonvzdanii.workers.dev'
+                    )">
+
+                    <div class="channel-icon twitch">
+                        T
+                    </div>
+
+                    <div class="channel-content">
+                        <h3>LiveNet Twitch (основной)</h3>
+                        <p>
+                            Основная Twitch-трансляция LiveNet
+                        </p>
+                    </div>
+
+                    <div class="channel-arrow">
+                        →
+                    </div>
+
+                </button>
+
+
+                <!-- TWITCH ALT -->
+
+                <button
+                    class="channel-card"
+                    type="button"
+                    onclick="openPlayer(
+                        'LiveNet Twitch (альт.)',
+                        'https://player.twitch.tv/?channel=hypertwitch112&parent=livenet.limonvzdanii.workers.dev'
+                    )">
+
+                    <div class="channel-icon twitch">
+                        T
+                    </div>
+
+                    <div class="channel-content">
+                        <h3>LiveNet Twitch (альт.)</h3>
+                        <p>
+                            Альтернативная Twitch-трансляция
+                        </p>
+                    </div>
+
+                    <div class="channel-arrow">
+                        →
+                    </div>
+
+                </button>
+
+
+                <!-- ETOYATV -->
+
+                <button
+                    class="channel-card"
+                    type="button"
+                    onclick="openPlayer(
+                        'LiveNet ЭтоЯTV',
+                        'https://etoyatv.top/widget/player/LiveNet?autoplay=1'
+                    )">
+
+                    <div class="channel-icon etyatv">
+                        E
+                    </div>
+
+                    <div class="channel-content">
+                        <h3>LiveNet ЭтоЯTV</h3>
+                        <p>
+                            Онлайн-плеер LiveNet
+                        </p>
+                    </div>
+
+                    <div class="channel-arrow">
+                        →
+                    </div>
+
+                </button>
+
+
+                <!-- KICK -->
+
+                <button
+                    class="channel-card"
+                    type="button"
+                    onclick="openPlayer(
+                        'LiveNet Kick',
+                        'https://player.kick.com/LiveNet1'
+                    )">
+
+                    <div class="channel-icon kick">
+                        K
+                    </div>
+
+                    <div class="channel-content">
+                        <h3>LiveNet Kick</h3>
+                        <p>
+                            Основная трансляция LiveNet на Kick
+                        </p>
+                    </div>
+
+                    <div class="channel-arrow">
+                        →
+                    </div>
+
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- HISTORY -->
+
+        <article class="history">
+
+            <div class="history-header">
+
+                <div class="eyebrow">
+                    История проекта
+                </div>
+
+                <h2>
+                    LiveNet — интернет-канал
+                </h2>
+
+                <p>
+                    История, развитие и деятельность проекта LiveNet.
+                </p>
+
+            </div>
+
+
+            <p>
+                <strong>LiveNet</strong> — российский интернет-канал и
+                медиа-проект, основанный в 2026 году.
+                Специализируется на ретрансляции контента сторонних каналов,
+                авторских программах и тематических эфирах.
+                Известен своей неформальной атмосферой, использованием
+                интернет-мемов и тесным взаимодействием с аудиторией
+                через Telegram и другие платформы.
+            </p>
+
+
+            <h3>🧬 История</h3>
+
+            <p>
+                Проект был запущен <strong>23 февраля 2026 года</strong>
+                под названием <strong>HyperWT</strong> пользователем Никитой
+                (псевдоним — <strong>blonder</strong>).
+                Вдохновением послужил проект <strong>HyperSAT</strong>,
+                занимавшийся ретрансляцией теледрочерского контента
+                и новостей канала ТН.
+            </p>
+
+            <p>
+                <strong>25 февраля</strong> HyperWT был закрыт,
+                но почти сразу переродился в проект
+                «Ретрансляции ИТВ Каналов на Твиче!».
+                <strong>6 марта</strong> был создан Telegram-канал,
+                ставший основой для аудитории.
+            </p>
+
+            <p>
+                <strong>19 марта</strong> канал был временно закрыт,
+                но уже <strong>20 марта</strong> открылся вновь
+                под названием <strong>HyperTwitch</strong>.
+                <strong>21 марта</strong> прошёл первый ребрендинг.
+            </p>
+
+            <p>
+                <strong>4 апреля</strong> был запущен дочерний проект
+                <strong>NikNot</strong>, просуществовавший один день.
+                <strong>12 апреля</strong> состоялось пасхальное открытие
+                обновлённого HyperTwitch, владельцем которого стал AlexBit.
+                <strong>19 апреля</strong> стартовала авторская программа
+                <strong>«Время Ютуба!»</strong>, закрытая
+                <strong>5 мая</strong>.
+            </p>
+
+            <p>
+                <strong>10 мая</strong> был закрыт NikNot и открыт
+                ностальгический канал <strong>OLD 2X2</strong>.
+                С 1 по 16 мая HyperTwitch вёл ежедневные эфиры,
+                включая тематические марафоны 9 мая и евронеделю
+                с 11 по 17 мая.
+            </p>
+
+            <p>
+                <strong>15 мая</strong> проект был переименован в
+                <strong>LiveNet</strong>.
+                <strong>15 июня</strong> OLD 2X2 был закрыт и заархивирован.
+                С этого момента LiveNet стал основным каналом.
+            </p>
+
+            <p>
+                В июле 2026 года произошёл конфликт с владельцем AlexBit,
+                в результате которого было создано новое Telegram-пространство
+                <strong>t.me/LiveNet112</strong>, а старый канал
+                переведён в архивный режим.
+            </p>
+
+            <p>
+                <strong>1 ноября 2026 года</strong> анонсирован
+                полный перезапуск проекта в новом формате.
+            </p>
+
+
+            <h3>📅 Хронология ключевых событий</h3>
+
+            <div class="timeline-wrap">
+
+                <table class="timeline">
+
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Событие</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+                            <td>23.02.2026</td>
+                            <td>Запуск HyperWT</td>
+                        </tr>
+
+                        <tr>
+                            <td>25.02.2026</td>
+                            <td>
+                                Закрытие HyperWT, создание
+                                «Ретрансляций ИТВ»
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>06.03.2026</td>
+                            <td>Создание Telegram-канала</td>
+                        </tr>
+
+                        <tr>
+                            <td>19–20.03.2026</td>
+                            <td>
+                                Временное закрытие,
+                                переоткрытие как HyperTwitch
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>21.03.2026</td>
+                            <td>Первый ребрендинг</td>
+                        </tr>
+
+                        <tr>
+                            <td>04.04.2026</td>
+                            <td>
+                                Запуск дочернего проекта NikNot
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>12.04.2026</td>
+                            <td>
+                                Пасхальное открытие HyperTwitch,
+                                передача прав AlexBit
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>17.04.2026</td>
+                            <td>
+                                Блокировка Twitch-аккаунта bobrdobrenok
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>19.04.2026</td>
+                            <td>
+                                Запуск программы «Время Ютуба!»
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>05.05.2026</td>
+                            <td>
+                                Закрытие «Время Ютуба!»
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>10.05.2026</td>
+                            <td>
+                                Закрытие NikNot, открытие OLD 2X2
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>01–16.05.2026</td>
+                            <td>
+                                Ежедневные эфиры HyperTwitch
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>07–09.05.2026</td>
+                            <td>
+                                Марафон 9 мая
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>11–17.05.2026</td>
+                            <td>
+                                Евронеделя
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>15.05.2026</td>
+                            <td>
+                                Переименование HyperTwitch в LiveNet
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>15.06.2026</td>
+                            <td>
+                                Закрытие OLD 2X2,
+                                LiveNet становится основным проектом
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>16.06.2026</td>
+                            <td>
+                                Перерыв до 1 июля, позже продлён
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>11.07.2026</td>
+                            <td>
+                                День рождения создателя,
+                                поездка в Калининград
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>17.07.2026</td>
+                            <td>
+                                Анонс перезапуска LiveNet 1 ноября
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>23.07.2026</td>
+                            <td>
+                                Возвращение из деревни
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>26.07.2026</td>
+                            <td>
+                                Марафон с участием ЭСС,
+                                Невоканала и Русика
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>28.07.2026</td>
+                            <td>
+                                Пауза до сентября
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <h3>🧠 Содержание и формат</h3>
+
+            <p>
+                LiveNet сочетает ретрансляции сторонних каналов,
+                включая <strong>Rusik</strong>, <strong>ЭСС</strong>
+                и <strong>Невоканал</strong>, с авторскими передачами.
+            </p>
+
+            <ul>
+                <li>
+                    <strong>«Время Ютуба!»</strong> —
+                    авторская программа с видео-подборками.
+                </li>
+
+                <li>
+                    <strong>«Кот Платон в эфире»</strong> —
+                    импровизированная рубрика с котом-символом.
+                </li>
+
+                <li>
+                    <strong>«Тёмный час»</strong> —
+                    анонсированная ночная рубрика с архивным контентом.
+                </li>
+
+                <li>
+                    <strong>«История LiveNet»</strong> —
+                    тематические эфиры о развитии проекта.
+                </li>
+
+                <li>
+                    <strong>«Час с чатом»</strong> —
+                    общение со зрителями без подготовки.
+                </li>
+
+                <li>
+                    <strong>«Абсурдные вставки»</strong> —
+                    короткие мемные сегменты из эфиров.
+                </li>
+            </ul>
+
+
+            <div class="quote">
+                «Туритай ту» — фирменная фраза LiveNet,
+                используемая как приветствие, прощание
+                и символический якорь проекта.
+            </div>
+
+            <p>
+                В августе 2026 года она обрела статус
+                интернет-мема среди зрителей.
+            </p>
+
+
+            <h3>👥 Аудитория и платформы</h3>
+
+            <ul>
+                <li>
+                    <strong>Telegram</strong> —
+                    основной канал и резервный в MAX.
+                </li>
+
+                <li>
+                    <strong>Kick</strong> —
+                    стриминговая платформа.
+                </li>
+
+                <li>
+                    <strong>Twitch</strong> —
+                    ранее использовался, но был заблокирован.
+                </li>
+            </ul>
+
+            <p>
+                Аудитория — преимущественно русскоязычная,
+                сформирована вокруг ностальгического контента,
+                интернет-культуры и чувства общности.
+            </p>
+
+
+            <h3>📊 Статистика за 5 месяцев</h3>
+
+            <div class="stats-grid">
+
+                <div class="stat">
+                    <div class="stat-number">450+</div>
+                    <div class="stat-label">стримов</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number">5 суток</div>
+                    <div class="stat-label">
+                        рекорд непрерывного вещания
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">
+                        платформ одновременно
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">
+                        ребрендинга
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">
+                        полных закрытия с возвращением
+                    </div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">
+                        дочерних проекта
+                    </div>
+                </div>
+
+            </div>
+
+
+            <h3>🚀 Будущее проекта</h3>
+
+            <p>
+                <strong>1 ноября 2026 года</strong> LiveNet официально
+                перезапускается в новом формате.
+                Детали не раскрыты, но, по словам создателя,
+                проект сменит структуру, сохранив
+                «туритай ту» как ДНК канала.
+            </p>
+
+            <p>
+                В планах — регулярные ночные эфиры,
+                больше авторского контента и переход
+                к более стабильной сетке вещания.
+            </p>
+
+
+            <h3>🧾 Интересные факты</h3>
+
+            <ul>
+
+                <li>
+                    Проект вдохновлён HyperSAT,
+                    закрывшимся в феврале 2026 года.
+                </li>
+
+                <li>
+                    Кот Платон появился в эфире после того,
+                    как «игроки не пришли на шоу».
+                </li>
+
+                <li>
+                    Первое название канала содержало слово
+                    «ретрансляции».
+                </li>
+
+                <li>
+                    В июле 2026 года был создан отдельный
+                    Telegram-канал t.me/LiveNet112.
+                </li>
+
+                <li>
+                    Фраза «Ду ю лайк вечер?»
+                    стала неофициальным гимном канала ЭСС.
+                </li>
+
+            </ul>
+
+
+            <h3>📎 Заключение</h3>
+
+            <p>
+                LiveNet — это не просто канал, а живой организм,
+                выросший из любительского проекта в узнаваемое медиа.
+                Его история — это история становления, кризисов,
+                творческих поисков и устойчивого желания оставаться собой
+                в мире шаблонного контента.
+            </p>
+
+        </article>
+
+    </main>
+
+
+    <!-- PLAYER MODAL -->
+
+    <div
+        class="modal"
+        id="playerModal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle">
+
+        <div class="modal-box">
+
+            <div class="modal-top">
+
+                <div class="modal-title" id="modalTitle">
+                    LiveNet
+                </div>
+
+                <button
+                    class="modal-close"
+                    type="button"
+                    onclick="closePlayer()"
+                    aria-label="Закрыть плеер">
+
+                    ×
+
+                </button>
+
+            </div>
+
+            <div class="modal-frame">
+
                 <iframe
-                    src="https://etoyatv.top/widget/player/LiveNet?autoplay=1"
-                    frameborder="0"
+                    id="playerFrame"
+                    src=""
                     allow="autoplay; fullscreen"
                     allowfullscreen>
                 </iframe>
-            </div>
-        </div>
 
-        <p class="description">
-            Альтернативный плеер LiveNet.
-        </p>
-    </section>
-
-    <!-- TWITCH BOBRDOBRENOK -->
-    <section class="player-section">
-        <div class="player-title">
-            <h2>Twitch — bobrdobrenok</h2>
-            <span class="badge">LIVE</span>
-        </div>
-
-        <div class="player-wrapper">
-            <div class="player">
-                <iframe
-                    src="https://player.twitch.tv/?channel=bobrdobrenok&parent=livenet.limonvzdanii.workers.dev"
-                    allowfullscreen>
-                </iframe>
-            </div>
-        </div>
-
-        <p class="description">
-            Twitch-канал bobrdobrenok.
-        </p>
-    </section>
-
-    <!-- TWITCH HYPERTWITCH112 -->
-    <section class="player-section">
-        <div class="player-title">
-            <h2>Twitch — hypertwitch112</h2>
-            <span class="badge">LIVE</span>
-        </div>
-
-        <div class="player-wrapper">
-            <div class="player">
-                <iframe
-                    src="https://player.twitch.tv/?channel=hypertwitch112&parent=livenet.limonvzdanii.workers.dev"
-                    allowfullscreen>
-                </iframe>
-            </div>
-        </div>
-
-        <p class="description">
-            Twitch-канал hypertwitch112.
-        </p>
-    </section>
-
-    <!-- HISTORY -->
-    <article class="history">
-
-        <div class="history-header">
-            <h1>LiveNet (интернет-канал)</h1>
-            <p>
-                История, развитие и деятельность интернет-канала LiveNet.
-            </p>
-        </div>
-
-        <p>
-            <strong>LiveNet</strong> — российский интернет-канал и медиа-проект,
-            основанный в 2026 году. Специализируется на ретрансляции контента
-            сторонних каналов, авторских программах и тематических эфирах.
-            Известен своей неформальной атмосферой, использованием интернет-мемов
-            и тесным взаимодействием с аудиторией через Telegram и другие платформы.
-        </p>
-
-        <h2>🧬 История</h2>
-
-        <p>
-            Проект был запущен <strong>23 февраля 2026 года</strong> под названием
-            <strong>HyperWT</strong> пользователем Никитой (псевдоним —
-            <strong>blonder</strong>). Вдохновением послужил проект
-            <strong>HyperSAT</strong>, занимавшийся ретрансляцией
-            теледрочерского контента и новостей канала ТН.
-        </p>
-
-        <p>
-            <strong>25 февраля</strong> HyperWT был закрыт, но почти сразу переродился
-            в проект «Ретрансляции ИТВ Каналов на Твиче!».
-            <strong>6 марта</strong> был создан Telegram-канал, ставший основой
-            для аудитории.
-        </p>
-
-        <p>
-            <strong>19 марта</strong> канал был временно закрыт, но уже
-            <strong>20 марта</strong> открылся вновь под названием
-            <strong>HyperTwitch</strong>, которое стало первой «эрой» проекта.
-            <strong>21 марта</strong> прошёл первый ребрендинг.
-        </p>
-
-        <p>
-            <strong>4 апреля</strong> был запущен дочерний проект
-            <strong>NikNot</strong>, просуществовавший один день.
-            <strong>12 апреля</strong> состоялось пасхальное открытие обновлённого
-            HyperTwitch, владельцем которого стал AlexBit.
-            <strong>19 апреля</strong> стартовала авторская программа
-            <strong>«Время Ютуба!»</strong>, закрытая <strong>5 мая</strong>.
-        </p>
-
-        <p>
-            <strong>10 мая</strong> был закрыт NikNot и открыт ностальгический канал
-            <strong>OLD 2X2</strong>. С 1 по 16 мая HyperTwitch вёл ежедневные эфиры,
-            включая тематические марафоны 9 мая и евронеделю с 11 по 17 мая.
-        </p>
-
-        <p>
-            <strong>15 мая</strong> проект был переименован в
-            <strong>LiveNet</strong>.
-            <strong>15 июня</strong> OLD 2X2 был закрыт и заархивирован.
-            С этого момента LiveNet стал основным каналом.
-        </p>
-
-        <p>
-            В июле 2026 года произошёл конфликт с владельцем AlexBit, в результате
-            которого было создано новое Telegram-пространство
-            <strong>t.me/LiveNet112</strong>, а старый канал переведён в архивный режим.
-        </p>
-
-        <p>
-            <strong>1 ноября 2026 года</strong> анонсирован полный перезапуск
-            проекта в новом формате.
-        </p>
-
-        <h2>📅 Хронология ключевых событий</h2>
-
-        <table class="timeline">
-            <thead>
-                <tr>
-                    <th>Дата</th>
-                    <th>Событие</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr><td>23.02.2026</td><td>Запуск HyperWT</td></tr>
-                <tr><td>25.02.2026</td><td>Закрытие HyperWT, создание «Ретрансляций ИТВ»</td></tr>
-                <tr><td>06.03.2026</td><td>Создание Telegram-канала</td></tr>
-                <tr><td>19–20.03.2026</td><td>Временное закрытие, переоткрытие как HyperTwitch</td></tr>
-                <tr><td>21.03.2026</td><td>Первый ребрендинг</td></tr>
-                <tr><td>04.04.2026</td><td>Закрытие на неделю, запуск дочернего проекта NikNot</td></tr>
-                <tr><td>12.04.2026</td><td>Пасхальное открытие HyperTwitch, передача прав AlexBit</td></tr>
-                <tr><td>17.04.2026</td><td>Блокировка Twitch-аккаунта bobrdobrenok</td></tr>
-                <tr><td>19.04.2026</td><td>Запуск авторской программы «Время Ютуба!»</td></tr>
-                <tr><td>05.05.2026</td><td>Закрытие «Время Ютуба!»</td></tr>
-                <tr><td>10.05.2026</td><td>Закрытие NikNot, открытие OLD 2X2</td></tr>
-                <tr><td>01–16.05.2026</td><td>Ежедневные эфиры HyperTwitch</td></tr>
-                <tr><td>07–09.05.2026</td><td>Марафон 9 мая</td></tr>
-                <tr><td>11–17.05.2026</td><td>Евронеделя</td></tr>
-                <tr><td>15.05.2026</td><td>Переименование HyperTwitch в LiveNet</td></tr>
-                <tr><td>15.06.2026</td><td>Закрытие OLD 2X2, LiveNet становится основным проектом</td></tr>
-                <tr><td>16.06.2026</td><td>Перерыв до 1 июля, позже продлён</td></tr>
-                <tr><td>11.07.2026</td><td>День рождения создателя, поездка в Калининград</td></tr>
-                <tr><td>17.07.2026</td><td>Анонс перезапуска LiveNet 1 ноября</td></tr>
-                <tr><td>23.07.2026</td><td>Возвращение из деревни</td></tr>
-                <tr><td>26.07.2026</td><td>Марафон с участием ЭСС, Невоканала, Русика</td></tr>
-                <tr><td>28.07.2026</td><td>Пауза до сентября</td></tr>
-            </tbody>
-        </table>
-
-        <h2>🧠 Содержание и формат</h2>
-
-        <p>
-            LiveNet сочетает ретрансляции сторонних каналов, включая
-            <strong>Rusik</strong>, <strong>ЭСС</strong> и <strong>Невоканал</strong>,
-            с авторскими передачами.
-        </p>
-
-        <ul>
-            <li><strong>«Время Ютуба!»</strong> — авторская программа с видео-подборками.</li>
-            <li><strong>«Кот Платон в эфире»</strong> — импровизированная рубрика с котом-символом.</li>
-            <li><strong>«Тёмный час»</strong> — анонсированная ночная рубрика с архивным контентом.</li>
-            <li><strong>«История LiveNet»</strong> — тематические эфиры о развитии проекта.</li>
-            <li><strong>«Час с чатом»</strong> — общение со зрителями без подготовки.</li>
-            <li><strong>«Абсурдные вставки»</strong> — короткие мемные сегменты из эфиров.</li>
-        </ul>
-
-        <div class="quote">
-            «Туритай ту» — фирменная фраза LiveNet, используемая как приветствие,
-            прощание и символический якорь проекта.
-        </div>
-
-        <p>
-            В августе 2026 года фраза обрела статус интернет-мема среди зрителей.
-        </p>
-
-        <h2>👥 Аудитория и платформы</h2>
-
-        <ul>
-            <li><strong>Telegram</strong> — основной канал и резервный в MAX.</li>
-            <li><strong>Kick</strong> — стриминговая платформа.</li>
-            <li><strong>Twitch</strong> — ранее использовался, но был заблокирован.</li>
-        </ul>
-
-        <p>
-            Аудитория — преимущественно русскоязычная, сформирована вокруг
-            ностальгического контента, интернет-культуры и чувства общности.
-        </p>
-
-        <h2>📊 Статистика за 5 месяцев</h2>
-
-        <div class="facts">
-            <div class="fact">
-                <div class="fact-number">450+</div>
-                <div class="fact-text">стримов</div>
             </div>
 
-            <div class="fact">
-                <div class="fact-number">5 суток</div>
-                <div class="fact-text">рекорд непрерывного вещания</div>
-            </div>
-
-            <div class="fact">
-                <div class="fact-number">5</div>
-                <div class="fact-text">платформ одновременно</div>
-            </div>
-
-            <div class="fact">
-                <div class="fact-number">3</div>
-                <div class="fact-text">ребрендинга</div>
-            </div>
-
-            <div class="fact">
-                <div class="fact-number">2</div>
-                <div class="fact-text">полных закрытия с возвращением</div>
-            </div>
-
-            <div class="fact">
-                <div class="fact-number">3</div>
-                <div class="fact-text">дочерних проекта</div>
-            </div>
         </div>
 
-        <h2>🚀 Будущее проекта</h2>
+    </div>
 
-        <p>
-            <strong>1 ноября 2026 года</strong> LiveNet официально перезапускается
-            в новом формате. Детали не раскрыты, но, по словам создателя,
-            проект сменит структуру, сохранив «туритай ту» как ДНК канала.
-        </p>
 
-        <p>
-            В планах — регулярные ночные эфиры, больше авторского контента
-            и переход к более стабильной сетке вещания.
-        </p>
+    <!-- FOOTER -->
 
-        <h2>🧾 Интересные факты</h2>
+    <footer class="footer">
+        © 2026 LiveNet
+    </footer>
 
-        <ul>
-            <li>Проект вдохновлён HyperSAT, закрывшимся в феврале 2026 года.</li>
-            <li>Кот Платон появился в эфире после того, как «игроки не пришли на шоу».</li>
-            <li>Первое название канала содержало слово «ретрансляции».</li>
-            <li>В июле 2026 года был создан отдельный Telegram-канал t.me/LiveNet112.</li>
-            <li>Фраза «Ду ю лайк вечер?» стала неофициальным гимном канала ЭСС.</li>
-        </ul>
 
-        <div class="conclusion">
-            <h2>📎 Заключение</h2>
+    <script>
 
-            <p>
-                LiveNet — это не просто канал, а живой организм, выросший из
-                любительского проекта в узнаваемое медиа. Его история — это история
-                становления, кризисов, творческих поисков и устойчивого желания
-                оставаться собой в мире шаблонного контента.
-            </p>
-        </div>
+        const modal = document.getElementById("playerModal");
+        const frame = document.getElementById("playerFrame");
+        const modalTitle = document.getElementById("modalTitle");
 
-    </article>
+        function openPlayer(title, url) {
+            modalTitle.textContent = title;
+            frame.src = url;
 
-</main>
+            modal.classList.add("active");
 
-<footer>
-    © 2026 LiveNet
-</footer>
+            document.body.style.overflow = "hidden";
+        }
+
+        function closePlayer() {
+            modal.classList.remove("active");
+
+            frame.src = "";
+
+            document.body.style.overflow = "";
+        }
+
+        modal.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                closePlayer();
+            }
+        });
+
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
+                closePlayer();
+            }
+        });
+
+    </script>
 
 </body>
 </html>

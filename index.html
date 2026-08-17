@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title>LiveNet — интернет-канал</title>
 <meta name="description" content="LiveNet — интернет-канал, прямые трансляции, ретрансляции, авторские программы и история проекта.">
@@ -641,13 +641,381 @@ footer{
     padding:8px;
   }
 }
+
+
+/* =========================================================
+   LIVEnet MOBILE APP UI — ADDITIVE LAYER
+   Не заменяет исходную структуру: только добавляет app-интерфейс.
+========================================================= */
+
+.mobile-menu-button{
+  display:none;
+  width:44px;
+  height:44px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:var(--card);
+  color:var(--text);
+  cursor:pointer;
+  font-size:22px;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 44px;
+}
+
+.mobile-menu-button:active{transform:scale(.94)}
+
+.mobile-menu-overlay{
+  position:fixed;
+  inset:0;
+  z-index:4000;
+  background:rgba(0,0,0,.48);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .25s ease;
+  backdrop-filter:blur(3px);
+}
+
+.mobile-menu{
+  position:absolute;
+  top:0;
+  left:0;
+  width:min(88vw,360px);
+  height:100%;
+  padding:18px;
+  overflow-y:auto;
+  background:var(--card2);
+  border-right:1px solid var(--border);
+  box-shadow:30px 0 80px rgba(0,0,0,.35);
+  transform:translateX(-105%);
+  transition:transform .28s cubic-bezier(.2,.8,.2,1);
+}
+
+.mobile-menu-overlay.open{
+  opacity:1;
+  pointer-events:auto;
+}
+
+.mobile-menu-overlay.open .mobile-menu{
+  transform:translateX(0);
+}
+
+.menu-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:8px 2px 18px;
+}
+
+.menu-brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:900;
+  font-size:20px;
+}
+
+.menu-close{
+  width:40px;
+  height:40px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:var(--card);
+  color:var(--text);
+  cursor:pointer;
+  font-size:20px;
+}
+
+.menu-section-title{
+  margin:16px 4px 8px;
+  color:var(--muted);
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  font-weight:800;
+}
+
+.menu-item{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:14px;
+  margin:7px 0;
+  border:1px solid var(--border);
+  border-radius:15px;
+  background:var(--card);
+  color:var(--text);
+  cursor:pointer;
+  text-align:left;
+  font-weight:750;
+  transition:.18s;
+}
+
+.menu-item:hover{border-color:rgba(57,169,255,.45);transform:translateX(2px)}
+.menu-item-icon{font-size:20px;width:26px;text-align:center}
+.menu-item small{display:block;color:var(--muted);font-weight:500;margin-top:2px}
+
+.menu-account{
+  margin-top:8px;
+  padding:10px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:rgba(57,169,255,.06);
+}
+
+.menu-account .auth-area{width:100%;min-height:44px;justify-content:flex-start;flex-wrap:wrap}
+.menu-account #googleLogin{width:100%;min-width:0}
+.menu-account #googleButton{width:100%}
+.menu-account #googleButton > div{max-width:100%}
+
+.app-hero-card{
+  position:relative;
+  overflow:hidden;
+  margin-top:18px;
+  padding:22px;
+  border:1px solid rgba(57,169,255,.2);
+  border-radius:24px;
+  background:linear-gradient(145deg,rgba(57,169,255,.12),var(--card));
+  box-shadow:var(--shadow);
+}
+
+.app-hero-card:after{
+  content:"";
+  position:absolute;
+  width:180px;height:180px;
+  right:-70px;top:-80px;
+  border-radius:50%;
+  background:rgba(57,169,255,.12);
+  filter:blur(2px);
+}
+
+.player-grid-label{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:0 0 12px;
+}
+
+.player-grid-label span:last-child{font-size:12px;color:var(--muted)}
+
+.channels .channel{
+  position:relative;
+  min-height:148px;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:flex-end;
+  padding:18px;
+  overflow:hidden;
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 90% 10%,rgba(118,213,255,.16),transparent 35%),
+    linear-gradient(145deg,var(--card2),var(--card));
+}
+
+.channels .channel:before{
+  content:"LIVE";
+  position:absolute;
+  top:12px;
+  right:12px;
+  padding:4px 7px;
+  border-radius:999px;
+  background:rgba(44,255,145,.1);
+  border:1px solid rgba(44,255,145,.25);
+  color:#2cff91;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+
+.channels .channel-icon{
+  width:52px;height:52px;flex-basis:52px;
+  border-radius:16px;
+  box-shadow:0 10px 25px rgba(57,169,255,.2);
+}
+
+.channels .channel > div:nth-child(2){width:calc(100% - 4px)}
+.channels .channel h3{font-size:16px}
+.channels .channel p{font-size:13px;max-width:90%}
+.channels .channel-arrow{position:absolute;right:16px;bottom:17px;font-size:25px}
+
+.app-player-backdrop{
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  background:rgba(0,0,0,.76);
+  backdrop-filter:blur(8px);
+}
+
+body.player-lock{overflow:hidden}
+
+.mobile-bottom-nav{
+  display:none;
+}
+
+@media(max-width:700px){
+  body{padding-bottom:76px;overscroll-behavior-y:none}
+  .container{width:calc(100% - 20px)}
+  header{position:sticky;top:0}
+  .header-inner{min-height:64px;flex-wrap:nowrap;padding:8px 0}
+  .mobile-menu-button{display:flex}
+  .brand{font-size:19px;flex:1}
+  .brand .logo{width:38px;height:38px;border-radius:12px}
+  header nav{display:none}
+  header .auth-area{display:none}
+
+  .status-bar{margin-top:12px;padding:10px 12px;border-radius:16px}
+  .status-left{font-size:12px;gap:6px}
+  .status-left > span:nth-child(2){white-space:nowrap}
+  .status-live{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+  .hero{padding:30px 0 20px}
+  .hero .eyebrow{font-size:11px}
+  h1{font-size:clamp(42px,14vw,70px);letter-spacing:-3px;margin:16px 0}
+  .hero-description{font-size:15px;line-height:1.5}
+  .hero-actions{display:grid;grid-template-columns:1fr 1fr;margin-top:18px}
+  .hero-actions button{width:100%;padding:12px 10px}
+
+  .visit-card{margin:12px 0 30px;padding:16px;border-radius:18px}
+  .visit-time{font-size:25px}
+
+  section{margin-bottom:42px}
+  .section-title{font-size:24px}
+  .section-description{font-size:14px;line-height:1.45}
+
+  .channels{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .channels .channel{min-height:158px;padding:14px}
+  .channels .channel-icon{width:45px;height:45px;flex-basis:45px;border-radius:14px}
+  .channels .channel p{font-size:11px;line-height:1.35}
+  .channels .channel-arrow{right:12px;bottom:11px}
+
+  .stats{grid-template-columns:repeat(2,1fr);gap:9px}
+  .stat{padding:15px;border-radius:16px}
+  .stat strong{font-size:25px}
+  .stat span{font-size:12px}
+
+  .history{padding:17px;border-radius:18px;font-size:14px}
+  .history h3{font-size:18px}
+  .timeline{display:block;overflow-x:auto;white-space:nowrap}
+
+  #playerSection{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:5100;
+    margin:0;
+    padding:0;
+    background:#000;
+  }
+  #playerSection.mobile-player-open{display:flex;align-items:center;justify-content:center}
+  #playerSection .player-box{
+    width:100%;
+    height:100%;
+    border:0;
+    border-radius:0;
+    box-shadow:none;
+    display:flex;
+    flex-direction:column;
+  }
+  #playerSection .player-header{
+    min-height:58px;
+    padding:9px 12px;
+    padding-top:max(9px,env(safe-area-inset-top));
+    flex:0 0 auto;
+  }
+  #playerSection .player-frame{
+    width:100%;
+    height:auto;
+    flex:1;
+    aspect-ratio:auto;
+  }
+  .close-player{padding:9px 12px}
+
+  .mobile-bottom-nav{
+    position:fixed;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    left:10px;right:10px;
+    bottom:max(10px,env(safe-area-inset-bottom));
+    z-index:3000;
+    padding:7px;
+    border:1px solid var(--border);
+    border-radius:20px;
+    background:rgba(7,17,31,.86);
+    backdrop-filter:blur(20px);
+    box-shadow:0 16px 45px rgba(0,0,0,.35);
+  }
+  body.light .mobile-bottom-nav{background:rgba(255,255,255,.9)}
+  .bottom-item{
+    border:0;background:transparent;color:var(--muted);
+    border-radius:15px;padding:8px 4px;cursor:pointer;
+    font-size:10px;font-weight:800;
+  }
+  .bottom-item span{display:block;font-size:20px;line-height:22px;margin-bottom:2px}
+  .bottom-item.active,.bottom-item:active{color:var(--accent2);background:rgba(57,169,255,.1)}
+
+  .login-note{left:12px;right:12px;bottom:88px;max-width:none}
+}
+
+@media(min-width:701px){
+  .channels{grid-template-columns:repeat(2,1fr)}
+  .mobile-menu-button{display:flex}
+  .header-inner .brand{order:2}
+  .header-inner .mobile-menu-button{order:1}
+  .header-inner nav{order:3}
+  .header-inner .auth-area{order:4}
+}
+
+@media(min-width:1100px){
+  .channels{grid-template-columns:repeat(4,1fr)}
+  .channels .channel{min-height:185px}
+}
+
 </style>
 </head>
 
 <body>
 
+
+<!-- =========================================================
+     MOBILE APP MENU / BOTTOM NAV — ADDITIVE
+========================================================= -->
+<div class="mobile-menu-overlay" id="mobileMenuOverlay" aria-hidden="true">
+  <aside class="mobile-menu" role="dialog" aria-modal="true" aria-label="LiveNet menu">
+    <div class="menu-head">
+      <div class="menu-brand"><span class="logo" style="width:38px;height:38px">L!</span><span>LiveNet</span></div>
+      <button class="menu-close" id="menuCloseButton" type="button">✕</button>
+    </div>
+
+    <div class="menu-section-title">Навигация</div>
+    <button class="menu-item" type="button" data-menu-target="channels"><span class="menu-item-icon">📺</span><span>Каналы<small>LiveNet players</small></span></button>
+    <button class="menu-item" type="button" data-menu-target="history"><span class="menu-item-icon">📜</span><span>История<small>История проекта</small></span></button>
+    <button class="menu-item" type="button" id="menuTop"><span class="menu-item-icon">⌂</span><span>Главная<small>Вернуться наверх</small></span></button>
+
+    <div class="menu-section-title">Настройки</div>
+    <button class="menu-item" type="button" id="menuTheme"><span class="menu-item-icon">🌙</span><span id="menuThemeText">Тема<small>Сменить оформление</small></span></button>
+    <button class="menu-item" type="button" id="menuLanguage"><span class="menu-item-icon">🌐</span><span>Язык<small>RU / EN</small></span></button>
+    <button class="menu-item" type="button" id="menuRandom"><span class="menu-item-icon">🎲</span><span>Случайно<small>Открыть раздел</small></span></button>
+
+    <div class="menu-section-title">Аккаунт</div>
+    <div class="menu-account" id="menuAccount"></div>
+  </aside>
+</div>
+
+<nav class="mobile-bottom-nav" aria-label="Основная навигация">
+  <button class="bottom-item active" type="button" data-bottom-target="top"><span>⌂</span>Главная</button>
+  <button class="bottom-item" type="button" data-bottom-target="channels"><span>📺</span>Каналы</button>
+  <button class="bottom-item" type="button" data-bottom-target="history"><span>📜</span>История</button>
+  <button class="bottom-item" type="button" id="bottomMenu"><span>☰</span>Меню</button>
+</nav>
+
+
 <header>
 <div class="container header-inner">
+
+<button class="mobile-menu-button" id="mobileMenuButton" aria-label="Menu" type="button">☰</button>
 
 <a class="brand" href="#">
   <span class="logo">L!</span>
@@ -3902,6 +4270,140 @@ console.log(
 );
 
 })();
+
+
+/* =========================================================
+   MOBILE APP CONTROLS — ADDITIVE
+========================================================= */
+(function initMobileAppUI(){
+  const menuButton = document.getElementById('mobileMenuButton');
+  const overlay = document.getElementById('mobileMenuOverlay');
+  const closeButton = document.getElementById('menuCloseButton');
+  const bottomMenu = document.getElementById('bottomMenu');
+  const menuAccount = document.getElementById('menuAccount');
+  const authArea = document.querySelector('header .auth-area');
+
+  function openMenu(){
+    overlay.classList.add('open');
+    overlay.setAttribute('aria-hidden','false');
+    document.body.classList.add('player-lock');
+  }
+
+  function closeMenu(){
+    overlay.classList.remove('open');
+    overlay.setAttribute('aria-hidden','true');
+    if(!document.getElementById('playerSection').classList.contains('mobile-player-open')){
+      document.body.classList.remove('player-lock');
+    }
+  }
+
+  if(menuButton) menuButton.addEventListener('click',openMenu);
+  if(bottomMenu) bottomMenu.addEventListener('click',openMenu);
+  if(closeButton) closeButton.addEventListener('click',closeMenu);
+
+  overlay.addEventListener('click',function(e){
+    if(e.target === overlay) closeMenu();
+  });
+
+  document.querySelectorAll('[data-menu-target]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      const id=btn.getAttribute('data-menu-target');
+      closeMenu();
+      setTimeout(()=>document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'}),120);
+    });
+  });
+
+  document.getElementById('menuTop')?.addEventListener('click',function(){
+    closeMenu();
+    setTimeout(()=>window.scrollTo({top:0,behavior:'smooth'}),120);
+  });
+
+  document.getElementById('menuTheme')?.addEventListener('click',function(){
+    toggleTheme();
+    updateMobileMenuTheme();
+  });
+
+  document.getElementById('menuLanguage')?.addEventListener('click',function(){
+    currentLanguage = currentLanguage === 'ru' ? 'en' : 'ru';
+    localStorage.setItem('livenet_language',currentLanguage);
+    applyLanguage();
+    updateMobileMenuTheme();
+  });
+
+  document.getElementById('menuRandom')?.addEventListener('click',function(){
+    closeMenu();
+    document.getElementById('randomBtn')?.click();
+  });
+
+  if(authArea && menuAccount){
+    menuAccount.appendChild(authArea);
+  }
+
+  function updateMobileMenuTheme(){
+    const text=document.getElementById('menuThemeText');
+    const icon=document.querySelector('#menuTheme .menu-item-icon');
+    const light=document.body.classList.contains('light');
+    if(text) text.firstChild.textContent = (currentLanguage==='ru' ? (light?'☀️ Тема':'🌙 Тема') : (light?'☀️ Theme':'🌙 Theme'));
+    if(icon) icon.textContent=light?'☀️':'🌙';
+  }
+
+  window.updateMobileMenuTheme=updateMobileMenuTheme;
+  setTimeout(updateMobileMenuTheme,0);
+
+  document.querySelectorAll('[data-bottom-target]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('.bottom-item').forEach(x=>x.classList.remove('active'));
+      btn.classList.add('active');
+      const target=btn.getAttribute('data-bottom-target');
+      if(target==='top') window.scrollTo({top:0,behavior:'smooth'});
+      else document.getElementById(target)?.scrollIntoView({behavior:'smooth',block:'start'});
+    });
+  });
+
+  /* Close player with Escape and restore scroll. */
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){
+      if(overlay.classList.contains('open')) closeMenu();
+      if(document.getElementById('playerSection').classList.contains('mobile-player-open')) closePlayer();
+    }
+  });
+
+  /* Swipe-left on the menu closes it. */
+  let startX=0;
+  const panel=document.querySelector('.mobile-menu');
+  panel?.addEventListener('touchstart',e=>{startX=e.touches[0].clientX},{passive:true});
+  panel?.addEventListener('touchend',e=>{
+    if(startX-e.changedTouches[0].clientX>70) closeMenu();
+  },{passive:true});
+})();
+
+/* Upgrade the existing player function without changing any player URLs. */
+const originalOpenPlayer = window.openPlayer;
+window.openPlayer = function(url,title){
+  originalOpenPlayer(url,title);
+  const section=document.getElementById('playerSection');
+  if(window.matchMedia('(max-width: 700px)').matches){
+    section.classList.add('mobile-player-open');
+    document.body.classList.add('player-lock');
+  }
+};
+
+const originalClosePlayer = window.closePlayer;
+window.closePlayer = function(){
+  originalClosePlayer();
+  document.getElementById('playerSection')?.classList.remove('mobile-player-open');
+  if(!document.getElementById('mobileMenuOverlay')?.classList.contains('open')){
+    document.body.classList.remove('player-lock');
+  }
+};
+
+/* Make the existing theme button also update the app menu. */
+const oldToggleTheme = window.toggleTheme;
+window.toggleTheme = function(){
+  oldToggleTheme();
+  if(window.updateMobileMenuTheme) window.updateMobileMenuTheme();
+};
+
 
 </script>
 

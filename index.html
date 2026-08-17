@@ -36,9 +36,13 @@ body.light{
   --shadow:0 20px 50px rgba(26,69,110,.14);
 }
 
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
-html{scroll-behavior:smooth}
+html{
+  scroll-behavior:smooth;
+}
 
 body{
   margin:0;
@@ -281,6 +285,7 @@ body.light .gradient-text{
   background:linear-gradient(90deg,#102033,#087fe5);
   -webkit-background-clip:text;
   background-clip:text;
+  color:transparent;
 }
 
 .hero-description{
@@ -442,6 +447,7 @@ section{
   aspect-ratio:16/9;
   border:0;
   display:block;
+  background:#000;
 }
 
 .close-player{
@@ -568,6 +574,7 @@ footer{
 /* RESPONSIVE */
 
 @media(max-width:900px){
+
   .header-inner{
     flex-wrap:wrap;
     padding:10px 0;
@@ -589,6 +596,7 @@ footer{
 }
 
 @media(max-width:560px){
+
   .container{
     width:min(100% - 20px,1180px);
   }
@@ -659,20 +667,24 @@ footer{
 
   <div id="userPanel" class="user-panel">
 
-    <img id="userAvatar"
-         class="user-avatar"
-         src=""
-         alt="Avatar">
+    <img
+      id="userAvatar"
+      class="user-avatar"
+      src=""
+      alt="Avatar"
+    >
 
     <span id="userName" class="user-name"></span>
 
-    <button class="change-account"
-            id="changeAccountBtn">
+    <button
+      class="change-account"
+      id="changeAccountBtn">
       Сменить
     </button>
 
-    <button class="logout-btn"
-            id="logoutBtn">
+    <button
+      class="logout-btn"
+      id="logoutBtn">
       Выйти
     </button>
 
@@ -683,147 +695,261 @@ footer{
 </div>
 </header>
 
+
 <main class="container">
 
 <div class="status-bar">
+
   <div class="status-left">
+
     <span class="status-dot"></span>
-    <span data-i18n="radar">LiveNet Radar</span>
+
+    <span data-i18n="radar">
+      LiveNet Radar
+    </span>
+
     <span>•</span>
-    <span class="status-live" data-i18n="systemActive">
+
+    <span
+      class="status-live"
+      data-i18n="systemActive">
       Система LiveNet активна
     </span>
+
   </div>
 
-  <button class="nav-btn" id="randomBtn">🎲</button>
+  <button class="nav-btn" id="randomBtn">
+    🎲
+  </button>
+
 </div>
 
 
 <section class="hero">
 
-<span class="eyebrow">🔴 LIVE</span>
+<span class="eyebrow">
+  🔴 LIVE
+</span>
 
 <h1>
-  <span class="gradient-text">LiveNet</span><br>
-  <span data-i18n="alwaysLive">всегда в эфире.</span>
+  <span class="gradient-text">
+    LiveNet
+  </span>
+  <br>
+  <span data-i18n="alwaysLive">
+    всегда в эфире.
+  </span>
 </h1>
 
-<p class="hero-description" data-i18n="heroDescription">
+<p
+  class="hero-description"
+  data-i18n="heroDescription">
   Прямые трансляции, ретрансляции, авторские программы
   и история проекта — всё собрано в одном месте.
 </p>
 
 <div class="hero-actions">
 
-<button class="primary" id="channelsBtn"
-        onclick="document.getElementById('channels').scrollIntoView({behavior:'smooth'})">
+<button
+  class="primary"
+  id="channelsBtn"
+  onclick="document.getElementById('channels').scrollIntoView({behavior:'smooth'})">
   Смотреть каналы
 </button>
 
-<button class="secondary" id="historyBtn"
-        onclick="document.getElementById('history').scrollIntoView({behavior:'smooth'})">
+<button
+  class="secondary"
+  id="historyBtn"
+  onclick="document.getElementById('history').scrollIntoView({behavior:'smooth'})">
   История LiveNet
 </button>
 
 </div>
+
 </section>
 
 
 <div class="visit-card">
 
 <div>
-  <div class="muted">⏱️</div>
-  <strong data-i18n="youAre">Вы на LiveNet</strong>
-  <div class="muted" data-i18n="visitTime">
+
+  <div class="muted">
+    ⏱️
+  </div>
+
+  <strong data-i18n="youAre">
+    Вы на LiveNet
+  </strong>
+
+  <div
+    class="muted"
+    data-i18n="visitTime">
     Время текущего посещения
   </div>
+
 </div>
 
-<div class="visit-time" id="visitTimer">00:00:00</div>
+<div
+  class="visit-time"
+  id="visitTimer">
+  00:00:00
+</div>
 
 </div>
 
 
 <section id="channels">
 
-<h2 class="section-title" data-i18n="channelsTitle">
+<h2
+  class="section-title"
+  data-i18n="channelsTitle">
   Каналы LiveNet
 </h2>
 
-<p class="section-description" data-i18n="channelsDescription">
+<p
+  class="section-description"
+  data-i18n="channelsDescription">
   Нажмите на канал, чтобы открыть плеер прямо на этой странице.
 </p>
 
+
 <div class="channels">
 
-<div class="channel"
-onclick="openPlayer(
-'https://player.twitch.tv/?channel=bobrdobrenok&parent=livenet.limonvzdanii.workers.dev',
-'LiveNet Twitch'
-)">
+<!-- =========================
+     TWITCH
+========================= -->
 
-<div class="channel-icon">T</div>
+<div
+  class="channel"
+  onclick="openPlayer(
+    'https://player.twitch.tv/?channel=bobrdobrenok&parent=livenet.limonvzdanii.workers.dev',
+    'LiveNet Twitch'
+  )">
 
-<div>
-<h3>LiveNet Twitch</h3>
-<p data-i18n="twitchMain">Основная Twitch-трансляция LiveNet</p>
-</div>
+  <div class="channel-icon">
+    T
+  </div>
 
-<span class="channel-arrow">→</span>
+  <div>
+    <h3>
+      LiveNet Twitch
+    </h3>
 
-</div>
+    <p data-i18n="twitchMain">
+      Основная Twitch-трансляция LiveNet
+    </p>
+  </div>
 
-
-<div class="channel"
-onclick="openPlayer(
-'https://player.twitch.tv/?channel=bobrdobrenok&parent=livenet.limonvzdanii.workers.dev',
-'LiveNet Twitch'
-)">
-
-<div class="channel-icon">T</div>
-
-<div>
-<h3>LiveNet Twitch</h3>
-<p data-i18n="twitchAlt">Альтернативная Twitch-трансляция</p>
-</div>
-
-<span class="channel-arrow">→</span>
+  <span class="channel-arrow">
+    →
+  </span>
 
 </div>
 
 
-<div class="channel"
-onclick="openPlayer('https://example.com','LiveNet ЭтоЯTV')">
+<!-- =========================
+     TWITCH ALT
+========================= -->
 
-<div class="channel-icon">E</div>
+<div
+  class="channel"
+  onclick="openPlayer(
+    'https://player.twitch.tv/?channel=bobrdobrenok&parent=livenet.limonvzdanii.workers.dev',
+    'LiveNet Twitch'
+  )">
 
-<div>
-<h3>LiveNet ЭтоЯTV</h3>
-<p data-i18n="etya">Онлайн-плеер LiveNet</p>
+  <div class="channel-icon">
+    T
+  </div>
+
+  <div>
+    <h3>
+      LiveNet Twitch
+    </h3>
+
+    <p data-i18n="twitchAlt">
+      Альтернативная Twitch-трансляция
+    </p>
+  </div>
+
+  <span class="channel-arrow">
+    →
+  </span>
+
 </div>
 
-<span class="channel-arrow">→</span>
+
+<!-- =========================
+     ЭТОЯTV
+========================= -->
+
+<div
+  class="channel"
+  onclick="openPlayer(
+    'https://etoyatv.top/widget/player/LiveNet?autoplay=1',
+    'LiveNet ЭтоЯTV'
+  )">
+
+  <div class="channel-icon">
+    E
+  </div>
+
+  <div>
+    <h3>
+      LiveNet ЭтоЯTV
+    </h3>
+
+    <p data-i18n="etya">
+      Онлайн-плеер LiveNet
+    </p>
+  </div>
+
+  <span class="channel-arrow">
+    →
+  </span>
 
 </div>
 
 
-<div class="channel"
-onclick="openPlayer('https://player.kick.com/bobrdobrenok','LiveNet Kick')">
+<!-- =========================
+     KICK
+========================= -->
 
-<div class="channel-icon">K</div>
+<div
+  class="channel"
+  onclick="openPlayer(
+    'https://player.kick.com/LiveNet1',
+    'LiveNet Kick'
+  )">
 
-<div>
-<h3>LiveNet Kick</h3>
-<p data-i18n="kick">Основная трансляция LiveNet на Kick</p>
+  <div class="channel-icon">
+    K
+  </div>
+
+  <div>
+    <h3>
+      LiveNet Kick
+    </h3>
+
+    <p data-i18n="kick">
+      Основная трансляция LiveNet на Kick
+    </p>
+  </div>
+
+  <span class="channel-arrow">
+    →
+  </span>
+
 </div>
 
-<span class="channel-arrow">→</span>
-
 </div>
 
-</div>
 </section>
 
+
+<!-- =========================
+     PLAYER
+========================= -->
 
 <section id="playerSection">
 
@@ -831,105 +957,110 @@ onclick="openPlayer('https://player.kick.com/bobrdobrenok','LiveNet Kick')">
 
 <div class="player-header">
 
-<strong id="playerTitle">LiveNet</strong>
+<strong id="playerTitle">
+  LiveNet
+</strong>
 
-<button class="close-player"
-id="closePlayerBtn">
-✕ <span data-i18n="close">Закрыть</span>
+<button
+  class="close-player"
+  id="closePlayerBtn">
+  ✕
+  <span data-i18n="close">
+    Закрыть
+  </span>
 </button>
 
 </div>
 
 <iframe
-id="playerFrame"
-class="player-frame"
-allow="autoplay; fullscreen"
-allowfullscreen>
+  id="playerFrame"
+  class="player-frame"
+  allow="autoplay; fullscreen; picture-in-picture"
+  allowfullscreen
+  referrerpolicy="origin">
 </iframe>
 
 </div>
+
 </section>
 
 
 <section id="history">
 
-<h2 class="section-title" data-i18n="historyTitle">
-История проекта
+<h2
+  class="section-title"
+  data-i18n="historyTitle">
+  История проекта
 </h2>
 
 <div class="history">
 
 <h3 data-i18n="historyName">
-LiveNet — интернет-канал
+  LiveNet — интернет-канал
 </h3>
 
 <p data-i18n="historyIntro">
-История, развитие и деятельность проекта LiveNet.
+  История, развитие и деятельность проекта LiveNet.
 </p>
 
 <p data-i18n="historyDescription">
-LiveNet — российский интернет-канал и медиа-проект,
-основанный в 2026 году. Специализируется на ретрансляции
-контента сторонних каналов, авторских программах и
-тематических эфирах. Известен своей неформальной атмосферой,
-использованием интернет-мемов и тесным взаимодействием
-с аудиторией через Telegram и другие платформы.
+  LiveNet — российский интернет-канал и медиа-проект,
+  основанный в 2026 году. Специализируется на ретрансляции
+  контента сторонних каналов, авторских программах и
+  тематических эфирах.
 </p>
 
-
-<h3 data-i18n="historyHeading">🧬 История</h3>
+<h3 data-i18n="historyHeading">
+  🧬 История
+</h3>
 
 <p data-i18n="history1">
-Проект был запущен 23 февраля 2026 года под названием
-HyperWT пользователем Никитой (псевдоним — blonder).
-Вдохновением послужил проект HyperSAT, занимавшийся
-ретрансляцией теледрочерского контента и новостей канала ТН.
+  Проект был запущен 23 февраля 2026 года под названием
+  HyperWT пользователем Никитой (псевдоним — blonder).
+  Вдохновением послужил проект HyperSAT.
 </p>
 
 <p data-i18n="history2">
-25 февраля HyperWT был закрыт, но почти сразу переродился
-в проект «Ретрансляции ИТВ Каналов на Твиче!».
-6 марта был создан Telegram-канал, ставший основой для аудитории.
+  25 февраля HyperWT был закрыт, но почти сразу переродился
+  в проект «Ретрансляции ИТВ Каналов на Твиче!».
+  6 марта был создан Telegram-канал.
 </p>
 
 <p data-i18n="history3">
-19 марта канал был временно закрыт, но уже 20 марта открылся
-вновь под названием HyperTwitch. 21 марта прошёл первый ребрендинг.
+  19 марта канал был временно закрыт, но уже 20 марта открылся
+  вновь под названием HyperTwitch.
 </p>
 
 <p data-i18n="history4">
-4 апреля был запущен дочерний проект NikNot, просуществовавший
-один день. 12 апреля состоялось пасхальное открытие обновлённого
-HyperTwitch, владельцем которого стал AlexBit.
-19 апреля стартовала авторская программа «Время Ютуба!»,
-закрытая 5 мая.
+  4 апреля был запущен дочерний проект NikNot.
+  12 апреля состоялось пасхальное открытие обновлённого
+  HyperTwitch, владельцем которого стал AlexBit.
 </p>
 
 <p data-i18n="history5">
-10 мая был закрыт NikNot и открыт ностальгический канал OLD 2X2.
-С 1 по 16 мая HyperTwitch вёл ежедневные эфиры, включая
-тематические марафоны 9 мая и евронеделю с 11 по 17 мая.
+  10 мая был закрыт NikNot и открыт ностальгический канал OLD 2X2.
 </p>
 
 <p data-i18n="history6">
-15 мая проект был переименован в LiveNet.
-15 июня OLD 2X2 был закрыт и заархивирован.
-С этого момента LiveNet стал основным каналом.
+  15 мая проект был переименован в LiveNet.
+  15 июня OLD 2X2 был закрыт и заархивирован.
 </p>
 
 <p data-i18n="history7">
-В июле 2026 года произошёл конфликт с владельцем AlexBit,
-в результате которого было создано новое Telegram-пространство
-t.me/LiveNet112, а старый канал переведён в архивный режим.
+  В июле 2026 года произошёл конфликт с владельцем AlexBit,
+  в результате которого было создано новое Telegram-пространство
+  t.me/LiveNet112.
 </p>
 
 <p data-i18n="history8">
-1 ноября 2026 года анонсирован полный перезапуск проекта
-в новом формате.
+  1 ноября 2026 года анонсирован полный перезапуск проекта
+  в новом формате.
 </p>
 
 
-<h3 data-i18n="timelineTitle">📅 Хронология ключевых событий</h3>
+<h3 data-i18n="timelineTitle">
+  📅 Хронология ключевых событий
+</h3>
 
 <table class="timeline">
 
@@ -942,163 +1073,330 @@ t.me/LiveNet112, а старый канал переведён в архивны
 
 <tbody>
 
-<tr><td>23.02.2026</td><td data-i18n="t1">Запуск HyperWT</td></tr>
-<tr><td>25.02.2026</td><td data-i18n="t2">Закрытие HyperWT, создание «Ретрансляций ИТВ»</td></tr>
-<tr><td>06.03.2026</td><td data-i18n="t3">Создание Telegram-канала</td></tr>
-<tr><td>19–20.03.2026</td><td data-i18n="t4">Временное закрытие, переоткрытие как HyperTwitch</td></tr>
-<tr><td>21.03.2026</td><td data-i18n="t5">Первый ребрендинг</td></tr>
-<tr><td>04.04.2026</td><td data-i18n="t6">Запуск дочернего проекта NikNot</td></tr>
-<tr><td>12.04.2026</td><td data-i18n="t7">Пасхальное открытие HyperTwitch, передача прав AlexBit</td></tr>
-<tr><td>17.04.2026</td><td data-i18n="t8">Блокировка Twitch-аккаунта bobrdobrenok</td></tr>
-<tr><td>19.04.2026</td><td data-i18n="t9">Запуск программы «Время Ютуба!»</td></tr>
-<tr><td>05.05.2026</td><td data-i18n="t10">Закрытие «Время Ютуба!»</td></tr>
-<tr><td>10.05.2026</td><td data-i18n="t11">Закрытие NikNot, открытие OLD 2X2</td></tr>
-<tr><td>01–16.05.2026</td><td data-i18n="t12">Ежедневные эфиры HyperTwitch</td></tr>
-<tr><td>07–09.05.2026</td><td data-i18n="t13">Марафон 9 мая</td></tr>
-<tr><td>11–17.05.2026</td><td data-i18n="t14">Евронеделя</td></tr>
-<tr><td>15.05.2026</td><td data-i18n="t15">Переименование HyperTwitch в LiveNet</td></tr>
-<tr><td>15.06.2026</td><td data-i18n="t16">Закрытие OLD 2X2, LiveNet становится основным проектом</td></tr>
-<tr><td>16.06.2026</td><td data-i18n="t17">Перерыв до 1 июля, позже продлён</td></tr>
-<tr><td>11.07.2026</td><td data-i18n="t18">День рождения создателя, поездка в Калининград</td></tr>
-<tr><td>17.07.2026</td><td data-i18n="t19">Анонс перезапуска LiveNet 1 ноября</td></tr>
-<tr><td>23.07.2026</td><td data-i18n="t20">Возвращение из деревни</td></tr>
-<tr><td>26.07.2026</td><td data-i18n="t21">Марафон с участием ЭСС, Невоканала и Русика</td></tr>
-<tr><td>28.07.2026</td><td data-i18n="t22">Пауза до сентября</td></tr>
+<tr>
+<td>23.02.2026</td>
+<td data-i18n="t1">Запуск HyperWT</td>
+</tr>
+
+<tr>
+<td>25.02.2026</td>
+<td data-i18n="t2">Закрытие HyperWT, создание «Ретрансляций ИТВ»</td>
+</tr>
+
+<tr>
+<td>06.03.2026</td>
+<td data-i18n="t3">Создание Telegram-канала</td>
+</tr>
+
+<tr>
+<td>19–20.03.2026</td>
+<td data-i18n="t4">Временное закрытие, переоткрытие как HyperTwitch</td>
+</tr>
+
+<tr>
+<td>21.03.2026</td>
+<td data-i18n="t5">Первый ребрендинг</td>
+</tr>
+
+<tr>
+<td>04.04.2026</td>
+<td data-i18n="t6">Запуск дочернего проекта NikNot</td>
+</tr>
+
+<tr>
+<td>12.04.2026</td>
+<td data-i18n="t7">Пасхальное открытие HyperTwitch, передача прав AlexBit</td>
+</tr>
+
+<tr>
+<td>17.04.2026</td>
+<td data-i18n="t8">Блокировка Twitch-аккаунта bobrdobrenok</td>
+</tr>
+
+<tr>
+<td>19.04.2026</td>
+<td data-i18n="t9">Запуск программы «Время Ютуба!»</td>
+</tr>
+
+<tr>
+<td>05.05.2026</td>
+<td data-i18n="t10">Закрытие «Время Ютуба!»</td>
+</tr>
+
+<tr>
+<td>10.05.2026</td>
+<td data-i18n="t11">Закрытие NikNot, открытие OLD 2X2</td>
+</tr>
+
+<tr>
+<td>01–16.05.2026</td>
+<td data-i18n="t12">Ежедневные эфиры HyperTwitch</td>
+</tr>
+
+<tr>
+<td>07–09.05.2026</td>
+<td data-i18n="t13">Марафон 9 мая</td>
+</tr>
+
+<tr>
+<td>11–17.05.2026</td>
+<td data-i18n="t14">Евронеделя</td>
+</tr>
+
+<tr>
+<td>15.05.2026</td>
+<td data-i18n="t15">Переименование HyperTwitch в LiveNet</td>
+</tr>
+
+<tr>
+<td>15.06.2026</td>
+<td data-i18n="t16">Закрытие OLD 2X2, LiveNet становится основным проектом</td>
+</tr>
+
+<tr>
+<td>16.06.2026</td>
+<td data-i18n="t17">Перерыв до 1 июля, позже продлён</td>
+</tr>
+
+<tr>
+<td>11.07.2026</td>
+<td data-i18n="t18">День рождения создателя, поездка в Калининград</td>
+</tr>
+
+<tr>
+<td>17.07.2026</td>
+<td data-i18n="t19">Анонс перезапуска LiveNet 1 ноября</td>
+</tr>
+
+<tr>
+<td>23.07.2026</td>
+<td data-i18n="t20">Возвращение из деревни</td>
+</tr>
+
+<tr>
+<td>26.07.2026</td>
+<td data-i18n="t21">Марафон с участием ЭСС, Невоканала и Русика</td>
+</tr>
+
+<tr>
+<td>28.07.2026</td>
+<td data-i18n="t22">Пауза до сентября</td>
+</tr>
 
 </tbody>
 </table>
 
 
-<h3 data-i18n="contentHeading">🧠 Содержание и формат</h3>
+<h3 data-i18n="contentHeading">
+  🧠 Содержание и формат
+</h3>
 
 <p data-i18n="contentText">
-LiveNet сочетает ретрансляции сторонних каналов,
-включая Rusik, ЭСС и Невоканал, с авторскими передачами.
+  LiveNet сочетает ретрансляции сторонних каналов,
+  включая Rusik, ЭСС и Невоканал, с авторскими передачами.
 </p>
 
 <ul>
-<li data-i18n="c1">«Время Ютуба!» — авторская программа с видео-подборками.</li>
-<li data-i18n="c2">«Кот Платон в эфире» — импровизированная рубрика с котом-символом.</li>
-<li data-i18n="c3">«Тёмный час» — анонсированная ночная рубрика с архивным контентом.</li>
-<li data-i18n="c4">«История LiveNet» — тематические эфиры о развитии проекта.</li>
-<li data-i18n="c5">«Час с чатом» — общение со зрителями без подготовки.</li>
-<li data-i18n="c6">«Абсурдные вставки» — короткие мемные сегменты из эфиров.</li>
+
+<li data-i18n="c1">
+  «Время Ютуба!» — авторская программа с видео-подборками.
+</li>
+
+<li data-i18n="c2">
+  «Кот Платон в эфире» — импровизированная рубрика с котом-символом.
+</li>
+
+<li data-i18n="c3">
+  «Тёмный час» — анонсированная ночная рубрика с архивным контентом.
+</li>
+
+<li data-i18n="c4">
+  «История LiveNet» — тематические эфиры о развитии проекта.
+</li>
+
+<li data-i18n="c5">
+  «Час с чатом» — общение со зрителями без подготовки.
+</li>
+
+<li data-i18n="c6">
+  «Абсурдные вставки» — короткие мемные сегменты из эфиров.
+</li>
+
 </ul>
 
 <p>
 <strong>«Туритай ту»</strong>
+
 <span data-i18n="touritai">
-— фирменная фраза LiveNet, используемая как приветствие,
-прощание и символический якорь проекта.
+  — фирменная фраза LiveNet.
 </span>
+
 </p>
 
 <p data-i18n="meme">
-В августе 2026 года она обрела статус интернет-мема среди зрителей.
+  В августе 2026 года она обрела статус интернет-мема среди зрителей.
 </p>
 
 
-<h3 data-i18n="audienceHeading">👥 Аудитория и платформы</h3>
+<h3 data-i18n="audienceHeading">
+  👥 Аудитория и платформы
+</h3>
 
 <ul>
-<li data-i18n="platform1">Telegram — основной канал и резервный в MAX.</li>
-<li data-i18n="platform2">Kick — стриминговая платформа.</li>
-<li data-i18n="platform3">Twitch — ранее использовался, но был заблокирован.</li>
+
+<li data-i18n="platform1">
+  Telegram — основной канал и резервный в MAX.
+</li>
+
+<li data-i18n="platform2">
+  Kick — стриминговая платформа.
+</li>
+
+<li data-i18n="platform3">
+  Twitch — ранее использовался, но был заблокирован.
+</li>
+
 </ul>
 
 <p data-i18n="audience">
-Аудитория — преимущественно русскоязычная, сформирована
-вокруг ностальгического контента, интернет-культуры
-и чувства общности.
+  Аудитория — преимущественно русскоязычная, сформирована
+  вокруг ностальгического контента, интернет-культуры
+  и чувства общности.
 </p>
 
 
-<h3 data-i18n="statsHeading">📊 Статистика за 5 месяцев</h3>
+<h3 data-i18n="statsHeading">
+  📊 Статистика за 5 месяцев
+</h3>
 
 <div class="stats">
 
 <div class="stat">
 <strong>450+</strong>
-<span data-i18n="streams">стримов</span>
+<span data-i18n="streams">
+  стримов
+</span>
 </div>
 
 <div class="stat">
 <strong>5</strong>
-<span data-i18n="days">суток непрерывного вещания</span>
+<span data-i18n="days">
+  суток непрерывного вещания
+</span>
 </div>
 
 <div class="stat">
 <strong>5</strong>
-<span data-i18n="platforms">платформ одновременно</span>
+<span data-i18n="platforms">
+  платформ одновременно
+</span>
 </div>
 
 <div class="stat">
 <strong>3</strong>
-<span data-i18n="rebrands">ребрендинга</span>
+<span data-i18n="rebrands">
+  ребрендинга
+</span>
 </div>
 
 <div class="stat">
 <strong>2</strong>
-<span data-i18n="closures">полных закрытия с возвращением</span>
+<span data-i18n="closures">
+  полных закрытия с возвращением
+</span>
 </div>
 
 </div>
 
 
-<h3 data-i18n="futureHeading">🚀 Будущее проекта</h3>
+<h3 data-i18n="futureHeading">
+  🚀 Будущее проекта
+</h3>
 
 <p data-i18n="future1">
-1 ноября 2026 года LiveNet официально перезапускается
-в новом формате. Детали не раскрыты, но, по словам создателя,
-проект сменит структуру, сохранив «туритай ту» как ДНК канала.
+  1 ноября 2026 года LiveNet официально перезапускается
+  в новом формате.
 </p>
 
 <p data-i18n="future2">
-В планах — регулярные ночные эфиры, больше авторского контента
-и переход к более стабильной сетке вещания.
+  В планах — регулярные ночные эфиры, больше авторского контента
+  и переход к более стабильной сетке вещания.
 </p>
 
 
-<h3 data-i18n="factsHeading">🧾 Интересные факты</h3>
+<h3 data-i18n="factsHeading">
+  🧾 Интересные факты
+</h3>
 
 <ul>
-<li data-i18n="fact1">Проект вдохновлён HyperSAT, закрывшимся в феврале 2026 года.</li>
-<li data-i18n="fact2">Кот Платон появился в эфире после того, как «игроки не пришли на шоу».</li>
-<li data-i18n="fact3">Первое название канала содержало слово «ретрансляции».</li>
-<li data-i18n="fact4">В июле 2026 года был создан отдельный Telegram-канал t.me/LiveNet112.</li>
-<li data-i18n="fact5">Фраза «Ду ю лайк вечер?» стала неофициальным гимном канала ЭСС.</li>
+
+<li data-i18n="fact1">
+  Проект вдохновлён HyperSAT, закрывшимся в феврале 2026 года.
+</li>
+
+<li data-i18n="fact2">
+  Кот Платон появился в эфире после того, как «игроки не пришли на шоу».
+</li>
+
+<li data-i18n="fact3">
+  Первое название канала содержало слово «ретрансляции».
+</li>
+
+<li data-i18n="fact4">
+  В июле 2026 года был создан отдельный Telegram-канал t.me/LiveNet112.
+</li>
+
+<li data-i18n="fact5">
+  Фраза «Ду ю лайк вечер?» стала неофициальным гимном канала ЭСС.
+</li>
+
 </ul>
 
 
-<h3 data-i18n="conclusionHeading">📎 Заключение</h3>
+<h3 data-i18n="conclusionHeading">
+  📎 Заключение
+</h3>
 
 <p data-i18n="conclusion">
-LiveNet — это не просто канал, а живой организм, выросший
-из любительского проекта в узнаваемое медиа. Его история —
-это история становления, кризисов, творческих поисков
-и устойчивого желания оставаться собой в мире шаблонного контента.
+  LiveNet — это не просто канал, а живой организм, выросший
+  из любительского проекта в узнаваемое медиа.
 </p>
 
 </div>
+
 </section>
 
 </main>
 
+
 <footer>
+
 <div class="container">
-<strong>LiveNet</strong>
+
+<strong>
+  LiveNet
+</strong>
+
 <br>
+
 © 2026 LiveNet
+
 </div>
+
 </footer>
 
-<div id="loginNote" class="login-note"></div>
+
+<div
+  id="loginNote"
+  class="login-note">
+</div>
 
 
 <script>
+
 /* =========================================================
    GOOGLE
-   ========================================================= */
+========================================================= */
 
 const GOOGLE_CLIENT_ID =
 "812898099803-m8knvsqgm3jpqcs050vcdn3ml55aih90.apps.googleusercontent.com";
@@ -1107,14 +1405,14 @@ let googleInitialized=false;
 
 
 /* =========================================================
-   GOOGLE LOGIN
-   ========================================================= */
+   GOOGLE INITIALIZATION
+========================================================= */
 
 function initGoogle(){
 
   if(
     googleInitialized ||
-    typeof google==="undefined" ||
+    typeof google === "undefined" ||
     !google.accounts ||
     !google.accounts.id
   ){
@@ -1124,11 +1422,17 @@ function initGoogle(){
   googleInitialized=true;
 
   google.accounts.id.initialize({
+
     client_id:GOOGLE_CLIENT_ID,
+
     callback:handleGoogleCredential,
+
     auto_select:false,
+
     cancel_on_tap_outside:true,
+
     use_fedcm_for_prompt:true
+
   });
 
   renderGoogleButton();
@@ -1137,15 +1441,19 @@ function initGoogle(){
 
 function renderGoogleButton(){
 
-  const container=
+  const container =
     document.getElementById("googleButton");
 
-  if(!container) return;
+  if(!container){
+    return;
+  }
 
   container.innerHTML="";
 
   google.accounts.id.renderButton(
+
     container,
+
     {
       type:"standard",
       theme:"outline",
@@ -1155,17 +1463,19 @@ function renderGoogleButton(){
       logo_alignment:"left",
       width:210
     }
+
   );
 }
 
 
-/*
-  Показываем выбор Google-аккаунта заново.
-*/
+/* =========================================================
+   CHANGE GOOGLE ACCOUNT
+========================================================= */
+
 function chooseAnotherGoogleAccount(){
 
   if(
-    typeof google!=="undefined" &&
+    typeof google !== "undefined" &&
     google.accounts &&
     google.accounts.id
   ){
@@ -1174,23 +1484,16 @@ function chooseAnotherGoogleAccount(){
       google.accounts.id.disableAutoSelect();
     }catch(e){}
 
-    try{
-      google.accounts.id.revoke(
-        getCurrentGoogleId(),
-        function(){}
-      );
-    }catch(e){}
-
-    localStorage.removeItem("livenet_google_user");
+    localStorage.removeItem(
+      "livenet_google_user"
+    );
 
     hideUser();
 
-    /*
-      Prompt открывает окно выбора аккаунта.
-    */
     setTimeout(function(){
 
       try{
+
         google.accounts.id.prompt();
 
       }catch(e){
@@ -1202,30 +1505,13 @@ function chooseAnotherGoogleAccount(){
     },100);
 
   }
+
 }
 
 
-/*
-  Получение sub текущего пользователя.
-*/
-function getCurrentGoogleId(){
-
-  try{
-
-    const saved=
-      JSON.parse(
-        localStorage.getItem("livenet_google_user")
-      );
-
-    return saved?.id || "";
-
-  }catch(e){
-
-    return "";
-
-  }
-}
-
+/* =========================================================
+   GOOGLE CREDENTIAL
+========================================================= */
 
 function handleGoogleCredential(response){
 
@@ -1236,8 +1522,8 @@ function handleGoogleCredential(response){
 
     showLoginMessage(
       currentLanguage==="ru"
-      ?"Не удалось получить данные Google."
-      :"Could not receive Google account data."
+      ? "Не удалось получить данные Google."
+      : "Could not receive Google account data."
     );
 
     return;
@@ -1245,25 +1531,41 @@ function handleGoogleCredential(response){
 
   try{
 
-    const payload=
+    const payload =
       parseJwt(response.credential);
 
     if(!payload){
-      throw new Error("Invalid credential");
+
+      throw new Error(
+        "Invalid credential"
+      );
+
     }
 
     const user={
+
       id:payload.sub || "",
-      name:payload.name || "Google User",
-      email:payload.email || "",
-      picture:payload.picture || "",
-      credential:response.credential,
-      loggedAt:Date.now()
+
+      name:
+        payload.name ||
+        "Google User",
+
+      email:
+        payload.email ||
+        "",
+
+      picture:
+        payload.picture ||
+        "",
+
+      credential:
+        response.credential,
+
+      loggedAt:
+        Date.now()
+
     };
 
-    /*
-      Хранилище локальное для каждого браузера.
-    */
     localStorage.setItem(
       "livenet_google_user",
       JSON.stringify(user)
@@ -1277,39 +1579,50 @@ function handleGoogleCredential(response){
 
     showLoginMessage(
       currentLanguage==="ru"
-      ?"Ошибка входа через Google."
-      :"Google sign-in error."
+      ? "Ошибка входа через Google."
+      : "Google sign-in error."
     );
 
   }
+
 }
 
+
+/* =========================================================
+   JWT
+========================================================= */
 
 function parseJwt(token){
 
   try{
 
-    const parts=token.split(".");
+    const parts =
+      token.split(".");
 
-    if(parts.length!==3){
+    if(parts.length !== 3){
       return null;
     }
 
-    const base64=parts[1]
+    const base64 =
+      parts[1]
       .replace(/-/g,"+")
       .replace(/_/g,"/");
 
-    const jsonPayload=
+    const jsonPayload =
       decodeURIComponent(
+
         atob(base64)
         .split("")
         .map(function(c){
+
           return "%"+
-          ("00"+
-          c.charCodeAt(0).toString(16))
-          .slice(-2);
+            ("00"+
+            c.charCodeAt(0).toString(16))
+            .slice(-2);
+
         })
         .join("")
+
       );
 
     return JSON.parse(jsonPayload);
@@ -1319,41 +1632,59 @@ function parseJwt(token){
     return null;
 
   }
+
 }
 
 
+/* =========================================================
+   USER
+========================================================= */
+
 function showUser(user){
 
-  const login=
-    document.getElementById("googleLogin");
+  const login =
+    document.getElementById(
+      "googleLogin"
+    );
 
-  const panel=
-    document.getElementById("userPanel");
+  const panel =
+    document.getElementById(
+      "userPanel"
+    );
 
-  const avatar=
-    document.getElementById("userAvatar");
+  const avatar =
+    document.getElementById(
+      "userAvatar"
+    );
 
-  const name=
-    document.getElementById("userName");
+  const name =
+    document.getElementById(
+      "userName"
+    );
 
-  if(!login || !panel) return;
+  if(!login || !panel){
+    return;
+  }
 
   login.style.display="none";
 
-  panel.classList.add("visible");
+  panel.classList.add(
+    "visible"
+  );
 
-  name.textContent=
+  name.textContent =
     user.name ||
     user.email ||
     "Google User";
 
   if(user.picture){
 
-    avatar.src=user.picture;
+    avatar.src =
+      user.picture;
 
   }else{
 
-    avatar.src=
+    avatar.src =
       "https://ui-avatars.com/api/?name="+
       encodeURIComponent(
         user.name || "User"
@@ -1367,18 +1698,28 @@ function showUser(user){
 
 function hideUser(){
 
-  const panel=
-    document.getElementById("userPanel");
+  const panel =
+    document.getElementById(
+      "userPanel"
+    );
 
-  const login=
-    document.getElementById("googleLogin");
+  const login =
+    document.getElementById(
+      "googleLogin"
+    );
 
   if(panel){
-    panel.classList.remove("visible");
+
+    panel.classList.remove(
+      "visible"
+    );
+
   }
 
   if(login){
+
     login.style.display="flex";
+
   }
 
   renderGoogleButton();
@@ -1413,14 +1754,17 @@ function loadSavedUser(){
 
   try{
 
-    const saved=
+    const saved =
       localStorage.getItem(
         "livenet_google_user"
       );
 
-    if(!saved) return;
+    if(!saved){
+      return;
+    }
 
-    const user=JSON.parse(saved);
+    const user =
+      JSON.parse(saved);
 
     if(user && user.id){
 
@@ -1435,100 +1779,151 @@ function loadSavedUser(){
     );
 
   }
+
 }
 
 
 /* =========================================================
    PLAYER
-   ========================================================= */
+========================================================= */
 
 function openPlayer(url,title){
 
-  const section=
-    document.getElementById("playerSection");
+  const section =
+    document.getElementById(
+      "playerSection"
+    );
 
-  const frame=
-    document.getElementById("playerFrame");
+  const frame =
+    document.getElementById(
+      "playerFrame"
+    );
 
-  const titleElement=
-    document.getElementById("playerTitle");
+  const titleElement =
+    document.getElementById(
+      "playerTitle"
+    );
 
-  titleElement.textContent=
+  titleElement.textContent =
     title || "LiveNet";
 
-  frame.src=url;
+
+  /*
+    Полностью останавливаем
+    предыдущий iframe.
+  */
+
+  frame.src="";
+
+
+  /*
+    Загружаем новый плеер.
+  */
+
+  setTimeout(function(){
+
+    frame.src=url;
+
+  },50);
+
 
   section.style.display="block";
 
+
   section.scrollIntoView({
+
     behavior:"smooth",
+
     block:"start"
+
   });
+
 }
 
 
 function closePlayer(){
 
-  const section=
-    document.getElementById("playerSection");
+  const section =
+    document.getElementById(
+      "playerSection"
+    );
 
-  const frame=
-    document.getElementById("playerFrame");
+  const frame =
+    document.getElementById(
+      "playerFrame"
+    );
 
   frame.src="";
 
   section.style.display="none";
+
 }
 
 
 /* =========================================================
    VISIT TIMER
-   ========================================================= */
+========================================================= */
 
-const visitStarted=Date.now();
+const visitStarted =
+  Date.now();
+
 
 function updateVisitTimer(){
 
-  const elapsed=
+  const elapsed =
     Math.floor(
       (Date.now()-visitStarted)/1000
     );
 
-  const hours=
-    Math.floor(elapsed/3600);
+  const hours =
+    Math.floor(
+      elapsed/3600
+    );
 
-  const minutes=
+  const minutes =
     Math.floor(
       (elapsed%3600)/60
     );
 
-  const seconds=
+  const seconds =
     elapsed%60;
 
   document.getElementById(
     "visitTimer"
-  ).textContent=
-    String(hours).padStart(2,"0")+":"+
-    String(minutes).padStart(2,"0")+":"+
+  ).textContent =
+
+    String(hours).padStart(2,"0")+
+    ":"+
+    String(minutes).padStart(2,"0")+
+    ":"+
     String(seconds).padStart(2,"0");
+
 }
 
-setInterval(updateVisitTimer,1000);
+
+setInterval(
+  updateVisitTimer,
+  1000
+);
 
 
 /* =========================================================
    THEME
-   ========================================================= */
+========================================================= */
 
 function loadTheme(){
 
-  const saved=
+  const saved =
     localStorage.getItem(
       "livenet_theme"
     );
 
   if(saved==="light"){
-    document.body.classList.add("light");
+
+    document.body.classList.add(
+      "light"
+    );
+
   }
 
   updateThemeButton();
@@ -1537,12 +1932,16 @@ function loadTheme(){
 
 function toggleTheme(){
 
-  document.body.classList.toggle("light");
+  document.body.classList.toggle(
+    "light"
+  );
 
-  const mode=
-    document.body.classList.contains("light")
-    ?"light"
-    :"dark";
+  const mode =
+    document.body.classList.contains(
+      "light"
+    )
+    ? "light"
+    : "dark";
 
   localStorage.setItem(
     "livenet_theme",
@@ -1555,34 +1954,39 @@ function toggleTheme(){
 
 function updateThemeButton(){
 
-  const button=
-    document.getElementById("themeBtn");
+  const button =
+    document.getElementById(
+      "themeBtn"
+    );
 
   if(
-    document.body.classList.contains("light")
+    document.body.classList.contains(
+      "light"
+    )
   ){
 
-    button.textContent=
+    button.textContent =
       currentLanguage==="ru"
-      ?"☀️ Режим"
-      :"☀️ Mode";
+      ? "☀️ Режим"
+      : "☀️ Mode";
 
   }else{
 
-    button.textContent=
+    button.textContent =
       currentLanguage==="ru"
-      ?"🌙 Режим"
-      :"🌙 Mode";
+      ? "🌙 Режим"
+      : "🌙 Mode";
 
   }
+
 }
 
 
 /* =========================================================
    LANGUAGE
-   ========================================================= */
+========================================================= */
 
-let currentLanguage=
+let currentLanguage =
   localStorage.getItem(
     "livenet_language"
   ) || "ru";
@@ -1593,40 +1997,65 @@ const translations={
 ru:{
 
 language:"EN",
+
 themeDark:"🌙 Режим",
 themeLight:"☀️ Режим",
 
 radar:"LiveNet Radar",
-systemActive:"Система LiveNet активна",
 
-alwaysLive:"всегда в эфире.",
+systemActive:
+"Система LiveNet активна",
+
+alwaysLive:
+"всегда в эфире.",
 
 heroDescription:
 "Прямые трансляции, ретрансляции, авторские программы и история проекта — всё собрано в одном месте.",
 
-channelsBtn:"Смотреть каналы",
-historyBtn:"История LiveNet",
+channelsBtn:
+"Смотреть каналы",
 
-youAre:"Вы на LiveNet",
-visitTime:"Время текущего посещения",
+historyBtn:
+"История LiveNet",
 
-channelsTitle:"Каналы LiveNet",
+youAre:
+"Вы на LiveNet",
+
+visitTime:
+"Время текущего посещения",
+
+channelsTitle:
+"Каналы LiveNet",
+
 channelsDescription:
 "Нажмите на канал, чтобы открыть плеер прямо на этой странице.",
 
-twitchMain:"Основная Twitch-трансляция LiveNet",
-twitchAlt:"Альтернативная Twitch-трансляция",
-etya:"Онлайн-плеер LiveNet",
-kick:"Основная трансляция LiveNet на Kick",
+twitchMain:
+"Основная Twitch-трансляция LiveNet",
 
-historyTitle:"История проекта",
-historyName:"LiveNet — интернет-канал",
-historyIntro:"История, развитие и деятельность проекта LiveNet.",
+twitchAlt:
+"Альтернативная Twitch-трансляция",
+
+etya:
+"Онлайн-плеер LiveNet",
+
+kick:
+"Основная трансляция LiveNet на Kick",
+
+historyTitle:
+"История проекта",
+
+historyName:
+"LiveNet — интернет-канал",
+
+historyIntro:
+"История, развитие и деятельность проекта LiveNet.",
 
 historyDescription:
 "LiveNet — российский интернет-канал и медиа-проект, основанный в 2026 году. Специализируется на ретрансляции контента сторонних каналов, авторских программах и тематических эфирах. Известен своей неформальной атмосферой, использованием интернет-мемов и тесным взаимодействием с аудиторией через Telegram и другие платформы.",
 
-historyHeading:"🧬 История",
+historyHeading:
+"🧬 История",
 
 history1:
 "Проект был запущен 23 февраля 2026 года под названием HyperWT пользователем Никитой (псевдоним — blonder). Вдохновением послужил проект HyperSAT, занимавшийся ретрансляцией теледрочерского контента и новостей канала ТН.",
@@ -1652,66 +2081,146 @@ history7:
 history8:
 "1 ноября 2026 года анонсирован полный перезапуск проекта в новом формате.",
 
-timelineTitle:"📅 Хронология ключевых событий",
-date:"Дата",
-event:"Событие",
+timelineTitle:
+"📅 Хронология ключевых событий",
 
-t1:"Запуск HyperWT",
-t2:"Закрытие HyperWT, создание «Ретрансляций ИТВ»",
-t3:"Создание Telegram-канала",
-t4:"Временное закрытие, переоткрытие как HyperTwitch",
-t5:"Первый ребрендинг",
-t6:"Запуск дочернего проекта NikNot",
-t7:"Пасхальное открытие HyperTwitch, передача прав AlexBit",
-t8:"Блокировка Twitch-аккаунта bobrdobrenok",
-t9:"Запуск программы «Время Ютуба!»",
-t10:"Закрытие «Время Ютуба!»",
-t11:"Закрытие NikNot, открытие OLD 2X2",
-t12:"Ежедневные эфиры HyperTwitch",
-t13:"Марафон 9 мая",
-t14:"Евронеделя",
-t15:"Переименование HyperTwitch в LiveNet",
-t16:"Закрытие OLD 2X2, LiveNet становится основным проектом",
-t17:"Перерыв до 1 июля, позже продлён",
-t18:"День рождения создателя, поездка в Калининград",
-t19:"Анонс перезапуска LiveNet 1 ноября",
-t20:"Возвращение из деревни",
-t21:"Марафон с участием ЭСС, Невоканала и Русика",
-t22:"Пауза до сентября",
+date:
+"Дата",
 
-contentHeading:"🧠 Содержание и формат",
+event:
+"Событие",
+
+t1:
+"Запуск HyperWT",
+
+t2:
+"Закрытие HyperWT, создание «Ретрансляций ИТВ»",
+
+t3:
+"Создание Telegram-канала",
+
+t4:
+"Временное закрытие, переоткрытие как HyperTwitch",
+
+t5:
+"Первый ребрендинг",
+
+t6:
+"Запуск дочернего проекта NikNot",
+
+t7:
+"Пасхальное открытие HyperTwitch, передача прав AlexBit",
+
+t8:
+"Блокировка Twitch-аккаунта bobrdobrenok",
+
+t9:
+"Запуск программы «Время Ютуба!»",
+
+t10:
+"Закрытие «Время Ютуба!»",
+
+t11:
+"Закрытие NikNot, открытие OLD 2X2",
+
+t12:
+"Ежедневные эфиры HyperTwitch",
+
+t13:
+"Марафон 9 мая",
+
+t14:
+"Евронеделя",
+
+t15:
+"Переименование HyperTwitch в LiveNet",
+
+t16:
+"Закрытие OLD 2X2, LiveNet становится основным проектом",
+
+t17:
+"Перерыв до 1 июля, позже продлён",
+
+t18:
+"День рождения создателя, поездка в Калининград",
+
+t19:
+"Анонс перезапуска LiveNet 1 ноября",
+
+t20:
+"Возвращение из деревни",
+
+t21:
+"Марафон с участием ЭСС, Невоканала и Русика",
+
+t22:
+"Пауза до сентября",
+
+contentHeading:
+"🧠 Содержание и формат",
 
 contentText:
 "LiveNet сочетает ретрансляции сторонних каналов, включая Rusik, ЭСС и Невоканал, с авторскими передачами.",
 
-c1:"«Время Ютуба!» — авторская программа с видео-подборками.",
-c2:"«Кот Платон в эфире» — импровизированная рубрика с котом-символом.",
-c3:"«Тёмный час» — анонсированная ночная рубрика с архивным контентом.",
-c4:"«История LiveNet» — тематические эфиры о развитии проекта.",
-c5:"«Час с чатом» — общение со зрителями без подготовки.",
-c6:"«Абсурдные вставки» — короткие мемные сегменты из эфиров.",
+c1:
+"«Время Ютуба!» — авторская программа с видео-подборками.",
+
+c2:
+"«Кот Платон в эфире» — импровизированная рубрика с котом-символом.",
+
+c3:
+"«Тёмный час» — анонсированная ночная рубрика с архивным контентом.",
+
+c4:
+"«История LiveNet» — тематические эфиры о развитии проекта.",
+
+c5:
+"«Час с чатом» — общение со зрителями без подготовки.",
+
+c6:
+"«Абсурдные вставки» — короткие мемные сегменты из эфиров.",
 
 touritai:
 "— фирменная фраза LiveNet, используемая как приветствие, прощание и символический якорь проекта.",
 
-meme:"В августе 2026 года она обрела статус интернет-мема среди зрителей.",
+meme:
+"В августе 2026 года она обрела статус интернет-мема среди зрителей.",
 
-audienceHeading:"👥 Аудитория и платформы",
-platform1:"Telegram — основной канал и резервный в MAX.",
-platform2:"Kick — стриминговая платформа.",
-platform3:"Twitch — ранее использовался, но был заблокирован.",
+audienceHeading:
+"👥 Аудитория и платформы",
+
+platform1:
+"Telegram — основной канал и резервный в MAX.",
+
+platform2:
+"Kick — стриминговая платформа.",
+
+platform3:
+"Twitch — ранее использовался, но был заблокирован.",
 
 audience:
 "Аудитория — преимущественно русскоязычная, сформирована вокруг ностальгического контента, интернет-культуры и чувства общности.",
 
-statsHeading:"📊 Статистика за 5 месяцев",
-streams:"стримов",
-days:"суток непрерывного вещания",
-platforms:"платформ одновременно",
-rebrands:"ребрендинга",
-closures:"полных закрытия с возвращением",
+statsHeading:
+"📊 Статистика за 5 месяцев",
 
-futureHeading:"🚀 Будущее проекта",
+streams:
+"стримов",
+
+days:
+"суток непрерывного вещания",
+
+platforms:
+"платформ одновременно",
+
+rebrands:
+"ребрендинга",
+
+closures:
+"полных закрытия с возвращением",
+
+futureHeading:
+"🚀 Будущее проекта",
 
 future1:
 "1 ноября 2026 года LiveNet официально перезапускается в новом формате. Детали не раскрыты, но, по словам создателя, проект сменит структуру, сохранив «туритай ту» как ДНК канала.",
@@ -1719,62 +2228,103 @@ future1:
 future2:
 "В планах — регулярные ночные эфиры, больше авторского контента и переход к более стабильной сетке вещания.",
 
-factsHeading:"🧾 Интересные факты",
+factsHeading:
+"🧾 Интересные факты",
 
-fact1:"Проект вдохновлён HyperSAT, закрывшимся в феврале 2026 года.",
-fact2:"Кот Платон появился в эфире после того, как «игроки не пришли на шоу».",
-fact3:"Первое название канала содержало слово «ретрансляции».",
-fact4:"В июле 2026 года был создан отдельный Telegram-канал t.me/LiveNet112.",
-fact5:"Фраза «Ду ю лайк вечер?» стала неофициальным гимном канала ЭСС.",
+fact1:
+"Проект вдохновлён HyperSAT, закрывшимся в феврале 2026 года.",
 
-conclusionHeading:"📎 Заключение",
+fact2:
+"Кот Платон появился в эфире после того, как «игроки не пришли на шоу».",
+
+fact3:
+"Первое название канала содержало слово «ретрансляции».",
+
+fact4:
+"В июле 2026 года был создан отдельный Telegram-канал t.me/LiveNet112.",
+
+fact5:
+"Фраза «Ду ю лайк вечер?» стала неофициальным гимном канала ЭСС.",
+
+conclusionHeading:
+"📎 Заключение",
 
 conclusion:
 "LiveNet — это не просто канал, а живой организм, выросший из любительского проекта в узнаваемое медиа. Его история — это история становления, кризисов, творческих поисков и устойчивого желания оставаться собой в мире шаблонного контента.",
 
-close:"Закрыть",
-change:"Сменить",
-logout:"Выйти"
+close:
+"Закрыть",
+
+change:
+"Сменить",
+
+logout:
+"Выйти"
 
 },
 
 en:{
 
 language:"RU",
+
 themeDark:"🌙 Mode",
 themeLight:"☀️ Mode",
 
 radar:"LiveNet Radar",
-systemActive:"LiveNet system is active",
 
-alwaysLive:"always on air.",
+systemActive:
+"LiveNet system is active",
+
+alwaysLive:
+"always on air.",
 
 heroDescription:
 "Live streams, rebroadcasts, original programs and the project's history — all in one place.",
 
-channelsBtn:"Watch channels",
-historyBtn:"LiveNet history",
+channelsBtn:
+"Watch channels",
 
-youAre:"You are on LiveNet",
-visitTime:"Current visit time",
+historyBtn:
+"LiveNet history",
 
-channelsTitle:"LiveNet Channels",
+youAre:
+"You are on LiveNet",
+
+visitTime:
+"Current visit time",
+
+channelsTitle:
+"LiveNet Channels",
+
 channelsDescription:
 "Click a channel to open the player directly on this page.",
 
-twitchMain:"Main LiveNet Twitch stream",
-twitchAlt:"Alternative Twitch stream",
-etya:"LiveNet online player",
-kick:"Main LiveNet stream on Kick",
+twitchMain:
+"Main LiveNet Twitch stream",
 
-historyTitle:"Project History",
-historyName:"LiveNet — internet channel",
-historyIntro:"The history, development and activities of LiveNet.",
+twitchAlt:
+"Alternative Twitch stream",
+
+etya:
+"LiveNet online player",
+
+kick:
+"Main LiveNet stream on Kick",
+
+historyTitle:
+"Project History",
+
+historyName:
+"LiveNet — internet channel",
+
+historyIntro:
+"The history, development and activities of LiveNet.",
 
 historyDescription:
 "LiveNet is a Russian internet channel and media project founded in 2026. It specializes in rebroadcasting third-party channels, original programs and themed broadcasts. It is known for its informal atmosphere, internet memes and close interaction with its audience through Telegram and other platforms.",
 
-historyHeading:"🧬 History",
+historyHeading:
+"🧬 History",
 
 history1:
 "The project launched on February 23, 2026 under the name HyperWT by Nikita (pseudonym — blonder). It was inspired by HyperSAT, a project focused on rebroadcasting TV content and TN channel news.",
@@ -1800,44 +2350,104 @@ history7:
 history8:
 "On November 1, 2026, a complete relaunch of the project in a new format was announced.",
 
-timelineTitle:"📅 Key Events Timeline",
-date:"Date",
-event:"Event",
+timelineTitle:
+"📅 Key Events Timeline",
 
-t1:"Launch of HyperWT",
-t2:"HyperWT closed, «ITV Rebroadcasts» created",
-t3:"Telegram channel created",
-t4:"Temporary closure, reopening as HyperTwitch",
-t5:"First rebranding",
-t6:"Launch of subsidiary project NikNot",
-t7:"Easter reopening of HyperTwitch, ownership transferred to AlexBit",
-t8:"Twitch account bobrdobrenok blocked",
-t9:"Launch of «YouTube Time!»",
-t10:"«YouTube Time!» closed",
-t11:"NikNot closed, OLD 2X2 launched",
-t12:"Daily HyperTwitch broadcasts",
-t13:"May 9 marathon",
-t14:"Eurovision Week",
-t15:"HyperTwitch renamed to LiveNet",
-t16:"OLD 2X2 closed, LiveNet becomes the main project",
-t17:"Break until July 1, later extended",
-t18:"Creator's birthday, trip to Kaliningrad",
-t19:"LiveNet relaunch announced for November 1",
-t20:"Return from the village",
-t21:"Marathon featuring ESS, Nevokanal and Rusik",
-t22:"Break until September",
+date:
+"Date",
 
-contentHeading:"🧠 Content and Format",
+event:
+"Event",
+
+t1:
+"Launch of HyperWT",
+
+t2:
+"HyperWT closed, «ITV Rebroadcasts» created",
+
+t3:
+"Telegram channel created",
+
+t4:
+"Temporary closure, reopening as HyperTwitch",
+
+t5:
+"First rebranding",
+
+t6:
+"Launch of subsidiary project NikNot",
+
+t7:
+"Easter reopening of HyperTwitch, ownership transferred to AlexBit",
+
+t8:
+"Twitch account bobrdobrenok blocked",
+
+t9:
+"Launch of «YouTube Time!»",
+
+t10:
+"«YouTube Time!» closed",
+
+t11:
+"NikNot closed, OLD 2X2 launched",
+
+t12:
+"Daily HyperTwitch broadcasts",
+
+t13:
+"May 9 marathon",
+
+t14:
+"Eurovision Week",
+
+t15:
+"HyperTwitch renamed to LiveNet",
+
+t16:
+"OLD 2X2 closed, LiveNet becomes the main project",
+
+t17:
+"Break until July 1, later extended",
+
+t18:
+"Creator's birthday, trip to Kaliningrad",
+
+t19:
+"LiveNet relaunch announced for November 1",
+
+t20:
+"Return from the village",
+
+t21:
+"Marathon featuring ESS, Nevokanal and Rusik",
+
+t22:
+"Break until September",
+
+contentHeading:
+"🧠 Content and Format",
 
 contentText:
 "LiveNet combines rebroadcasts of third-party channels, including Rusik, ESS and Nevokanal, with original programs.",
 
-c1:"«YouTube Time!» — an original video compilation program.",
-c2:"«Cat Platon on Air» — an improvised segment featuring the project's cat mascot.",
-c3:"«Dark Hour» — an announced night segment featuring archival content.",
-c4:"«LiveNet History» — themed broadcasts about the project's development.",
-c5:"«Chat Hour» — unprepared communication with viewers.",
-c6:"«Absurd Inserts» — short meme segments from broadcasts.",
+c1:
+"«YouTube Time!» — an original video compilation program.",
+
+c2:
+"«Cat Platon on Air» — an improvised segment featuring the project's cat mascot.",
+
+c3:
+"«Dark Hour» — an announced night segment featuring archival content.",
+
+c4:
+"«LiveNet History» — themed broadcasts about the project's development.",
+
+c5:
+"«Chat Hour» — unprepared communication with viewers.",
+
+c6:
+"«Absurd Inserts» — short meme segments from broadcasts.",
 
 touritai:
 "— LiveNet's signature phrase, used as a greeting, farewell and symbolic anchor of the project.",
@@ -1845,22 +2455,41 @@ touritai:
 meme:
 "In August 2026, it became an internet meme among viewers.",
 
-audienceHeading:"👥 Audience and Platforms",
-platform1:"Telegram — main channel and backup on MAX.",
-platform2:"Kick — streaming platform.",
-platform3:"Twitch — previously used, but later blocked.",
+audienceHeading:
+"👥 Audience and Platforms",
+
+platform1:
+"Telegram — main channel and backup on MAX.",
+
+platform2:
+"Kick — streaming platform.",
+
+platform3:
+"Twitch — previously used, but later blocked.",
 
 audience:
 "The audience is predominantly Russian-speaking and formed around nostalgic content, internet culture and a sense of community.",
 
-statsHeading:"📊 Statistics for 5 Months",
-streams:"streams",
-days:"record of continuous broadcasting",
-platforms:"platforms simultaneously",
-rebrands:"rebrandings",
-closures:"full closures with returns",
+statsHeading:
+"📊 Statistics for 5 Months",
 
-futureHeading:"🚀 Project Future",
+streams:
+"streams",
+
+days:
+"record of continuous broadcasting",
+
+platforms:
+"platforms simultaneously",
+
+rebrands:
+"rebrandings",
+
+closures:
+"full closures with returns",
+
+futureHeading:
+"🚀 Project Future",
 
 future1:
 "On November 1, 2026, LiveNet will officially relaunch in a new format. Details have not been revealed, but according to the creator, the project will change its structure while keeping «turitai tu» as part of the channel's DNA.",
@@ -1868,22 +2497,38 @@ future1:
 future2:
 "Plans include regular night broadcasts, more original content and a more stable programming schedule.",
 
-factsHeading:"🧾 Interesting Facts",
+factsHeading:
+"🧾 Interesting Facts",
 
-fact1:"The project was inspired by HyperSAT, which closed in February 2026.",
-fact2:"Cat Platon appeared on air after the players did not show up for the program.",
-fact3:"The channel's first name included the word «rebroadcasts».",
-fact4:"A separate Telegram channel, t.me/LiveNet112, was created in July 2026.",
-fact5:"The phrase «Do you like evening?» became an unofficial anthem of the ESS channel.",
+fact1:
+"The project was inspired by HyperSAT, which closed in February 2026.",
 
-conclusionHeading:"📎 Conclusion",
+fact2:
+"Cat Platon appeared on air after the players did not show up for the program.",
+
+fact3:
+"The channel's first name included the word «rebroadcasts».",
+
+fact4:
+"A separate Telegram channel, t.me/LiveNet112, was created in July 2026.",
+
+fact5:
+"The phrase «Do you like evening?» became an unofficial anthem of the ESS channel.",
+
+conclusionHeading:
+"📎 Conclusion",
 
 conclusion:
 "LiveNet is more than just a channel. It is a living project that grew from an amateur initiative into a recognizable media project. Its history is a story of growth, crises, creative experimentation and a persistent desire to remain itself in a world of standardized content.",
 
-close:"Close",
-change:"Switch",
-logout:"Log out"
+close:
+"Close",
+
+change:
+"Switch",
+
+logout:
+"Log out"
 
 }
 
@@ -1892,75 +2537,100 @@ logout:"Log out"
 
 /* =========================================================
    APPLY LANGUAGE
-   ========================================================= */
+========================================================= */
 
 function applyLanguage(){
 
-  const lang=
+  const lang =
     translations[currentLanguage];
 
-  document.documentElement.lang=
+  document.documentElement.lang =
     currentLanguage;
 
   document.getElementById(
     "languageBtn"
-  ).textContent=lang.language;
+  ).textContent =
+    lang.language;
 
   document.querySelectorAll(
     "[data-i18n]"
   ).forEach(function(element){
 
-    const key=
-      element.getAttribute("data-i18n");
+    const key =
+      element.getAttribute(
+        "data-i18n"
+      );
 
-    if(lang[key]!==undefined){
-      element.textContent=lang[key];
+    if(lang[key] !== undefined){
+
+      element.textContent =
+        lang[key];
+
     }
 
   });
 
+
   document.getElementById(
     "channelsBtn"
-  ).textContent=lang.channelsBtn;
+  ).textContent =
+    lang.channelsBtn;
+
 
   document.getElementById(
     "historyBtn"
-  ).textContent=lang.historyBtn;
+  ).textContent =
+    lang.historyBtn;
+
 
   document.getElementById(
     "closePlayerBtn"
-  ).innerHTML=
+  ).innerHTML =
     "✕ "+lang.close;
 
+
   updateThemeButton();
+
   updateAuthLanguage();
+
 }
 
 
 function updateAuthLanguage(){
 
-  const lang=
+  const lang =
     translations[currentLanguage];
 
-  const change=
+  const change =
     document.getElementById(
       "changeAccountBtn"
     );
 
-  const logout=
+  const logoutButton =
     document.getElementById(
       "logoutBtn"
     );
 
   if(change){
-    change.textContent=lang.change;
+
+    change.textContent =
+      lang.change;
+
   }
 
-  if(logout){
-    logout.textContent=lang.logout;
+  if(logoutButton){
+
+    logoutButton.textContent =
+      lang.logout;
+
   }
+
 }
 
+
+/* =========================================================
+   LANGUAGE BUTTON
+========================================================= */
 
 document.getElementById(
   "languageBtn"
@@ -1968,10 +2638,10 @@ document.getElementById(
   "click",
   function(){
 
-    currentLanguage=
-      currentLanguage==="ru"
-      ?"en"
-      :"ru";
+    currentLanguage =
+      currentLanguage === "ru"
+      ? "en"
+      : "ru";
 
     localStorage.setItem(
       "livenet_language",
@@ -1986,7 +2656,7 @@ document.getElementById(
 
 /* =========================================================
    RANDOM
-   ========================================================= */
+========================================================= */
 
 document.getElementById(
   "randomBtn"
@@ -1999,17 +2669,20 @@ document.getElementById(
       "history"
     ];
 
-    const target=
+    const target =
       sections[
         Math.floor(
-          Math.random()*sections.length
+          Math.random() *
+          sections.length
         )
       ];
 
     document.getElementById(
       target
     ).scrollIntoView({
+
       behavior:"smooth"
+
     });
 
   }
@@ -2018,7 +2691,7 @@ document.getElementById(
 
 /* =========================================================
    EVENTS
-   ========================================================= */
+========================================================= */
 
 document.getElementById(
   "themeBtn"
@@ -2027,6 +2700,7 @@ document.getElementById(
   toggleTheme
 );
 
+
 document.getElementById(
   "logoutBtn"
 ).addEventListener(
@@ -2034,12 +2708,14 @@ document.getElementById(
   logout
 );
 
+
 document.getElementById(
   "changeAccountBtn"
 ).addEventListener(
   "click",
   chooseAnotherGoogleAccount
 );
+
 
 document.getElementById(
   "closePlayerBtn"
@@ -2051,47 +2727,60 @@ document.getElementById(
 
 /* =========================================================
    LOGIN MESSAGE
-   ========================================================= */
+========================================================= */
 
 function showLoginMessage(text){
 
-  const note=
+  const note =
     document.getElementById(
       "loginNote"
     );
 
-  note.textContent=text;
-  note.classList.add("show");
+  note.textContent =
+    text;
+
+  note.classList.add(
+    "show"
+  );
 
   setTimeout(function(){
-    note.classList.remove("show");
+
+    note.classList.remove(
+      "show"
+    );
+
   },5000);
+
 }
 
 
 /* =========================================================
-   INIT
-   ========================================================= */
+   INITIALIZATION
+========================================================= */
 
 loadTheme();
+
 applyLanguage();
+
 loadSavedUser();
 
 
 /*
-  Ждём загрузки Google Identity Services.
+  Ждём Google Identity Services.
 */
 
-const googleInterval=
+const googleInterval =
 setInterval(function(){
 
   if(
-    typeof google!=="undefined" &&
+    typeof google !== "undefined" &&
     google.accounts &&
     google.accounts.id
   ){
 
-    clearInterval(googleInterval);
+    clearInterval(
+      googleInterval
+    );
 
     initGoogle();
 
@@ -2101,7 +2790,7 @@ setInterval(function(){
 
 
 /*
-  Дополнительная попытка после загрузки страницы.
+  Дополнительная попытка после загрузки.
 */
 
 window.addEventListener(

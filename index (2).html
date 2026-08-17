@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>LiveNet</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #050b12;
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        header {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            padding: 0 32px;
+            background: #08111c;
+            border-bottom: 1px solid #162536;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .logo .blue {
+            color: #39aaff;
+        }
+
+        .live-status {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: #b7c5d4;
+        }
+
+        .live-circle {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: #ff3b30;
+            box-shadow: 0 0 10px rgba(255, 59, 48, 0.8);
+        }
+
+        main {
+            width: min(1400px, 100%);
+            margin: auto;
+            padding: 32px;
+        }
+
+        .player-wrapper {
+            width: 100%;
+            background: #000;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            border: 1px solid #182838;
+        }
+
+        .player {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border: none;
+        }
+
+        .content {
+            margin-top: 25px;
+        }
+
+        .title-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 750;
+        }
+
+        .badge {
+            padding: 5px 9px;
+            border-radius: 6px;
+            background: #e92f2f;
+            color: white;
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: 0.4px;
+        }
+
+        .description {
+            margin-top: 10px;
+            color: #8394a6;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .line {
+            width: 100%;
+            height: 1px;
+            margin: 30px 0;
+            background: #162536;
+        }
+
+        footer {
+            padding: 25px 32px 40px;
+            color: #526477;
+            font-size: 13px;
+            text-align: center;
+        }
+
+        @media (max-width: 700px) {
+            header {
+                height: 62px;
+                padding: 0 18px;
+            }
+
+            .logo {
+                font-size: 24px;
+            }
+
+            main {
+                padding: 18px;
+            }
+
+            .player-wrapper {
+                border-radius: 10px;
+            }
+
+            h1 {
+                font-size: 23px;
+            }
+
+            .description {
+                font-size: 14px;
+            }
+
+            footer {
+                padding-left: 18px;
+                padding-right: 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <span class="blue">Live</span>Net
+    </div>
+
+    <div class="live-status">
+        <span class="live-circle"></span>
+        ПРЯМОЙ ЭФИР
+    </div>
+</header>
+
+<main>
+
+    <div class="player-wrapper">
+        <div class="player">
+
+            <iframe
+                src="https://player.kick.com/LiveNet1"
+                frameborder="0"
+                scrolling="no"
+                allowfullscreen="true">
+            </iframe>
+
+        </div>
+    </div>
+
+    <div class="content">
+
+        <div class="title-row">
+            <h1>LiveNet</h1>
+            <span class="badge">LIVE</span>
+        </div>
+
+        <p class="description">
+            Прямой эфир LiveNet. Смотрите трансляцию онлайн.
+        </p>
+
+    </div>
+
+    <div class="line"></div>
+
+</main>
+
+<footer>
+    © 2026 LiveNet
+</footer>
+
+</body>
+</html>

@@ -5,7 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>LiveNet — интернет-канал</title>
-<meta name="description" content="LiveNet — интернет-канал, прямые трансляции, ретрансляции, авторские программы и история проекта.">
+
+<meta name="description"
+content="LiveNet — интернет-канал, прямые трансляции, ретрансляции, авторские программы и история проекта.">
+
+<meta name="theme-color" content="#07111f">
 
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 
@@ -50,11 +54,13 @@ body{
   color:var(--text);
   font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,
   "Segoe UI",Roboto,Arial,sans-serif;
+
   background:
     radial-gradient(circle at 15% 10%,rgba(57,169,255,.13),transparent 28%),
     radial-gradient(circle at 85% 20%,rgba(118,213,255,.08),transparent 25%),
     linear-gradient(135deg,var(--bg),var(--bg2));
-  transition:.25s;
+
+  transition:background .25s,color .25s;
 }
 
 a{
@@ -77,7 +83,10 @@ header{
   position:sticky;
   top:0;
   z-index:1000;
+
   backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+
   background:rgba(7,17,31,.78);
   border-bottom:1px solid var(--border);
 }
@@ -88,9 +97,11 @@ body.light header{
 
 .header-inner{
   min-height:72px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   gap:14px;
 }
 
@@ -98,6 +109,7 @@ body.light header{
   display:flex;
   align-items:center;
   gap:11px;
+
   font-size:21px;
   font-weight:900;
   white-space:nowrap;
@@ -106,12 +118,17 @@ body.light header{
 .logo{
   width:42px;
   height:42px;
+
   display:grid;
   place-items:center;
+
   border-radius:13px;
+
   background:linear-gradient(135deg,#0787e8,#64d4ff);
+
   color:#fff;
   font-weight:1000;
+
   box-shadow:0 8px 30px rgba(57,169,255,.3);
 }
 
@@ -125,10 +142,16 @@ nav{
   border:1px solid var(--border);
   background:var(--card);
   color:var(--text);
+
   border-radius:11px;
   padding:9px 13px;
+
   cursor:pointer;
-  transition:.2s;
+
+  transition:
+    transform .2s,
+    border-color .2s,
+    background .2s;
 }
 
 .nav-btn:hover{
@@ -160,9 +183,12 @@ nav{
   display:none;
   align-items:center;
   gap:8px;
+
   padding:5px 6px 5px 7px;
+
   border:1px solid var(--border);
   background:var(--card);
+
   border-radius:14px;
 }
 
@@ -173,16 +199,20 @@ nav{
 .user-avatar{
   width:32px;
   height:32px;
+
   border-radius:50%;
+
   object-fit:cover;
   background:var(--accent);
 }
 
 .user-name{
   max-width:130px;
+
   overflow:hidden;
   text-overflow:ellipsis;
   white-space:nowrap;
+
   font-weight:700;
   font-size:14px;
 }
@@ -190,8 +220,11 @@ nav{
 .logout-btn{
   border:0;
   background:transparent;
+
   color:var(--muted);
+
   cursor:pointer;
+
   padding:7px;
   border-radius:8px;
 }
@@ -203,10 +236,14 @@ nav{
 
 .change-account{
   border:1px solid rgba(57,169,255,.3);
+
   background:rgba(57,169,255,.1);
   color:var(--accent2);
+
   border-radius:8px;
+
   padding:6px 8px;
+
   cursor:pointer;
   font-size:12px;
 }
@@ -215,14 +252,20 @@ nav{
 
 .status-bar{
   margin-top:24px;
+
   display:flex;
   align-items:center;
   justify-content:space-between;
+
   gap:15px;
+
   padding:11px 15px;
+
   border:1px solid var(--border);
   background:var(--card);
+
   border-radius:15px;
+
   box-shadow:var(--shadow);
 }
 
@@ -230,6 +273,7 @@ nav{
   display:flex;
   align-items:center;
   gap:9px;
+
   font-size:14px;
   color:var(--muted);
 }
@@ -237,8 +281,13 @@ nav{
 .status-dot{
   width:9px;
   height:9px;
+
+  flex:0 0 9px;
+
   border-radius:50%;
+
   background:#2cff91;
+
   box-shadow:0 0 14px #2cff91;
 }
 
@@ -257,11 +306,16 @@ nav{
   display:inline-flex;
   align-items:center;
   gap:7px;
+
   padding:7px 11px;
+
   border-radius:999px;
+
   border:1px solid rgba(57,169,255,.25);
   background:rgba(57,169,255,.08);
+
   color:var(--accent2);
+
   font-size:13px;
   font-weight:800;
 }
@@ -269,34 +323,44 @@ nav{
 h1{
   font-size:clamp(46px,8vw,92px);
   line-height:.92;
+
   letter-spacing:-5px;
+
   margin:22px 0;
+
   max-width:850px;
 }
 
 .gradient-text{
   background:linear-gradient(90deg,#fff,#72d6ff);
+
   -webkit-background-clip:text;
   background-clip:text;
+
   color:transparent;
 }
 
 body.light .gradient-text{
   background:linear-gradient(90deg,#102033,#087fe5);
+
   -webkit-background-clip:text;
   background-clip:text;
+
   color:transparent;
 }
 
 .hero-description{
   max-width:760px;
+
   color:var(--muted);
+
   font-size:18px;
   line-height:1.65;
 }
 
 .hero-actions{
   margin-top:28px;
+
   display:flex;
   flex-wrap:wrap;
   gap:10px;
@@ -304,22 +368,35 @@ body.light .gradient-text{
 
 .primary{
   border:0;
+
   border-radius:13px;
+
   padding:13px 18px;
+
   color:#fff;
+
   background:linear-gradient(135deg,#087fe5,#39baff);
+
   cursor:pointer;
+
   font-weight:800;
+
   box-shadow:0 12px 35px rgba(57,169,255,.22);
 }
 
 .secondary{
   border:1px solid var(--border);
+
   border-radius:13px;
+
   padding:13px 18px;
+
   background:var(--card);
+
   color:var(--text);
+
   cursor:pointer;
+
   font-weight:700;
 }
 
@@ -327,19 +404,25 @@ body.light .gradient-text{
 
 .visit-card{
   margin:25px 0 50px;
+
   padding:22px;
+
   border:1px solid var(--border);
   background:var(--card);
+
   border-radius:20px;
+
   display:flex;
   justify-content:space-between;
   align-items:center;
+
   gap:20px;
 }
 
 .visit-time{
   font-size:30px;
   font-weight:900;
+
   margin-top:4px;
 }
 
@@ -355,7 +438,9 @@ section{
 
 .section-title{
   font-size:30px;
+
   margin:0 0 8px;
+
   letter-spacing:-1px;
 }
 
@@ -368,37 +453,63 @@ section{
 
 .channels{
   display:grid;
+
   grid-template-columns:repeat(2,1fr);
+
   gap:15px;
 }
 
 .channel{
   border:1px solid var(--border);
+
   background:var(--card);
+
   border-radius:20px;
+
   padding:19px;
+
   display:flex;
   align-items:center;
+
   gap:15px;
+
   cursor:pointer;
-  transition:.2s;
+
+  transition:
+    transform .2s,
+    border-color .2s,
+    background .2s;
+
   box-shadow:0 10px 35px rgba(0,0,0,.07);
+
+  user-select:none;
 }
 
 .channel:hover{
   transform:translateY(-3px);
+
   border-color:rgba(57,169,255,.45);
+}
+
+.channel:active{
+  transform:translateY(-1px);
 }
 
 .channel-icon{
   width:48px;
   height:48px;
+
   flex:0 0 48px;
+
   display:grid;
   place-items:center;
+
   border-radius:14px;
+
   color:#fff;
+
   background:linear-gradient(135deg,#087fe5,#59d0ff);
+
   font-weight:900;
 }
 
@@ -409,14 +520,18 @@ section{
 
 .channel p{
   margin:0;
+
   color:var(--muted);
+
   font-size:14px;
   line-height:1.4;
 }
 
 .channel-arrow{
   margin-left:auto;
+
   color:var(--accent2);
+
   font-size:23px;
 }
 
@@ -428,50 +543,81 @@ section{
 
 .player-box{
   overflow:hidden;
+
   border-radius:20px;
+
   border:1px solid var(--border);
+
   background:#000;
+
   box-shadow:var(--shadow);
 }
 
 .player-header{
+  min-height:58px;
+
   padding:15px;
+
   background:#09111c;
+
   display:flex;
+
   justify-content:space-between;
   align-items:center;
+
+  gap:15px;
 }
 
 .player-frame{
   width:100%;
-  aspect-ratio:16/9;
+
+  aspect-ratio:16 / 9;
+
   border:0;
+
   display:block;
+
   background:#000;
 }
 
 .close-player{
   border:1px solid rgba(255,255,255,.15);
+
   background:rgba(255,255,255,.06);
+
   color:#fff;
+
   border-radius:9px;
+
   padding:7px 11px;
+
   cursor:pointer;
+
+  white-space:nowrap;
+}
+
+.close-player:hover{
+  background:rgba(255,255,255,.1);
 }
 
 /* HISTORY */
 
 .history{
   border:1px solid var(--border);
+
   background:var(--card);
+
   border-radius:22px;
+
   padding:25px;
+
   line-height:1.7;
 }
 
 .history h3{
   margin-top:30px;
   margin-bottom:10px;
+
   font-size:21px;
 }
 
@@ -494,14 +640,18 @@ section{
 
 .timeline{
   width:100%;
+
   border-collapse:collapse;
+
   margin:20px 0;
 }
 
 .timeline th,
 .timeline td{
   text-align:left;
+
   padding:12px;
+
   border-bottom:1px solid var(--border);
 }
 
@@ -518,21 +668,29 @@ section{
 
 .stats{
   display:grid;
+
   grid-template-columns:repeat(5,1fr);
+
   gap:12px;
 }
 
 .stat{
   padding:20px;
+
   border:1px solid var(--border);
+
   background:var(--card);
+
   border-radius:18px;
 }
 
 .stat strong{
   display:block;
+
   font-size:30px;
+
   color:var(--accent2);
+
   margin-bottom:4px;
 }
 
@@ -545,16 +703,26 @@ section{
 
 .login-note{
   display:none;
+
   position:fixed;
+
   right:20px;
   bottom:20px;
+
   z-index:2000;
+
   max-width:360px;
+
   padding:14px 16px;
+
   border-radius:14px;
+
   background:var(--card2);
+
   border:1px solid rgba(255,193,7,.3);
+
   color:var(--muted);
+
   box-shadow:var(--shadow);
 }
 
@@ -566,8 +734,11 @@ section{
 
 footer{
   border-top:1px solid var(--border);
+
   padding:35px 0;
+
   color:var(--muted);
+
   text-align:center;
 }
 
@@ -582,7 +753,9 @@ footer{
 
   .auth-area{
     order:3;
+
     width:100%;
+
     justify-content:center;
   }
 
@@ -640,6 +813,14 @@ footer{
   .timeline td{
     padding:8px;
   }
+
+  .player-header{
+    padding:11px;
+  }
+
+  .close-player{
+    padding:6px 9px;
+  }
 }
 </style>
 </head>
@@ -647,6 +828,7 @@ footer{
 <body>
 
 <header>
+
 <div class="container header-inner">
 
 <a class="brand" href="#">
@@ -655,44 +837,63 @@ footer{
 </a>
 
 <nav>
-  <button class="nav-btn" id="languageBtn">EN</button>
-  <button class="nav-btn" id="themeBtn">🌙 Режим</button>
+
+<button
+  class="nav-btn"
+  id="languageBtn"
+  type="button">
+  EN
+</button>
+
+<button
+  class="nav-btn"
+  id="themeBtn"
+  type="button">
+  🌙 Режим
+</button>
+
 </nav>
 
 <div class="auth-area">
 
-  <div id="googleLogin">
-    <div id="googleButton"></div>
-  </div>
+<div id="googleLogin">
+  <div id="googleButton"></div>
+</div>
 
-  <div id="userPanel" class="user-panel">
+<div id="userPanel" class="user-panel">
 
-    <img
-      id="userAvatar"
-      class="user-avatar"
-      src=""
-      alt="Avatar"
-    >
+<img
+  id="userAvatar"
+  class="user-avatar"
+  src=""
+  alt="Avatar"
+>
 
-    <span id="userName" class="user-name"></span>
+<span
+  id="userName"
+  class="user-name">
+</span>
 
-    <button
-      class="change-account"
-      id="changeAccountBtn">
-      Сменить
-    </button>
+<button
+  class="change-account"
+  id="changeAccountBtn"
+  type="button">
+  Сменить
+</button>
 
-    <button
-      class="logout-btn"
-      id="logoutBtn">
-      Выйти
-    </button>
-
-  </div>
+<button
+  class="logout-btn"
+  id="logoutBtn"
+  type="button">
+  Выйти
+</button>
 
 </div>
 
 </div>
+
+</div>
+
 </header>
 
 
@@ -700,27 +901,30 @@ footer{
 
 <div class="status-bar">
 
-  <div class="status-left">
+<div class="status-left">
 
-    <span class="status-dot"></span>
+<span class="status-dot"></span>
 
-    <span data-i18n="radar">
-      LiveNet Radar
-    </span>
+<span data-i18n="radar">
+  LiveNet Radar
+</span>
 
-    <span>•</span>
+<span>•</span>
 
-    <span
-      class="status-live"
-      data-i18n="systemActive">
-      Система LiveNet активна
-    </span>
+<span
+  class="status-live"
+  data-i18n="systemActive">
+  Система LiveNet активна
+</span>
 
-  </div>
+</div>
 
-  <button class="nav-btn" id="randomBtn">
-    🎲
-  </button>
+<button
+  class="nav-btn"
+  id="randomBtn"
+  type="button">
+  🎲
+</button>
 
 </div>
 
@@ -732,13 +936,17 @@ footer{
 </span>
 
 <h1>
-  <span class="gradient-text">
-    LiveNet
-  </span>
-  <br>
-  <span data-i18n="alwaysLive">
-    всегда в эфире.
-  </span>
+
+<span class="gradient-text">
+  LiveNet
+</span>
+
+<br>
+
+<span data-i18n="alwaysLive">
+  всегда в эфире.
+</span>
+
 </h1>
 
 <p
@@ -753,14 +961,14 @@ footer{
 <button
   class="primary"
   id="channelsBtn"
-  onclick="document.getElementById('channels').scrollIntoView({behavior:'smooth'})">
+  type="button">
   Смотреть каналы
 </button>
 
 <button
   class="secondary"
   id="historyBtn"
-  onclick="document.getElementById('history').scrollIntoView({behavior:'smooth'})">
+  type="button">
   История LiveNet
 </button>
 
@@ -773,19 +981,19 @@ footer{
 
 <div>
 
-  <div class="muted">
-    ⏱️
-  </div>
+<div class="muted">
+  ⏱️
+</div>
 
-  <strong data-i18n="youAre">
-    Вы на LiveNet
-  </strong>
+<strong data-i18n="youAre">
+  Вы на LiveNet
+</strong>
 
-  <div
-    class="muted"
-    data-i18n="visitTime">
-    Время текущего посещения
-  </div>
+<div
+  class="muted"
+  data-i18n="visitTime">
+  Время текущего посещения
+</div>
 
 </div>
 
@@ -815,130 +1023,123 @@ footer{
 
 <div class="channels">
 
-<!-- =========================
-     TWITCH
-========================= -->
+
+<!-- TWITCH -->
 
 <div
   class="channel"
-  onclick="openPlayer(
-    'https://player.twitch.tv/?channel=bobrdobrenok&parent=livenet.limonvzdanii.workers.dev',
-    'LiveNet Twitch'
-  )">
+  data-player="https://player.twitch.tv/?channel=bobrdobrenok&parent=livenet.limonvzdanii.workers.dev"
+  data-title="LiveNet Twitch">
 
-  <div class="channel-icon">
-    T
-  </div>
+<div class="channel-icon">
+  T
+</div>
 
-  <div>
-    <h3>
-      LiveNet Twitch
-    </h3>
+<div>
 
-    <p data-i18n="twitchMain">
-      Основная Twitch-трансляция LiveNet
-    </p>
-  </div>
+<h3>
+  LiveNet Twitch
+</h3>
 
-  <span class="channel-arrow">
-    →
-  </span>
+<p data-i18n="twitchMain">
+  Основная Twitch-трансляция LiveNet
+</p>
+
+</div>
+
+<span class="channel-arrow">
+  →
+</span>
 
 </div>
 
 
-<!-- =========================
-     TWITCH ALT
-========================= -->
+<!-- TWITCH ALT -->
 
 <div
   class="channel"
-  onclick="openPlayer(
-    'https://player.twitch.tv/?channel=bobrdobrenok&parent=livenet.limonvzdanii.workers.dev',
-    'LiveNet Twitch'
-  )">
+  data-player="https://player.twitch.tv/?channel=bobrdobrenok&parent=livenet.limonvzdanii.workers.dev"
+  data-title="LiveNet Twitch">
 
-  <div class="channel-icon">
-    T
-  </div>
+<div class="channel-icon">
+  T
+</div>
 
-  <div>
-    <h3>
-      LiveNet Twitch
-    </h3>
+<div>
 
-    <p data-i18n="twitchAlt">
-      Альтернативная Twitch-трансляция
-    </p>
-  </div>
+<h3>
+  LiveNet Twitch
+</h3>
 
-  <span class="channel-arrow">
-    →
-  </span>
+<p data-i18n="twitchAlt">
+  Альтернативная Twitch-трансляция
+</p>
+
+</div>
+
+<span class="channel-arrow">
+  →
+</span>
 
 </div>
 
 
-<!-- =========================
-     ЭТОЯTV
-========================= -->
+<!-- ЭТОЯTV -->
 
 <div
   class="channel"
-  onclick="openPlayer(
-    'https://etoyatv.top/widget/player/LiveNet?autoplay=1',
-    'LiveNet ЭтоЯTV'
-  )">
+  data-player="https://etoyatv.top/widget/player/LiveNet?autoplay=1"
+  data-title="LiveNet ЭтоЯTV">
 
-  <div class="channel-icon">
-    E
-  </div>
+<div class="channel-icon">
+  E
+</div>
 
-  <div>
-    <h3>
-      LiveNet ЭтоЯTV
-    </h3>
+<div>
 
-    <p data-i18n="etya">
-      Онлайн-плеер LiveNet
-    </p>
-  </div>
+<h3>
+  LiveNet ЭтоЯTV
+</h3>
 
-  <span class="channel-arrow">
-    →
-  </span>
+<p data-i18n="etya">
+  Онлайн-плеер LiveNet
+</p>
+
+</div>
+
+<span class="channel-arrow">
+  →
+</span>
 
 </div>
 
 
-<!-- =========================
-     KICK
-========================= -->
+<!-- KICK -->
 
 <div
   class="channel"
-  onclick="openPlayer(
-    'https://player.kick.com/LiveNet1',
-    'LiveNet Kick'
-  )">
+  data-player="https://player.kick.com/LiveNet1"
+  data-title="LiveNet Kick">
 
-  <div class="channel-icon">
-    K
-  </div>
+<div class="channel-icon">
+  K
+</div>
 
-  <div>
-    <h3>
-      LiveNet Kick
-    </h3>
+<div>
 
-    <p data-i18n="kick">
-      Основная трансляция LiveNet на Kick
-    </p>
-  </div>
+<h3>
+  LiveNet Kick
+</h3>
 
-  <span class="channel-arrow">
-    →
-  </span>
+<p data-i18n="kick">
+  Основная трансляция LiveNet на Kick
+</p>
+
+</div>
+
+<span class="channel-arrow">
+  →
+</span>
 
 </div>
 
@@ -947,9 +1148,7 @@ footer{
 </section>
 
 
-<!-- =========================
-     PLAYER
-========================= -->
+<!-- PLAYER -->
 
 <section id="playerSection">
 
@@ -963,11 +1162,15 @@ footer{
 
 <button
   class="close-player"
-  id="closePlayerBtn">
+  id="closePlayerBtn"
+  type="button">
+
   ✕
+
   <span data-i18n="close">
     Закрыть
   </span>
+
 </button>
 
 </div>
@@ -975,9 +1178,11 @@ footer{
 <iframe
   id="playerFrame"
   class="player-frame"
+  title="LiveNet player"
   allow="autoplay; fullscreen; picture-in-picture"
   allowfullscreen
-  referrerpolicy="origin">
+  referrerpolicy="origin"
+  loading="eager">
 </iframe>
 
 </div>
@@ -1007,7 +1212,9 @@ footer{
   LiveNet — российский интернет-канал и медиа-проект,
   основанный в 2026 году. Специализируется на ретрансляции
   контента сторонних каналов, авторских программах и
-  тематических эфирах.
+  тематических эфирах. Известен своей неформальной атмосферой,
+  использованием интернет-мемов и тесным взаимодействием
+  с аудиторией через Telegram и другие платформы.
 </p>
 
 <h3 data-i18n="historyHeading">
@@ -1023,33 +1230,39 @@ footer{
 <p data-i18n="history2">
   25 февраля HyperWT был закрыт, но почти сразу переродился
   в проект «Ретрансляции ИТВ Каналов на Твиче!».
-  6 марта был создан Telegram-канал.
+  6 марта был создан Telegram-канал, ставший основой для аудитории.
 </p>
 
 <p data-i18n="history3">
   19 марта канал был временно закрыт, но уже 20 марта открылся
-  вновь под названием HyperTwitch.
+  вновь под названием HyperTwitch. 21 марта прошёл первый ребрендинг.
 </p>
 
 <p data-i18n="history4">
-  4 апреля был запущен дочерний проект NikNot.
-  12 апреля состоялось пасхальное открытие обновлённого
-  HyperTwitch, владельцем которого стал AlexBit.
+  4 апреля был запущен дочерний проект NikNot,
+  просуществовавший один день. 12 апреля состоялось пасхальное
+  открытие обновлённого HyperTwitch, владельцем которого стал AlexBit.
+  19 апреля стартовала авторская программа «Время Ютуба!»,
+  закрытая 5 мая.
 </p>
 
 <p data-i18n="history5">
   10 мая был закрыт NikNot и открыт ностальгический канал OLD 2X2.
+  С 1 по 16 мая HyperTwitch вёл ежедневные эфиры,
+  включая тематические марафоны 9 мая и евронеделю
+  с 11 по 17 мая.
 </p>
 
 <p data-i18n="history6">
   15 мая проект был переименован в LiveNet.
   15 июня OLD 2X2 был закрыт и заархивирован.
+  С этого момента LiveNet стал основным каналом.
 </p>
 
 <p data-i18n="history7">
   В июле 2026 года произошёл конфликт с владельцем AlexBit,
   в результате которого было создано новое Telegram-пространство
-  t.me/LiveNet112.
+  t.me/LiveNet112, а старый канал переведён в архивный режим.
 </p>
 
 <p data-i18n="history8">
@@ -1065,10 +1278,19 @@ footer{
 <table class="timeline">
 
 <thead>
+
 <tr>
-<th data-i18n="date">Дата</th>
-<th data-i18n="event">Событие</th>
+
+<th data-i18n="date">
+  Дата
+</th>
+
+<th data-i18n="event">
+  Событие
+</th>
+
 </tr>
+
 </thead>
 
 <tbody>
@@ -1184,6 +1406,7 @@ footer{
 </tr>
 
 </tbody>
+
 </table>
 
 
@@ -1225,10 +1448,14 @@ footer{
 </ul>
 
 <p>
-<strong>«Туритай ту»</strong>
+
+<strong>
+  «Туритай ту»
+</strong>
 
 <span data-i18n="touritai">
-  — фирменная фраза LiveNet.
+  — фирменная фраза LiveNet, используемая как приветствие,
+  прощание и символический якорь проекта.
 </span>
 
 </p>
@@ -1259,9 +1486,9 @@ footer{
 </ul>
 
 <p data-i18n="audience">
-  Аудитория — преимущественно русскоязычная, сформирована
-  вокруг ностальгического контента, интернет-культуры
-  и чувства общности.
+  Аудитория — преимущественно русскоязычная,
+  сформирована вокруг ностальгического контента,
+  интернет-культуры и чувства общности.
 </p>
 
 
@@ -1273,37 +1500,27 @@ footer{
 
 <div class="stat">
 <strong>450+</strong>
-<span data-i18n="streams">
-  стримов
-</span>
+<span data-i18n="streams">стримов</span>
 </div>
 
 <div class="stat">
 <strong>5</strong>
-<span data-i18n="days">
-  суток непрерывного вещания
-</span>
+<span data-i18n="days">суток непрерывного вещания</span>
 </div>
 
 <div class="stat">
 <strong>5</strong>
-<span data-i18n="platforms">
-  платформ одновременно
-</span>
+<span data-i18n="platforms">платформ одновременно</span>
 </div>
 
 <div class="stat">
 <strong>3</strong>
-<span data-i18n="rebrands">
-  ребрендинга
-</span>
+<span data-i18n="rebrands">ребрендинга</span>
 </div>
 
 <div class="stat">
 <strong>2</strong>
-<span data-i18n="closures">
-  полных закрытия с возвращением
-</span>
+<span data-i18n="closures">полных закрытия с возвращением</span>
 </div>
 
 </div>
@@ -1315,7 +1532,8 @@ footer{
 
 <p data-i18n="future1">
   1 ноября 2026 года LiveNet официально перезапускается
-  в новом формате.
+  в новом формате. Детали не раскрыты, но, по словам создателя,
+  проект сменит структуру, сохранив «туритай ту» как ДНК канала.
 </p>
 
 <p data-i18n="future2">
@@ -1335,7 +1553,8 @@ footer{
 </li>
 
 <li data-i18n="fact2">
-  Кот Платон появился в эфире после того, как «игроки не пришли на шоу».
+  Кот Платон появился в эфире после того,
+  как «игроки не пришли на шоу».
 </li>
 
 <li data-i18n="fact3">
@@ -1358,8 +1577,11 @@ footer{
 </h3>
 
 <p data-i18n="conclusion">
-  LiveNet — это не просто канал, а живой организм, выросший
-  из любительского проекта в узнаваемое медиа.
+  LiveNet — это не просто канал, а живой организм,
+  выросший из любительского проекта в узнаваемое медиа.
+  Его история — это история становления, кризисов,
+  творческих поисков и устойчивого желания оставаться собой
+  в мире шаблонного контента.
 </p>
 
 </div>
@@ -1436,6 +1658,7 @@ function initGoogle(){
   });
 
   renderGoogleButton();
+
 }
 
 
@@ -1465,6 +1688,7 @@ function renderGoogleButton(){
     }
 
   );
+
 }
 
 
@@ -1527,6 +1751,7 @@ function handleGoogleCredential(response){
     );
 
     return;
+
   }
 
   try{
@@ -1535,11 +1760,7 @@ function handleGoogleCredential(response){
       parseJwt(response.credential);
 
     if(!payload){
-
-      throw new Error(
-        "Invalid credential"
-      );
-
+      throw new Error("Invalid credential");
     }
 
     const user={
@@ -1643,24 +1864,16 @@ function parseJwt(token){
 function showUser(user){
 
   const login =
-    document.getElementById(
-      "googleLogin"
-    );
+    document.getElementById("googleLogin");
 
   const panel =
-    document.getElementById(
-      "userPanel"
-    );
+    document.getElementById("userPanel");
 
   const avatar =
-    document.getElementById(
-      "userAvatar"
-    );
+    document.getElementById("userAvatar");
 
   const name =
-    document.getElementById(
-      "userName"
-    );
+    document.getElementById("userName");
 
   if(!login || !panel){
     return;
@@ -1668,9 +1881,7 @@ function showUser(user){
 
   login.style.display="none";
 
-  panel.classList.add(
-    "visible"
-  );
+  panel.classList.add("visible");
 
   name.textContent =
     user.name ||
@@ -1693,36 +1904,28 @@ function showUser(user){
   }
 
   updateAuthLanguage();
+
 }
 
 
 function hideUser(){
 
   const panel =
-    document.getElementById(
-      "userPanel"
-    );
+    document.getElementById("userPanel");
 
   const login =
-    document.getElementById(
-      "googleLogin"
-    );
+    document.getElementById("googleLogin");
 
   if(panel){
-
-    panel.classList.remove(
-      "visible"
-    );
-
+    panel.classList.remove("visible");
   }
 
   if(login){
-
     login.style.display="flex";
-
   }
 
   renderGoogleButton();
+
 }
 
 
@@ -1747,6 +1950,7 @@ function logout(){
   }catch(e){}
 
   hideUser();
+
 }
 
 
@@ -1767,9 +1971,7 @@ function loadSavedUser(){
       JSON.parse(saved);
 
     if(user && user.id){
-
       showUser(user);
-
     }
 
   }catch(e){
@@ -1787,75 +1989,131 @@ function loadSavedUser(){
    PLAYER
 ========================================================= */
 
+/*
+  Все URL находятся непосредственно
+  в data-player у карточек каналов.
+*/
+
 function openPlayer(url,title){
 
   const section =
-    document.getElementById(
-      "playerSection"
-    );
+    document.getElementById("playerSection");
 
   const frame =
-    document.getElementById(
-      "playerFrame"
-    );
+    document.getElementById("playerFrame");
 
   const titleElement =
-    document.getElementById(
-      "playerTitle"
-    );
+    document.getElementById("playerTitle");
+
+  if(!section || !frame){
+    return;
+  }
 
   titleElement.textContent =
     title || "LiveNet";
 
 
   /*
-    Полностью останавливаем
-    предыдущий iframe.
-  */
+   * Полностью отключаем старый iframe.
+   */
 
-  frame.src="";
+  frame.removeAttribute("src");
 
 
   /*
-    Загружаем новый плеер.
-  */
-
-  setTimeout(function(){
-
-    frame.src=url;
-
-  },50);
-
+   * Показываем секцию до загрузки.
+   */
 
   section.style.display="block";
 
 
-  section.scrollIntoView({
+  /*
+   * Даём браузеру обработать удаление
+   * старого embedded player.
+   */
 
-    behavior:"smooth",
+  requestAnimationFrame(function(){
 
-    block:"start"
+    frame.src=url;
+
+    requestAnimationFrame(function(){
+
+      section.scrollIntoView({
+
+        behavior:"smooth",
+
+        block:"start"
+
+      });
+
+    });
 
   });
 
 }
 
 
+/* =========================================================
+   CHANNEL CLICK HANDLERS
+========================================================= */
+
+document
+  .querySelectorAll(".channel")
+  .forEach(function(channel){
+
+    channel.addEventListener(
+      "click",
+      function(){
+
+        const url =
+          channel.dataset.player;
+
+        const title =
+          channel.dataset.title;
+
+        if(!url){
+          return;
+        }
+
+        openPlayer(
+          url,
+          title
+        );
+
+      }
+    );
+
+  });
+
+
+/* =========================================================
+   CLOSE PLAYER
+========================================================= */
+
 function closePlayer(){
 
   const section =
-    document.getElementById(
-      "playerSection"
-    );
+    document.getElementById("playerSection");
 
   const frame =
-    document.getElementById(
-      "playerFrame"
-    );
+    document.getElementById("playerFrame");
 
-  frame.src="";
+  if(frame){
 
-  section.style.display="none";
+    /*
+     * Удаляем src полностью,
+     * чтобы сторонний плеер остановился.
+     */
+
+    frame.removeAttribute("src");
+
+  }
+
+  if(section){
+
+    section.style.display="none";
+
+  }
 
 }
 
@@ -1888,9 +2146,14 @@ function updateVisitTimer(){
   const seconds =
     elapsed%60;
 
-  document.getElementById(
-    "visitTimer"
-  ).textContent =
+  const timer =
+    document.getElementById("visitTimer");
+
+  if(!timer){
+    return;
+  }
+
+  timer.textContent =
 
     String(hours).padStart(2,"0")+
     ":"+
@@ -1900,6 +2163,8 @@ function updateVisitTimer(){
 
 }
 
+
+updateVisitTimer();
 
 setInterval(
   updateVisitTimer,
@@ -1927,6 +2192,7 @@ function loadTheme(){
   }
 
   updateThemeButton();
+
 }
 
 
@@ -1937,9 +2203,7 @@ function toggleTheme(){
   );
 
   const mode =
-    document.body.classList.contains(
-      "light"
-    )
+    document.body.classList.contains("light")
     ? "light"
     : "dark";
 
@@ -1949,20 +2213,21 @@ function toggleTheme(){
   );
 
   updateThemeButton();
+
 }
 
 
 function updateThemeButton(){
 
   const button =
-    document.getElementById(
-      "themeBtn"
-    );
+    document.getElementById("themeBtn");
+
+  if(!button){
+    return;
+  }
 
   if(
-    document.body.classList.contains(
-      "light"
-    )
+    document.body.classList.contains("light")
   ){
 
     button.textContent =
@@ -2552,14 +2817,13 @@ function applyLanguage(){
   ).textContent =
     lang.language;
 
+
   document.querySelectorAll(
     "[data-i18n]"
   ).forEach(function(element){
 
     const key =
-      element.getAttribute(
-        "data-i18n"
-      );
+      element.getAttribute("data-i18n");
 
     if(lang[key] !== undefined){
 
@@ -2596,6 +2860,10 @@ function applyLanguage(){
 }
 
 
+/* =========================================================
+   AUTH LANGUAGE
+========================================================= */
+
 function updateAuthLanguage(){
 
   const lang =
@@ -2612,17 +2880,13 @@ function updateAuthLanguage(){
     );
 
   if(change){
-
     change.textContent =
       lang.change;
-
   }
 
   if(logoutButton){
-
     logoutButton.textContent =
       lang.logout;
-
   }
 
 }
@@ -2683,6 +2947,42 @@ document.getElementById(
 
       behavior:"smooth"
 
+    });
+
+  }
+);
+
+
+/* =========================================================
+   HERO BUTTONS
+========================================================= */
+
+document.getElementById(
+  "channelsBtn"
+).addEventListener(
+  "click",
+  function(){
+
+    document.getElementById(
+      "channels"
+    ).scrollIntoView({
+      behavior:"smooth"
+    });
+
+  }
+);
+
+
+document.getElementById(
+  "historyBtn"
+).addEventListener(
+  "click",
+  function(){
+
+    document.getElementById(
+      "history"
+    ).scrollIntoView({
+      behavior:"smooth"
     });
 
   }
@@ -2790,7 +3090,7 @@ setInterval(function(){
 
 
 /*
-  Дополнительная попытка после загрузки.
+  Дополнительная попытка.
 */
 
 window.addEventListener(

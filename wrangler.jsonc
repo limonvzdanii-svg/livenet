@@ -1,7 +1,14 @@
 {
-  "name": "limonvzdanii",
+  "name": "livenet",
+  "main": "worker.js",
   "compatibility_date": "2026-08-17",
+
+  "vars": {
+    "GOOGLE_CLIENT_ID": "812898099803-m8knvsqgm3jpqcs050vcdn3ml55aih90.apps.googleusercontent.com"
+  },
+
   "assets": {
-    "directory": "."
+    "directory": ".",
+    "binding": "ASSETS"
   }
 }

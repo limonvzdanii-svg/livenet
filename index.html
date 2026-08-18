@@ -4406,6 +4406,1552 @@ window.toggleTheme = function(){
 
 
 </script>
+<!-- =========================================================
+     LiveNet EXTENSION PACK
+     Добавляется поверх существующего сайта.
+     ========================================================= -->
 
+<style>
+/* ---------- LIVE NET EXTENSION ---------- */
+
+#lnx-root,
+#lnx-root * {
+    box-sizing: border-box;
+}
+
+#lnx-root {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Floating button */
+#lnx-fab {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    width: 58px;
+    height: 58px;
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 50%;
+    background: rgba(12,12,18,.88);
+    color: #fff;
+    cursor: pointer;
+    z-index: 99990;
+    font-size: 23px;
+    box-shadow: 0 0 25px rgba(255,0,80,.25);
+    backdrop-filter: blur(12px);
+    transition: .25s;
+}
+
+#lnx-fab:hover {
+    transform: scale(1.1) rotate(10deg);
+    box-shadow: 0 0 35px rgba(255,0,80,.5);
+}
+
+/* Control panel */
+#lnx-panel {
+    position: fixed;
+    right: 22px;
+    bottom: 92px;
+    width: 330px;
+    max-height: 78vh;
+    overflow-y: auto;
+    padding: 18px;
+    border-radius: 18px;
+    background: rgba(10,10,16,.94);
+    color: white;
+    border: 1px solid rgba(255,255,255,.14);
+    box-shadow: 0 20px 70px rgba(0,0,0,.55);
+    backdrop-filter: blur(18px);
+    z-index: 99989;
+    display: none;
+}
+
+#lnx-panel.open {
+    display: block;
+    animation: lnxPanel .2s ease;
+}
+
+@keyframes lnxPanel {
+    from {
+        opacity: 0;
+        transform: translateY(15px) scale(.97);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.lnx-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 3px;
+}
+
+.lnx-subtitle {
+    font-size: 11px;
+    opacity: .5;
+    margin-bottom: 15px;
+}
+
+.lnx-section {
+    margin-top: 15px;
+    padding-top: 12px;
+    border-top: 1px solid rgba(255,255,255,.09);
+}
+
+.lnx-section-title {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    opacity: .45;
+    margin-bottom: 8px;
+}
+
+.lnx-btn {
+    width: 100%;
+    border: 1px solid rgba(255,255,255,.1);
+    background: rgba(255,255,255,.055);
+    color: white;
+    padding: 10px 11px;
+    margin: 4px 0;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: left;
+    transition: .18s;
+}
+
+.lnx-btn:hover {
+    background: rgba(255,255,255,.12);
+    transform: translateX(2px);
+}
+
+.lnx-btn.active {
+    background: rgba(255,0,80,.18);
+    border-color: rgba(255,0,80,.45);
+}
+
+.lnx-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(255,255,255,.04);
+}
+
+.lnx-online {
+    color: #55ff8a;
+}
+
+.lnx-offline {
+    color: #ff4d5e;
+}
+
+.lnx-stat {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    opacity: .8;
+    font-size: 13px;
+}
+
+/* clock */
+#lnx-clock {
+    position: fixed;
+    top: 15px;
+    right: 18px;
+    z-index: 99980;
+    padding: 7px 11px;
+    border-radius: 10px;
+    background: rgba(0,0,0,.55);
+    color: white;
+    font-family: monospace;
+    font-size: 12px;
+    opacity: .7;
+    backdrop-filter: blur(8px);
+}
+
+/* LIVE badge */
+#lnx-live {
+    position: fixed;
+    top: 15px;
+    left: 18px;
+    z-index: 99980;
+    padding: 7px 11px;
+    border-radius: 20px;
+    background: rgba(255,0,45,.14);
+    border: 1px solid rgba(255,0,45,.35);
+    color: #ff5265;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+#lnx-live::before {
+    content: "";
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background: currentColor;
+    border-radius: 50%;
+    margin-right: 6px;
+    animation: lnxBlink 1s infinite;
+}
+
+@keyframes lnxBlink {
+    50% { opacity: .2; }
+}
+
+/* toast */
+#lnx-toast {
+    position: fixed;
+    left: 50%;
+    bottom: 25px;
+    transform: translate(-50%, 30px);
+    opacity: 0;
+    pointer-events: none;
+    padding: 12px 18px;
+    border-radius: 12px;
+    background: rgba(10,10,15,.94);
+    color: white;
+    border: 1px solid rgba(255,255,255,.15);
+    box-shadow: 0 10px 35px rgba(0,0,0,.4);
+    z-index: 999999;
+    transition: .25s;
+    font-size: 13px;
+}
+
+#lnx-toast.show {
+    opacity: 1;
+    transform: translate(-50%,0);
+}
+
+/* command palette */
+#lnx-command {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.7);
+    backdrop-filter: blur(8px);
+    z-index: 999999;
+    display: none;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 15vh;
+}
+
+#lnx-command.open {
+    display: flex;
+}
+
+#lnx-command-box {
+    width: min(600px, 92vw);
+    background: #111118;
+    border: 1px solid rgba(255,255,255,.14);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 30px 100px rgba(0,0,0,.7);
+}
+
+#lnx-command-input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    padding: 17px;
+    background: transparent;
+    color: white;
+    font-size: 16px;
+}
+
+.lnx-command-item {
+    padding: 12px 17px;
+    color: #ddd;
+    cursor: pointer;
+}
+
+.lnx-command-item:hover {
+    background: rgba(255,255,255,.08);
+}
+
+/* CRT */
+body.lnx-crt::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 99970;
+    background:
+        repeating-linear-gradient(
+            to bottom,
+            rgba(255,255,255,.025) 0,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px,
+            transparent 4px
+        );
+}
+
+body.lnx-crt {
+    filter: contrast(1.05) saturate(.85);
+}
+
+/* cinema */
+body.lnx-cinema::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    z-index: 9990;
+    pointer-events: none;
+}
+
+/* focus */
+body.lnx-focus #lnx-clock,
+body.lnx-focus #lnx-live,
+body.lnx-focus #lnx-fab {
+    opacity: .15;
+}
+
+/* glitch */
+body.lnx-glitch {
+    animation: lnxGlitch .08s infinite;
+}
+
+@keyframes lnxGlitch {
+    0% { transform: translate(0); }
+    25% { transform: translate(2px,-1px); }
+    50% { transform: translate(-2px,1px); }
+    75% { transform: translate(1px,2px); }
+    100% { transform: translate(0); }
+}
+
+/* matrix */
+#lnx-matrix {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 999999;
+    display: none;
+}
+
+#lnx-matrix.open {
+    display: block;
+}
+
+/* offline */
+#lnx-offline {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background: rgba(0,0,0,.94);
+    color: white;
+    z-index: 999998;
+}
+
+#lnx-offline.show {
+    display: flex;
+}
+
+#lnx-offline strong {
+    font-size: 30px;
+    margin-bottom: 8px;
+}
+
+#lnx-offline span {
+    opacity: .55;
+}
+
+/* range */
+.lnx-range {
+    width: 100%;
+}
+
+/* mobile */
+@media (max-width: 600px) {
+    #lnx-panel {
+        right: 10px;
+        left: 10px;
+        bottom: 82px;
+        width: auto;
+    }
+
+    #lnx-clock {
+        top: 12px;
+        right: 10px;
+    }
+
+    #lnx-live {
+        top: 12px;
+        left: 10px;
+    }
+
+    #lnx-fab {
+        right: 14px;
+        bottom: 14px;
+    }
+}
+</style>
+
+
+<div id="lnx-root">
+
+    <div id="lnx-live">LIVE NET</div>
+
+    <div id="lnx-clock">00:00:00</div>
+
+    <button id="lnx-fab" title="LiveNet Control Center">⚡</button>
+
+    <div id="lnx-panel">
+
+        <div class="lnx-title">⚡ LiveNet</div>
+        <div class="lnx-subtitle">CONTROL CENTER • EXTENSION PACK</div>
+
+        <div class="lnx-status">
+            <span>Интернет</span>
+            <strong id="lnx-network" class="lnx-online">ONLINE</strong>
+        </div>
+
+        <div class="lnx-section">
+
+            <div class="lnx-section-title">Режимы</div>
+
+            <button class="lnx-btn" id="lnx-tv">📺 ТВ-режим</button>
+            <button class="lnx-btn" id="lnx-cinema">🎬 Театральный режим</button>
+            <button class="lnx-btn" id="lnx-focus">👁️ Focus Mode</button>
+            <button class="lnx-btn" id="lnx-crt">📺 CRT Mode</button>
+            <button class="lnx-btn" id="lnx-glitch">💥 Glitch Mode</button>
+            <button class="lnx-btn" id="lnx-matrix">🟢 Matrix Mode</button>
+
+        </div>
+
+        <div class="lnx-section">
+
+            <div class="lnx-section-title">Инструменты</div>
+
+            <button class="lnx-btn" id="lnx-random">🎲 Случайный канал</button>
+            <button class="lnx-btn" id="lnx-share">🔗 Поделиться LiveNet</button>
+            <button class="lnx-btn" id="lnx-notify">🔔 Уведомления</button>
+            <button class="lnx-btn" id="lnx-install">📱 Установить LiveNet</button>
+            <button class="lnx-btn" id="lnx-export">💾 Экспорт настроек</button>
+            <button class="lnx-btn" id="lnx-reset">♻️ Сбросить настройки</button>
+
+        </div>
+
+        <div class="lnx-section">
+
+            <div class="lnx-section-title">Визуал</div>
+
+            <div class="lnx-stat">
+                <span>✨ Glow</span>
+                <input class="lnx-range" id="lnx-glow" type="range" min="0" max="100" value="50">
+            </div>
+
+            <div class="lnx-stat">
+                <span>🌫 Blur</span>
+                <input class="lnx-range" id="lnx-blur" type="range" min="0" max="30" value="12">
+            </div>
+
+            <button class="lnx-btn" id="lnx-particles">🌌 Анимированный фон</button>
+
+        </div>
+
+        <div class="lnx-section">
+
+            <div class="lnx-section-title">Статистика</div>
+
+            <div class="lnx-stat">
+                <span>Сессия</span>
+                <strong id="lnx-session">00:00</strong>
+            </div>
+
+            <div class="lnx-stat">
+                <span>Посещений</span>
+                <strong id="lnx-visits">0</strong>
+            </div>
+
+            <div class="lnx-stat">
+                <span>Достижения</span>
+                <strong id="lnx-achievements">0</strong>
+            </div>
+
+        </div>
+
+        <div class="lnx-section">
+
+            <div class="lnx-section-title">Секретное</div>
+
+            <button class="lnx-btn" id="lnx-terminal">🖥️ LiveNet Terminal</button>
+            <button class="lnx-btn" id="lnx-achievements-btn">🏆 Достижения</button>
+
+        </div>
+
+        <div class="lnx-subtitle" style="margin-top:15px;margin-bottom:0;">
+            Ctrl + K — Command Palette
+            <br>
+            T — TV • C — CRT • G — Glitch • R — Random
+        </div>
+
+    </div>
+
+    <div id="lnx-toast"></div>
+
+    <div id="lnx-command">
+        <div id="lnx-command-box">
+
+            <input
+                id="lnx-command-input"
+                placeholder="Поиск команды LiveNet..."
+                autocomplete="off"
+            >
+
+            <div id="lnx-command-results">
+
+                <div class="lnx-command-item" data-command="tv">
+                    📺 ТВ-режим
+                </div>
+
+                <div class="lnx-command-item" data-command="crt">
+                    📺 CRT Mode
+                </div>
+
+                <div class="lnx-command-item" data-command="glitch">
+                    💥 Glitch Mode
+                </div>
+
+                <div class="lnx-command-item" data-command="matrix">
+                    🟢 Matrix Mode
+                </div>
+
+                <div class="lnx-command-item" data-command="random">
+                    🎲 Случайный канал
+                </div>
+
+                <div class="lnx-command-item" data-command="share">
+                    🔗 Поделиться
+                </div>
+
+                <div class="lnx-command-item" data-command="terminal">
+                    🖥️ Terminal
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <canvas id="lnx-matrix"></canvas>
+
+    <div id="lnx-offline">
+        <strong>📡 CONNECTION LOST</strong>
+        <span>LiveNet пытается восстановить соединение...</span>
+    </div>
+
+</div>
+
+
+<script>
+/* =========================================================
+   LiveNet Extension Pack JS
+   ========================================================= */
+
+(() => {
+
+    "use strict";
+
+    const $ = id => document.getElementById(id);
+
+    const body = document.body;
+
+    /* ---------- STORAGE ---------- */
+
+    const storage = {
+        get(key, fallback = null) {
+            try {
+                const value = localStorage.getItem("livenet_" + key);
+                return value === null ? fallback : JSON.parse(value);
+            } catch {
+                return fallback;
+            }
+        },
+
+        set(key, value) {
+            try {
+                localStorage.setItem(
+                    "livenet_" + key,
+                    JSON.stringify(value)
+                );
+            } catch {}
+        }
+    };
+
+
+    /* ---------- VISITS ---------- */
+
+    let visits = storage.get("visits", 0);
+
+    visits++;
+
+    storage.set("visits", visits);
+
+    $("lnx-visits").textContent = visits;
+
+
+    /* ---------- ACHIEVEMENTS ---------- */
+
+    let achievements = storage.get("achievements", []);
+
+    function achievement(name) {
+
+        if (achievements.includes(name)) return;
+
+        achievements.push(name);
+
+        storage.set("achievements", achievements);
+
+        $("lnx-achievements").textContent = achievements.length;
+
+        toast("🏆 Достижение: " + name);
+    }
+
+    $("lnx-achievements").textContent = achievements.length;
+
+    if (visits === 1) {
+        achievement("Первое посещение");
+    }
+
+    if (visits >= 10) {
+        achievement("Ветеран LiveNet");
+    }
+
+
+    /* ---------- TOAST ---------- */
+
+    let toastTimer;
+
+    function toast(message) {
+
+        const el = $("lnx-toast");
+
+        el.textContent = message;
+
+        el.classList.add("show");
+
+        clearTimeout(toastTimer);
+
+        toastTimer = setTimeout(() => {
+            el.classList.remove("show");
+        }, 2600);
+    }
+
+
+    /* ---------- PANEL ---------- */
+
+    $("lnx-fab").addEventListener("click", () => {
+
+        $("lnx-panel").classList.toggle("open");
+
+        achievement("Открыл Control Center");
+
+    });
+
+
+    /* ---------- CLOCK ---------- */
+
+    function updateClock() {
+
+        const now = new Date();
+
+        const time = now.toLocaleTimeString(
+            "ru-RU",
+            {
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit"
+            }
+        );
+
+        $("lnx-clock").textContent = time;
+    }
+
+    updateClock();
+
+    setInterval(updateClock, 1000);
+
+
+    /* ---------- SESSION ---------- */
+
+    const sessionStart = Date.now();
+
+    setInterval(() => {
+
+        const seconds = Math.floor(
+            (Date.now() - sessionStart) / 1000
+        );
+
+        const min = String(
+            Math.floor(seconds / 60)
+        ).padStart(2, "0");
+
+        const sec = String(
+            seconds % 60
+        ).padStart(2, "0");
+
+        $("lnx-session").textContent =
+            min + ":" + sec;
+
+        if (seconds >= 600) {
+            achievement("10 минут на LiveNet");
+        }
+
+    }, 1000);
+
+
+    /* ---------- NETWORK ---------- */
+
+    function updateNetwork() {
+
+        const online = navigator.onLine;
+
+        $("lnx-network").textContent =
+            online ? "ONLINE" : "OFFLINE";
+
+        $("lnx-network").className =
+            online ? "lnx-online" : "lnx-offline";
+
+        $("lnx-offline").classList.toggle(
+            "show",
+            !online
+        );
+    }
+
+    window.addEventListener(
+        "online",
+        () => {
+            updateNetwork();
+            toast("🟢 Соединение восстановлено");
+        }
+    );
+
+    window.addEventListener(
+        "offline",
+        () => {
+            updateNetwork();
+            toast("🔴 Соединение потеряно");
+        }
+    );
+
+    updateNetwork();
+
+
+    /* ---------- MODES ---------- */
+
+    function toggleMode(button, className, message) {
+
+        const active = body.classList.toggle(className);
+
+        button.classList.toggle(
+            "active",
+            active
+        );
+
+        toast(
+            active
+                ? message + " ON"
+                : message + " OFF"
+        );
+    }
+
+
+    $("lnx-tv").onclick = () => {
+
+        toggleMode(
+            $("lnx-tv"),
+            "lnx-tv-mode",
+            "📺 ТВ-режим"
+        );
+
+        achievement("Попробовал ТВ-режим");
+    };
+
+
+    $("lnx-cinema").onclick = () => {
+
+        toggleMode(
+            $("lnx-cinema"),
+            "lnx-cinema",
+            "🎬 Театральный режим"
+        );
+
+    };
+
+
+    $("lnx-focus").onclick = () => {
+
+        toggleMode(
+            $("lnx-focus"),
+            "lnx-focus",
+            "👁️ Focus Mode"
+        );
+
+    };
+
+
+    $("lnx-crt").onclick = () => {
+
+        toggleMode(
+            $("lnx-crt"),
+            "lnx-crt",
+            "📺 CRT Mode"
+        );
+
+        achievement("CRT Operator");
+
+    };
+
+
+    $("lnx-glitch").onclick = () => {
+
+        body.classList.add("lnx-glitch");
+
+        toast("💥 GLITCH!");
+
+        achievement("Glitch detected");
+
+        setTimeout(() => {
+            body.classList.remove("lnx-glitch");
+        }, 3000);
+
+    };
+
+
+    /* ---------- RANDOM CHANNEL ---------- */
+
+    $("lnx-random").onclick = () => {
+
+        const channels = [
+            "Twitch",
+            "Kick",
+            "TV",
+            "LiveNet"
+        ];
+
+        const channel =
+            channels[
+                Math.floor(
+                    Math.random() *
+                    channels.length
+                )
+            ];
+
+        toast("🎲 Случайный канал: " + channel);
+
+        achievement("Случайный выбор");
+    };
+
+
+    /* ---------- SHARE ---------- */
+
+    $("lnx-share").onclick = async () => {
+
+        try {
+
+            if (navigator.share) {
+
+                await navigator.share({
+                    title: "LiveNet",
+                    text: "Смотри LiveNet!",
+                    url: location.href
+                });
+
+            } else {
+
+                await navigator.clipboard.writeText(
+                    location.href
+                );
+
+                toast("🔗 Ссылка скопирована");
+
+            }
+
+            achievement("Поделился LiveNet");
+
+        } catch {}
+
+    };
+
+
+    /* ---------- NOTIFICATIONS ---------- */
+
+    $("lnx-notify").onclick = async () => {
+
+        if (!("Notification" in window)) {
+
+            toast("❌ Браузер не поддерживает уведомления");
+
+            return;
+        }
+
+        const permission =
+            await Notification.requestPermission();
+
+        if (permission === "granted") {
+
+            new Notification(
+                "LiveNet",
+                {
+                    body: "🔴 Уведомления LiveNet включены!"
+                }
+            );
+
+            achievement("Включил уведомления");
+
+        } else {
+
+            toast("🔕 Уведомления запрещены");
+
+        }
+
+    };
+
+
+    /* ---------- INSTALL PWA ---------- */
+
+    let deferredPrompt = null;
+
+    window.addEventListener(
+        "beforeinstallprompt",
+        event => {
+
+            event.preventDefault();
+
+            deferredPrompt = event;
+
+            $("lnx-install").style.display =
+                "block";
+        }
+    );
+
+
+    $("lnx-install").onclick = async () => {
+
+        if (!deferredPrompt) {
+
+            toast(
+                "📱 Установка появится, когда браузер разрешит PWA"
+            );
+
+            return;
+        }
+
+        deferredPrompt.prompt();
+
+        await deferredPrompt.userChoice;
+
+        deferredPrompt = null;
+
+    };
+
+
+    /* ---------- GLOW ---------- */
+
+    $("lnx-glow").addEventListener(
+        "input",
+        event => {
+
+            const value =
+                Number(event.target.value);
+
+            $("lnx-fab").style.boxShadow =
+                `0 0 ${value / 2}px rgba(255,0,80,.55)`;
+
+        }
+    );
+
+
+    /* ---------- BLUR ---------- */
+
+    $("lnx-blur").addEventListener(
+        "input",
+        event => {
+
+            const value =
+                Number(event.target.value);
+
+            $("lnx-panel").style.backdropFilter =
+                `blur(${value}px)`;
+
+        }
+    );
+
+
+    /* ---------- PARTICLES ---------- */
+
+    let particlesEnabled = true;
+
+    $("lnx-particles").onclick = () => {
+
+        particlesEnabled =
+            !particlesEnabled;
+
+        document.body.style.backgroundAttachment =
+            particlesEnabled
+                ? "fixed"
+                : "scroll";
+
+        toast(
+            particlesEnabled
+                ? "🌌 Эффекты включены"
+                : "🌌 Эффекты выключены"
+        );
+
+    };
+
+
+    /* ---------- MATRIX ---------- */
+
+    let matrixAnimation = null;
+
+    $("lnx-matrix").onclick = () => {
+
+        const canvas = $("lnx-matrix");
+
+        canvas.classList.toggle("open");
+
+        if (!canvas.classList.contains("open")) {
+
+            cancelAnimationFrame(
+                matrixAnimation
+            );
+
+            return;
+        }
+
+        canvas.width = innerWidth;
+        canvas.height = innerHeight;
+
+        const ctx =
+            canvas.getContext("2d");
+
+        const fontSize = 16;
+
+        const columns =
+            Math.floor(
+                canvas.width / fontSize
+            );
+
+        const drops =
+            Array(columns).fill(1);
+
+        function draw() {
+
+            ctx.fillStyle =
+                "rgba(0,0,0,.08)";
+
+            ctx.fillRect(
+                0,
+                0,
+                canvas.width,
+                canvas.height
+            );
+
+            ctx.fillStyle =
+                "#00ff66";
+
+            ctx.font =
+                fontSize + "px monospace";
+
+            for (
+                let i = 0;
+                i < drops.length;
+                i++
+            ) {
+
+                const text =
+                    String.fromCharCode(
+                        0x30A0 +
+                        Math.random() * 96
+                    );
+
+                ctx.fillText(
+                    text,
+                    i * fontSize,
+                    drops[i] * fontSize
+                );
+
+                if (
+                    drops[i] * fontSize >
+                    canvas.height &&
+                    Math.random() > .975
+                ) {
+                    drops[i] = 0;
+                }
+
+                drops[i]++;
+            }
+
+            matrixAnimation =
+                requestAnimationFrame(draw);
+        }
+
+        draw();
+
+        achievement("Нашёл Matrix Mode");
+
+    };
+
+
+    /* ---------- TERMINAL ---------- */
+
+    $("lnx-terminal").onclick = () => {
+
+        const commands = [
+            "LiveNet OS v2.0",
+            "",
+            "SYSTEM      ONLINE",
+            "STREAM      READY",
+            "NETWORK     ONLINE",
+            "STORAGE     OK",
+            "SECURITY    OK",
+            "",
+            "> status",
+            "",
+            "Everything looks good.",
+            "",
+            "> welcome",
+            "",
+            "Welcome to LiveNet.",
+            "",
+            "> _"
+        ];
+
+        const terminal =
+            document.createElement("div");
+
+        terminal.style.cssText = `
+            position:fixed;
+            inset:0;
+            background:#050505;
+            color:#00ff66;
+            z-index:1000000;
+            padding:30px;
+            font-family:monospace;
+            font-size:14px;
+            white-space:pre-wrap;
+            overflow:auto;
+        `;
+
+        terminal.textContent =
+            commands.join("\n");
+
+        terminal.onclick = () =>
+            terminal.remove();
+
+        document.body.appendChild(
+            terminal
+        );
+
+        achievement("Открыл LiveNet Terminal");
+
+    };
+
+
+    /* ---------- ACHIEVEMENTS ---------- */
+
+    $("lnx-achievements-btn").onclick = () => {
+
+        const names = achievements.length
+            ? achievements.join("\n• ")
+            : "Пока нет достижений";
+
+        alert(
+            "🏆 LiveNet Achievements\n\n• " +
+            names
+        );
+
+    };
+
+
+    /* ---------- EXPORT ---------- */
+
+    $("lnx-export").onclick = () => {
+
+        const data = {
+            visits,
+            achievements,
+            exported:
+                new Date().toISOString()
+        };
+
+        const blob =
+            new Blob(
+                [JSON.stringify(data, null, 2)],
+                {
+                    type: "application/json"
+                }
+            );
+
+        const url =
+            URL.createObjectURL(blob);
+
+        const a =
+            document.createElement("a");
+
+        a.href = url;
+
+        a.download =
+            "LiveNet-settings.json";
+
+        a.click();
+
+        URL.revokeObjectURL(url);
+
+        achievement("Экспортировал настройки");
+
+    };
+
+
+    /* ---------- RESET ---------- */
+
+    $("lnx-reset").onclick = () => {
+
+        if (
+            !confirm(
+                "Сбросить локальные настройки LiveNet?"
+            )
+        ) return;
+
+        Object.keys(localStorage)
+            .filter(key =>
+                key.startsWith("livenet_")
+            )
+            .forEach(key =>
+                localStorage.removeItem(key)
+            );
+
+        location.reload();
+
+    };
+
+
+    /* ---------- COMMAND PALETTE ---------- */
+
+    function openCommand() {
+
+        $("lnx-command").classList.add(
+            "open"
+        );
+
+        $("lnx-command-input").focus();
+
+    }
+
+
+    function closeCommand() {
+
+        $("lnx-command").classList.remove(
+            "open"
+        );
+
+    }
+
+
+    $("lnx-command").addEventListener(
+        "click",
+        event => {
+
+            if (
+                event.target ===
+                $("lnx-command")
+            ) {
+                closeCommand();
+            }
+
+        }
+    );
+
+
+    $("lnx-command-input")
+        .addEventListener(
+            "input",
+            event => {
+
+                const query =
+                    event.target.value
+                        .toLowerCase();
+
+                document
+                    .querySelectorAll(
+                        ".lnx-command-item"
+                    )
+                    .forEach(item => {
+
+                        item.style.display =
+                            item.textContent
+                                .toLowerCase()
+                                .includes(query)
+                                ? "block"
+                                : "none";
+
+                    });
+
+            }
+        );
+
+
+    document
+        .querySelectorAll(
+            ".lnx-command-item"
+        )
+        .forEach(item => {
+
+            item.onclick = () => {
+
+                const command =
+                    item.dataset.command;
+
+                closeCommand();
+
+                if (command === "tv")
+                    $("lnx-tv").click();
+
+                if (command === "crt")
+                    $("lnx-crt").click();
+
+                if (command === "glitch")
+                    $("lnx-glitch").click();
+
+                if (command === "matrix")
+                    $("lnx-matrix").click();
+
+                if (command === "random")
+                    $("lnx-random").click();
+
+                if (command === "share")
+                    $("lnx-share").click();
+
+                if (command === "terminal")
+                    $("lnx-terminal").click();
+
+            };
+
+        });
+
+
+    /* ---------- KEYBOARD ---------- */
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.ctrlKey &&
+                event.key.toLowerCase() === "k"
+            ) {
+
+                event.preventDefault();
+
+                openCommand();
+
+                return;
+            }
+
+
+            if (
+                event.key === "Escape"
+            ) {
+
+                closeCommand();
+
+                $("lnx-panel")
+                    .classList.remove(
+                        "open"
+                    );
+
+                return;
+            }
+
+
+            if (
+                event.target.tagName ===
+                "INPUT"
+            ) return;
+
+
+            switch (
+                event.key.toLowerCase()
+            ) {
+
+                case "t":
+                    $("lnx-tv").click();
+                    break;
+
+                case "c":
+                    $("lnx-crt").click();
+                    break;
+
+                case "g":
+                    $("lnx-glitch").click();
+                    break;
+
+                case "r":
+                    $("lnx-random").click();
+                    break;
+
+                case "k":
+                    $("lnx-fab").click();
+                    break;
+
+            }
+
+        }
+    );
+
+
+    /* ---------- KONAMI CODE ---------- */
+
+    const konami = [
+        "ArrowUp",
+        "ArrowUp",
+        "ArrowDown",
+        "ArrowDown",
+        "ArrowLeft",
+        "ArrowRight",
+        "ArrowLeft",
+        "ArrowRight",
+        "b",
+        "a"
+    ];
+
+    let konamiIndex = 0;
+
+    document.addEventListener(
+        "keydown",
+        event => {
+
+            if (
+                event.key ===
+                konami[konamiIndex]
+            ) {
+
+                konamiIndex++;
+
+                if (
+                    konamiIndex ===
+                    konami.length
+                ) {
+
+                    konamiIndex = 0;
+
+                    body.classList.add(
+                        "lnx-glitch"
+                    );
+
+                    toast(
+                        "👾 KONAMI CODE ACTIVATED"
+                    );
+
+                    achievement(
+                        "Нашёл секретную пасхалку"
+                    );
+
+                    setTimeout(
+                        () => {
+                            body.classList.remove(
+                                "lnx-glitch"
+                            );
+                        },
+                        5000
+                    );
+
+                }
+
+            } else {
+
+                konamiIndex = 0;
+
+            }
+
+        }
+    );
+
+
+    /* ---------- SECRET LOGO CLICKS ---------- */
+
+    let logoClicks = 0;
+
+    document.addEventListener(
+        "click",
+        event => {
+
+            const target =
+                event.target;
+
+            if (
+                target.textContent &&
+                target.textContent
+                    .trim()
+                    .toUpperCase()
+                    .includes("LIVENET")
+            ) {
+
+                logoClicks++;
+
+                if (
+                    logoClicks >= 7
+                ) {
+
+                    logoClicks = 0;
+
+                    $("lnx-terminal").click();
+
+                    toast(
+                        "👁️ Ты нашёл секретный вход"
+                    );
+
+                }
+
+            }
+
+        }
+    );
+
+
+    /* ---------- SAVE SOME SETTINGS ---------- */
+
+    window.addEventListener(
+        "beforeunload",
+        () => {
+
+            storage.set(
+                "lastVisit",
+                Date.now()
+            );
+
+        }
+    );
+
+
+    /* ---------- STARTUP ---------- */
+
+    setTimeout(
+        () => {
+
+            if (visits === 1) {
+
+                toast(
+                    "📺 Добро пожаловать в LiveNet"
+                );
+
+            }
+
+        },
+        1200
+    );
+
+
+})();
+</script>
 </body>
 </html>

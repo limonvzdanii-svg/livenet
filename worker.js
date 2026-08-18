@@ -14,6 +14,10 @@ export default {
             if (url.pathname === "/api/me" && request.method === "GET") {
                 return await handleMe(request, env);
             }
+            // LiveNet Channel Center
+if (url.pathname === "/api/status" && request.method === "GET") {
+    return await handleStatus(request, env);
+}
 
             // Logout
             if (url.pathname === "/auth/logout") {

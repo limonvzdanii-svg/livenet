@@ -11,12 +11,86 @@ export default {
             }
 
             // Current logged-in user
-            if (url.pathname === "/api/me" && request.method === "GET") {
-                return await handleMe(request, env);
+           if (url.pathname === "/api/status" && request.method === "GET") {
+    return new Response(JSON.stringify({
+        ok: true,
+        service: "LiveNet",
+        status: "online",
+        checkedAt: new Date().toISOString(),
+        services: [
+            {
+                id: "livenet",
+                name: "LiveNet",
+                type: "system",
+                status: "online"
+            },
+            {
+                id: "twitch",
+                name: "Twitch",
+                type: "stream",
+                status: "available"
+            },
+            {
+                id: "kick",
+                name: "Kick",
+                type: "stream",
+                status: "available"
+            },
+            {
+                id: "etoyatv",
+                name: "ЭтоЯTV",
+                type: "stream",
+                status: "available"
+            }
+        ]
+    }), {
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Cache-Control": "no-store"
+        }
+    });
+}
             }
             // LiveNet Channel Center
 if (url.pathname === "/api/status" && request.method === "GET") {
-    return await handleStatus(request, env);
+    return new Response(JSON.stringify({
+        ok: true,
+        service: "LiveNet",
+        status: "online",
+        checkedAt: new Date().toISOString(),
+        services: [
+            {
+                id: "livenet",
+                name: "LiveNet",
+                type: "system",
+                status: "online"
+            },
+            {
+                id: "twitch",
+                name: "Twitch",
+                type: "stream",
+                status: "available"
+            },
+            {
+                id: "kick",
+                name: "Kick",
+                type: "stream",
+                status: "available"
+            },
+            {
+                id: "etoyatv",
+                name: "ЭтоЯTV",
+                type: "stream",
+                status: "available"
+            }
+        ]
+    }), {
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "Cache-Control": "no-store"
+        }
+    });
+}
 }
 
             // Logout

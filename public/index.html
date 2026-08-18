@@ -7633,6 +7633,304 @@ setInterval(
 
 })();
 </script>
+<!-- ================================
+     LiveNet Channel Center 2.0
+================================= -->
+
+<style>
+#livenet-center {
+    margin: 30px auto;
+    max-width: 1100px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+.ln-title {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.ln-subtitle {
+    opacity: .65;
+    margin-bottom: 20px;
+}
+
+.ln-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.ln-card {
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 18px;
+    padding: 18px;
+    background: rgba(255,255,255,.05);
+    backdrop-filter: blur(12px);
+    transition: .2s;
+}
+
+.ln-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0,180,255,.5);
+}
+
+.ln-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.ln-name {
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.ln-platform {
+    font-size: 12px;
+    opacity: .55;
+    margin-top: 3px;
+}
+
+.ln-status {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 5px 9px;
+    border-radius: 999px;
+}
+
+.ln-live {
+    background: rgba(255,0,0,.15);
+    color: #ff4545;
+}
+
+.ln-offline {
+    background: rgba(150,150,150,.15);
+    color: #aaa;
+}
+
+.ln-show {
+    font-size: 15px;
+    margin: 10px 0;
+}
+
+.ln-viewers {
+    font-size: 13px;
+    opacity: .7;
+}
+
+.ln-time {
+    font-size: 12px;
+    opacity: .5;
+    margin-top: 5px;
+}
+
+.ln-watch {
+    display: block;
+    margin-top: 15px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+    background: #168cff;
+    color: white;
+    font-weight: 700;
+}
+
+.ln-watch:hover {
+    filter: brightness(1.15);
+}
+
+.ln-refresh {
+    margin-top: 18px;
+    opacity: .55;
+    font-size: 12px;
+    text-align: center;
+}
+</style>
+
+<div id="livenet-center">
+
+    <div class="ln-title">
+        📺 LiveNet Channel Center
+    </div>
+
+    <div class="ln-subtitle">
+        Все каналы LiveNet в одном месте
+    </div>
+
+    <div id="ln-grid" class="ln-grid"></div>
+
+    <div class="ln-refresh">
+        🔄 Автоматическое обновление каждые 30 секунд
+    </div>
+
+</div>
+
+<script>
+(() => {
+
+    const channels = [
+
+        {
+            id: "bobrdobrenok",
+            name: "bobrdobrenok",
+            platform: "Twitch",
+            url: "https://www.twitch.tv/bobrdobrenok",
+
+            /* Меняй эти значения, когда канал выходит в эфир */
+            live: false,
+            show: "Ожидание эфира",
+            viewers: 0,
+            started: ""
+        },
+
+        {
+            id: "hypertwitch112",
+            name: "hypertwitch112",
+            platform: "Twitch",
+            url: "https://www.twitch.tv/hypertwitch112",
+
+            live: false,
+            show: "Ожидание эфира",
+            viewers: 0,
+            started: ""
+        },
+
+        {
+            id: "livenet1",
+            name: "LiveNet1",
+            platform: "Kick",
+            url: "https://kick.com/LiveNet1",
+
+            live: false,
+            show: "Ожидание эфира",
+            viewers: 0,
+            started: ""
+        },
+
+        {
+            id: "etoyatv",
+            name: "ЭтоЯTV",
+            platform: "ЭтоЯTV",
+            url: "https://etoyatv.top/LiveNet",
+
+            live: false,
+            show: "Ожидание эфира",
+            viewers: 0,
+            started: ""
+        }
+
+    ];
+
+    const grid = document.getElementById("ln-grid");
+
+    function render() {
+
+        if (!grid) return;
+
+        grid.innerHTML = "";
+
+        channels.forEach(channel => {
+
+            const card = document.createElement("div");
+
+            card.className = "ln-card";
+
+            const statusClass =
+                channel.live
+                    ? "ln-live"
+                    : "ln-offline";
+
+            const statusText =
+                channel.live
+                    ? "🔴 LIVE"
+                    : "⚫ OFFLINE";
+
+            const viewers =
+                channel.live
+                    ? `👥 ${channel.viewers.toLocaleString("ru-RU")} зрителей`
+                    : "👥 0 зрителей";
+
+            card.innerHTML = `
+
+                <div class="ln-top">
+
+                    <div>
+                        <div class="ln-name">
+                            ${escapeHTML(channel.name)}
+                        </div>
+
+                        <div class="ln-platform">
+                            ${escapeHTML(channel.platform)}
+                        </div>
+                    </div>
+
+                    <div class="ln-status ${statusClass}">
+                        ${statusText}
+                    </div>
+
+                </div>
+
+                <div class="ln-show">
+                    🎬 ${escapeHTML(channel.show)}
+                </div>
+
+                <div class="ln-viewers">
+                    ${viewers}
+                </div>
+
+                ${
+                    channel.started
+                    ?
+                    `<div class="ln-time">
+                        🕐 ${escapeHTML(channel.started)}
+                    </div>`
+                    :
+                    ""
+                }
+
+                <a
+                    class="ln-watch"
+                    href="${channel.url}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    📺 Смотреть
+                </a>
+
+            `;
+
+            grid.appendChild(card);
+
+        });
+
+    }
+
+    function escapeHTML(value) {
+
+        return String(value)
+            .replaceAll("&", "&amp;")
+            .replaceAll("<", "&lt;")
+            .replaceAll(">", "&gt;")
+            .replaceAll('"', "&quot;")
+            .replaceAll("'", "&#039;");
+
+    }
+
+    render();
+
+    /*
+     * Обновление интерфейса.
+     * Пока API Twitch/Kick не используется.
+     */
+
+    setInterval(render, 30000);
+
+})();
+</script>
 
 </body>
 </html>

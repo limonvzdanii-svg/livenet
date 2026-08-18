@@ -5972,5 +5972,343 @@ if ("serviceWorker" in navigator) {
     });
 }
 </script>
+<!-- ================================
+     LiveNet Live Monitor
+================================ -->
+
+<style>
+.livenet-monitor {
+  margin: 25px 0 50px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+}
+
+.monitor-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  margin-bottom:18px;
+}
+
+.monitor-title {
+  margin:0;
+  font-size:24px;
+}
+
+.monitor-subtitle {
+  color:var(--muted);
+  font-size:13px;
+  margin-top:4px;
+}
+
+.monitor-refresh {
+  border:1px solid var(--border);
+  background:var(--card2);
+  color:var(--text);
+  border-radius:11px;
+  padding:9px 13px;
+  cursor:pointer;
+}
+
+.monitor-refresh:hover {
+  border-color:rgba(57,169,255,.5);
+}
+
+.monitor-grid {
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+}
+
+.monitor-card {
+  position:relative;
+  padding:17px;
+  border:1px solid var(--border);
+  border-radius:17px;
+  background:rgba(255,255,255,.025);
+  transition:.2s;
+}
+
+.monitor-card:hover {
+  transform:translateY(-2px);
+  border-color:rgba(57,169,255,.4);
+}
+
+.monitor-icon {
+  font-size:25px;
+  margin-bottom:12px;
+}
+
+.monitor-name {
+  font-weight:850;
+  margin-bottom:7px;
+}
+
+.monitor-status {
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  font-weight:800;
+}
+
+.monitor-dot {
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#2cff91;
+  box-shadow:0 0 12px #2cff91;
+}
+
+.monitor-dot.offline {
+  background:#7f8b9a;
+  box-shadow:none;
+}
+
+.monitor-time {
+  color:var(--muted);
+  font-size:11px;
+  margin-top:10px;
+}
+
+.monitor-live {
+  animation:monitorPulse 1.8s infinite;
+}
+
+@keyframes monitorPulse {
+  0%,100% {
+    box-shadow:0 0 0 rgba(44,255,145,0);
+  }
+  50% {
+    box-shadow:0 0 22px rgba(44,255,145,.15);
+  }
+}
+
+@media(max-width:800px) {
+  .monitor-grid {
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:500px) {
+  .monitor-head {
+    align-items:flex-start;
+  }
+
+  .monitor-grid {
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .monitor-card {
+    padding:13px;
+  }
+
+  .monitor-title {
+    font-size:20px;
+  }
+}
+</style>
+
+<section class="livenet-monitor" id="liveMonitor">
+
+  <div class="monitor-head">
+    <div>
+      <h2 class="monitor-title">📡 Live Monitor</h2>
+      <div class="monitor-subtitle">
+        Состояние сервисов LiveNet
+      </div>
+    </div>
+
+    <button
+      class="monitor-refresh"
+      id="monitorRefresh"
+      onclick="updateLiveMonitor(true)"
+    >
+      🔄 Обновить
+    </button>
+  </div>
+
+  <div class="monitor-grid">
+
+    <div class="monitor-card" id="monitor-livenet">
+      <div class="monitor-icon">📡</div>
+      <div class="monitor-name">LiveNet</div>
+
+      <div class="monitor-status">
+        <span class="monitor-dot"></span>
+        <span>ПРОВЕРКА...</span>
+      </div>
+
+      <div class="monitor-time">
+        Ожидание данных...
+      </div>
+    </div>
+
+    <div class="monitor-card" id="monitor-twitch">
+      <div class="monitor-icon">🟣</div>
+      <div class="monitor-name">Twitch</div>
+
+      <div class="monitor-status">
+        <span class="monitor-dot"></span>
+        <span>ПРОВЕРКА...</span>
+      </div>
+
+      <div class="monitor-time">
+        Ожидание данных...
+      </div>
+    </div>
+
+    <div class="monitor-card" id="monitor-kick">
+      <div class="monitor-icon">🟢</div>
+      <div class="monitor-name">Kick</div>
+
+      <div class="monitor-status">
+        <span class="monitor-dot"></span>
+        <span>ПРОВЕРКА...</span>
+      </div>
+
+      <div class="monitor-time">
+        Ожидание данных...
+      </div>
+    </div>
+
+    <div class="monitor-card" id="monitor-etoyatv">
+      <div class="monitor-icon">📺</div>
+      <div class="monitor-name">ЭтоЯTV</div>
+
+      <div class="monitor-status">
+        <span class="monitor-dot"></span>
+        <span>ПРОВЕРКА...</span>
+      </div>
+
+      <div class="monitor-time">
+        Ожидание данных...
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<script>
+async function updateLiveMonitor(manual = false) {
+
+  const button = document.getElementById("monitorRefresh");
+
+  if (manual) {
+    button.disabled = true;
+    button.textContent = "⏳ Проверка...";
+  }
+
+  try {
+
+    const response = await fetch("/api/status", {
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error("API error");
+    }
+
+    const data = await response.json();
+
+    if (!data.services) {
+      throw new Error("Invalid API response");
+    }
+
+    data.services.forEach(service => {
+
+      const card =
+        document.getElementById(
+          "monitor-" + service.id
+        );
+
+      if (!card) return;
+
+      const status =
+        card.querySelector(".monitor-status");
+
+      const dot =
+        card.querySelector(".monitor-dot");
+
+      const time =
+        card.querySelector(".monitor-time");
+
+      const isOnline =
+        service.status === "online" ||
+        service.status === "available" ||
+        service.status === "live";
+
+      if (isOnline) {
+
+        status.querySelector("span:last-child")
+          .textContent =
+          service.status === "live"
+            ? "LIVE"
+            : "ДОСТУПЕН";
+
+        dot.classList.remove("offline");
+
+        card.classList.add("monitor-live");
+
+      } else {
+
+        status.querySelector("span:last-child")
+          .textContent = "OFFLINE";
+
+        dot.classList.add("offline");
+
+        card.classList.remove("monitor-live");
+      }
+
+      time.textContent =
+        "Проверено: " +
+        new Date(
+          data.checkedAt || Date.now()
+        ).toLocaleTimeString(
+          "ru-RU",
+          {
+            hour:"2-digit",
+            minute:"2-digit",
+            second:"2-digit"
+          }
+        );
+    });
+
+  } catch (error) {
+
+    console.error(
+      "Live Monitor:",
+      error
+    );
+
+    document
+      .querySelectorAll(".monitor-status span:last-child")
+      .forEach(el => {
+        el.textContent = "ОШИБКА";
+      });
+
+  } finally {
+
+    if (manual) {
+
+      button.disabled = false;
+      button.textContent = "🔄 Обновить";
+
+    }
+  }
+}
+
+updateLiveMonitor();
+
+setInterval(
+  () => updateLiveMonitor(),
+  30000
+);
+</script>
 </body>
 </html>

@@ -6310,5 +6310,498 @@ setInterval(
   30000
 );
 </script>
+<!-- ================================
+     LiveNet Channel Center v2
+     Добавлено поверх существующего сайта
+================================ -->
+
+<style>
+  .ln-channel-center {
+    margin: 28px auto;
+    width: min(1100px, calc(100% - 28px));
+    padding: 22px;
+    border-radius: 22px;
+    background: rgba(10, 18, 35, .72);
+    border: 1px solid rgba(100, 180, 255, .18);
+    box-shadow: 0 10px 40px rgba(0,0,0,.25);
+    backdrop-filter: blur(14px);
+  }
+
+  .ln-cc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+
+  .ln-cc-title {
+    font-size: 25px;
+    font-weight: 800;
+    color: #fff;
+  }
+
+  .ln-cc-subtitle {
+    margin-top: 4px;
+    color: #8fa6c5;
+    font-size: 13px;
+  }
+
+  .ln-cc-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .ln-cc-btn {
+    border: 1px solid rgba(120,190,255,.25);
+    background: rgba(40,80,130,.25);
+    color: #fff;
+    padding: 9px 13px;
+    border-radius: 11px;
+    cursor: pointer;
+    transition: .2s;
+  }
+
+  .ln-cc-btn:hover {
+    transform: translateY(-1px);
+    background: rgba(60,120,190,.35);
+  }
+
+  .ln-cc-btn.active {
+    background: rgba(50,140,255,.35);
+    border-color: rgba(80,170,255,.65);
+  }
+
+  .ln-cc-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #91a5c1;
+    font-size: 12px;
+    margin-bottom: 16px;
+  }
+
+  .ln-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    background: #777;
+  }
+
+  .ln-status-dot.online {
+    background: #35e58a;
+    box-shadow: 0 0 12px rgba(53,229,138,.8);
+  }
+
+  .ln-status-dot.loading {
+    background: #ffd34d;
+    animation: lnPulse 1s infinite;
+  }
+
+  @keyframes lnPulse {
+    0%,100% { opacity: .35; }
+    50% { opacity: 1; }
+  }
+
+  .ln-channel-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+    gap: 13px;
+  }
+
+  .ln-channel-card {
+    position: relative;
+    overflow: hidden;
+    padding: 17px;
+    border-radius: 17px;
+    background: rgba(255,255,255,.045);
+    border: 1px solid rgba(255,255,255,.08);
+    transition: .22s;
+  }
+
+  .ln-channel-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(100,180,255,.35);
+  }
+
+  .ln-channel-card.live {
+    border-color: rgba(255,55,75,.5);
+    box-shadow: 0 0 25px rgba(255,45,65,.09);
+  }
+
+  .ln-channel-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .ln-channel-name {
+    font-size: 17px;
+    font-weight: 750;
+    color: #fff;
+  }
+
+  .ln-platform {
+    color: #8da4c2;
+    font-size: 12px;
+    margin-top: 4px;
+  }
+
+  .ln-live-badge,
+  .ln-offline-badge,
+  .ln-available-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 8px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .ln-live-badge {
+    color: #fff;
+    background: rgba(255,35,55,.2);
+    border: 1px solid rgba(255,55,75,.4);
+  }
+
+  .ln-live-badge::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ff3048;
+    box-shadow: 0 0 9px #ff3048;
+    animation: lnLivePulse 1.2s infinite;
+  }
+
+  @keyframes lnLivePulse {
+    0%,100% { opacity: .45; }
+    50% { opacity: 1; }
+  }
+
+  .ln-offline-badge {
+    color: #9aa8bc;
+    background: rgba(120,130,145,.12);
+  }
+
+  .ln-available-badge {
+    color: #76c9ff;
+    background: rgba(70,150,255,.1);
+  }
+
+  .ln-channel-info {
+    min-height: 43px;
+    margin-top: 15px;
+    color: #9cafc8;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .ln-channel-meta {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    color: #a9bad0;
+    font-size: 11px;
+  }
+
+  .ln-channel-open {
+    display: block;
+    width: 100%;
+    margin-top: 14px;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+    color: #fff !important;
+    background: rgba(70,145,255,.18);
+    border: 1px solid rgba(90,170,255,.22);
+    transition: .2s;
+    box-sizing: border-box;
+  }
+
+  .ln-channel-open:hover {
+    background: rgba(70,145,255,.3);
+  }
+
+  .ln-empty {
+    grid-column: 1 / -1;
+    padding: 30px;
+    text-align: center;
+    color: #8ea2bd;
+  }
+
+  @media (max-width: 600px) {
+    .ln-channel-center {
+      width: calc(100% - 18px);
+      padding: 15px;
+      border-radius: 17px;
+    }
+
+    .ln-cc-title {
+      font-size: 21px;
+    }
+
+    .ln-channel-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<section class="ln-channel-center" id="livenetChannelCenter">
+
+  <div class="ln-cc-header">
+    <div>
+      <div class="ln-cc-title">📡 LiveNet Channel Center</div>
+      <div class="ln-cc-subtitle">
+        Мониторинг доступных каналов LiveNet
+      </div>
+    </div>
+
+    <div class="ln-cc-actions">
+      <button class="ln-cc-btn active" data-filter="all">
+        Все
+      </button>
+
+      <button class="ln-cc-btn" data-filter="live">
+        🔴 LIVE
+      </button>
+
+      <button class="ln-cc-btn" data-filter="available">
+        🟢 Доступны
+      </button>
+
+      <button class="ln-cc-btn" id="lnRefreshChannels">
+        🔄 Обновить
+      </button>
+    </div>
+  </div>
+
+  <div class="ln-cc-status">
+    <span class="ln-status-dot loading" id="lnStatusDot"></span>
+    <span id="lnChannelStatus">
+      Проверяем LiveNet...
+    </span>
+  </div>
+
+  <div class="ln-channel-grid" id="lnChannelGrid">
+    <div class="ln-empty">
+      Загрузка каналов...
+    </div>
+  </div>
+
+</section>
+
+<script>
+(function () {
+
+  const API = "/api/status";
+
+  const grid = document.getElementById("lnChannelGrid");
+  const statusText = document.getElementById("lnChannelStatus");
+  const statusDot = document.getElementById("lnStatusDot");
+  const refreshButton = document.getElementById("lnRefreshChannels");
+
+  let channels = [];
+  let currentFilter = "all";
+
+  function escapeHTML(value) {
+    return String(value ?? "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function getBadge(channel) {
+
+    if (channel.status === "live") {
+      return '<span class="ln-live-badge">LIVE</span>';
+    }
+
+    if (channel.status === "offline") {
+      return '<span class="ln-offline-badge">OFFLINE</span>';
+    }
+
+    return '<span class="ln-available-badge">AVAILABLE</span>';
+  }
+
+  function renderChannels() {
+
+    let filtered = channels;
+
+    if (currentFilter === "live") {
+      filtered = channels.filter(c => c.status === "live");
+    }
+
+    if (currentFilter === "available") {
+      filtered = channels.filter(
+        c => c.status === "available" || c.status === "online"
+      );
+    }
+
+    if (!filtered.length) {
+      grid.innerHTML = `
+        <div class="ln-empty">
+          Нет каналов в этой категории.
+        </div>
+      `;
+      return;
+    }
+
+    grid.innerHTML = filtered.map(channel => {
+
+      const isLive = channel.status === "live";
+
+      const viewers =
+        typeof channel.viewers === "number"
+          ? `👁️ ${channel.viewers.toLocaleString()}`
+          : "";
+
+      const title =
+        channel.title
+          ? escapeHTML(channel.title)
+          : isLive
+            ? "Трансляция идёт прямо сейчас"
+            : "Информация о трансляции недоступна";
+
+      return `
+        <article class="ln-channel-card ${isLive ? "live" : ""}">
+
+          <div class="ln-channel-top">
+
+            <div>
+              <div class="ln-channel-name">
+                ${escapeHTML(channel.name)}
+              </div>
+
+              <div class="ln-platform">
+                ${escapeHTML(channel.platform || "LiveNet")}
+              </div>
+            </div>
+
+            ${getBadge(channel)}
+
+          </div>
+
+          <div class="ln-channel-info">
+            ${title}
+          </div>
+
+          <div class="ln-channel-meta">
+            ${viewers}
+            ${channel.apiConnected ? "⚡ API connected" : "🌐 External"}
+          </div>
+
+          <a
+            class="ln-channel-open"
+            href="${escapeHTML(channel.url || "#")}"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Открыть канал →
+          </a>
+
+        </article>
+      `;
+
+    }).join("");
+  }
+
+  async function loadChannels() {
+
+    statusDot.className = "ln-status-dot loading";
+    statusText.textContent = "Обновляем статусы...";
+
+    try {
+
+      const response = await fetch(API, {
+        cache: "no-store"
+      });
+
+      if (!response.ok) {
+        throw new Error("HTTP " + response.status);
+      }
+
+      const data = await response.json();
+
+      if (!Array.isArray(data.services)) {
+        throw new Error("Invalid API response");
+      }
+
+      channels = data.services;
+
+      statusDot.className = "ln-status-dot online";
+
+      const time = new Date().toLocaleTimeString();
+
+      statusText.textContent =
+        `LiveNet online • обновлено в ${time}`;
+
+      renderChannels();
+
+    } catch (error) {
+
+      console.error("LiveNet Channel Center:", error);
+
+      statusDot.className = "ln-status-dot";
+
+      statusText.textContent =
+        "Не удалось получить статус каналов";
+
+      grid.innerHTML = `
+        <div class="ln-empty">
+          ⚠️ Сервер статусов временно недоступен.<br>
+          Попробуйте обновить через несколько секунд.
+        </div>
+      `;
+    }
+  }
+
+  document
+    .querySelectorAll(".ln-cc-btn[data-filter]")
+    .forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        document
+          .querySelectorAll(".ln-cc-btn[data-filter]")
+          .forEach(btn => btn.classList.remove("active"));
+
+        button.classList.add("active");
+
+        currentFilter = button.dataset.filter;
+
+        renderChannels();
+
+      });
+
+    });
+
+  refreshButton.addEventListener(
+    "click",
+    loadChannels
+  );
+
+  loadChannels();
+
+  /*
+   * Автоматическое обновление каждые 60 секунд.
+   */
+  setInterval(loadChannels, 60000);
+
+})();
+</script>
+
+<!-- END LiveNet Channel Center v2 -->
+
 </body>
 </html>

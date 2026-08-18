@@ -1,170 +1,219 @@
-const GOOGLE_JWKS_URL = "https://www.googleapis.com/oauth2/v3/certs";
+const GOOGLE_JWKS_URL =
+    "https://www.googleapis.com/oauth2/v3/certs";
 
 export default {
     async fetch(request, env) {
+
         const url = new URL(request.url);
 
         try {
-            /* =========================================
-               GOOGLE LOGIN
-            ========================================= */
+
+            /*
+             * =========================
+             * GOOGLE LOGIN
+             * =========================
+             */
 
             if (
                 url.pathname === "/auth/google" &&
                 request.method === "POST"
             ) {
-                return await handleGoogleLogin(request, env);
-            }
-
-
-            /* =========================================
-               LIVE NET STATUS / LIVE MONITOR
-            ========================================= */
-
-            if (
-                url.pathname === "/api/status" &&
-                request.method === "GET"
-            ) {
-                const checkedAt = new Date().toISOString();
-
-                return new Response(
-                    JSON.stringify({
-                        ok: true,
-                        service: "LiveNet",
-                        status: "online",
-                        checkedAt,
-
-                        services: [
-
-                            /* LiveNet itself */
-                            {
-                                id: "livenet",
-                                name: "LiveNet",
-                                platform: "LiveNet",
-                                type: "system",
-                                status: "online",
-                                url: "https://livenet.limonvzdanii.workers.dev"
-                            },
-
-                            /* Twitch */
-                            {
-                                id: "twitch-bobrdobrenok",
-                                name: "bobrdobrenok",
-                                platform: "Twitch",
-                                type: "stream",
-
-                                /*
-                                 * Twitch API intentionally isn't used.
-                                 * Therefore we don't pretend to know
-                                 * whether the channel is actually LIVE.
-                                 */
-                                status: "available",
-
-                                apiConnected: false,
-
-                                url: "https://www.twitch.tv/bobrdobrenok"
-                            },
-
-                            {
-                                id: "twitch-hypertwitch112",
-                                name: "hypertwitch112",
-                                platform: "Twitch",
-                                type: "stream",
-                                status: "available",
-                                apiConnected: false,
-                                url: "https://www.twitch.tv/hypertwitch112"
-                            },
-
-                            /* Kick */
-                            {
-                                id: "kick-livenet1",
-                                name: "LiveNet1",
-                                platform: "Kick",
-                                type: "stream",
-
-                                /*
-                                 * No Kick API credentials are used yet.
-                                 */
-                                status: "available",
-
-                                apiConnected: false,
-
-                                url: "https://kick.com/LiveNet1"
-                            },
-
-                            /* ЭтоЯTV */
-                            {
-                                id: "etoyatv",
-                                name: "ЭтоЯTV",
-                                platform: "ЭтоЯTV",
-                                type: "stream",
-
-                                status: "available",
-
-                                apiConnected: false,
-
-                                url: "https://etoyatv.top/LiveNet"
-                            }
-                        ]
-                    }),
-                    {
-                        status: 200,
-                        headers: {
-                            "Content-Type":
-                                "application/json; charset=utf-8",
-
-                            "Cache-Control":
-                                "no-store",
-
-                            "Access-Control-Allow-Origin":
-                                "*"
-                        }
-                    }
+                return await handleGoogleLogin(
+                    request,
+                    env
                 );
             }
 
 
-            /* =========================================
-               CURRENT USER
-            ========================================= */
+            /*
+             * =========================
+             * CURRENT USER
+             * =========================
+             */
 
             if (
                 url.pathname === "/api/me" &&
                 request.method === "GET"
             ) {
-                return await handleMe(request, env);
+                return await handleMe(
+                    request,
+                    env
+                );
             }
 
 
-            /* =========================================
-               LOGOUT
-            ========================================= */
+            /*
+             * =========================
+             * LiveNet STATUS
+             * =========================
+             */
+
+            if (
+                url.pathname === "/api/status" &&
+                request.method === "GET"
+            ) {
+
+                return json({
+                    ok: true,
+
+                    service: "LiveNet",
+
+                    status: "online",
+
+                    checkedAt:
+                        new Date().toISOString(),
+
+                    services: [
+
+                        {
+                            id: "livenet",
+
+                            name: "LiveNet",
+
+                            platform: "LiveNet",
+
+                            type: "system",
+
+                            status: "online",
+
+                            url:
+                                "https://livenet.limonvzdanii.workers.dev"
+                        },
+
+                        {
+                            id:
+                                "twitch-bobrdobrenok",
+
+                            name:
+                                "bobrdobrenok",
+
+                            platform:
+                                "Twitch",
+
+                            type:
+                                "stream",
+
+                            status:
+                                "available",
+
+                            apiConnected:
+                                false,
+
+                            url:
+                                "https://www.twitch.tv/bobrdobrenok"
+                        },
+
+                        {
+                            id:
+                                "twitch-hypertwitch112",
+
+                            name:
+                                "hypertwitch112",
+
+                            platform:
+                                "Twitch",
+
+                            type:
+                                "stream",
+
+                            status:
+                                "available",
+
+                            apiConnected:
+                                false,
+
+                            url:
+                                "https://www.twitch.tv/hypertwitch112"
+                        },
+
+                        {
+                            id:
+                                "kick-livenet1",
+
+                            name:
+                                "LiveNet1",
+
+                            platform:
+                                "Kick",
+
+                            type:
+                                "stream",
+
+                            status:
+                                "available",
+
+                            apiConnected:
+                                false,
+
+                            url:
+                                "https://kick.com/LiveNet1"
+                        },
+
+                        {
+                            id:
+                                "etoyatv",
+
+                            name:
+                                "ЭтоЯTV",
+
+                            platform:
+                                "ЭтоЯTV",
+
+                            type:
+                                "stream",
+
+                            status:
+                                "available",
+
+                            apiConnected:
+                                false,
+
+                            url:
+                                "https://etoyatv.top/LiveNet"
+                        }
+
+                    ]
+
+                });
+
+            }
+
+
+            /*
+             * =========================
+             * LOGOUT
+             * =========================
+             */
 
             if (
                 url.pathname === "/auth/logout"
             ) {
-                return new Response("OK", {
-                    status: 200,
 
-                    headers: {
-                        "Set-Cookie":
-                            "livenet_session=; " +
-                            "Path=/; " +
-                            "Max-Age=0; " +
-                            "HttpOnly; " +
-                            "Secure; " +
-                            "SameSite=Lax",
+                return new Response(
+                    "OK",
+                    {
+                        status: 200,
 
-                        "Cache-Control":
-                            "no-store"
+                        headers: {
+                            "Set-Cookie":
+                                "livenet_session=; " +
+                                "Path=/; " +
+                                "Max-Age=0; " +
+                                "HttpOnly; " +
+                                "Secure; " +
+                                "SameSite=Lax"
+                        }
                     }
-                });
+                );
+
             }
 
 
-            /* =========================================
-               STATIC WEBSITE
-            ========================================= */
+            /*
+             * =========================
+             * STATIC WEBSITE
+             * =========================
+             */
 
             return env.ASSETS.fetch(request);
 
@@ -175,50 +224,33 @@ export default {
                 error
             );
 
-            return new Response(
-                JSON.stringify({
-                    ok: false,
-                    error: "Internal server error"
-                }),
+            return json(
                 {
-                    status: 500,
-
-                    headers: {
-                        "Content-Type":
-                            "application/json; charset=utf-8",
-
-                        "Cache-Control":
-                            "no-store"
-                    }
-                }
+                    error:
+                        "Internal server error"
+                },
+                500
             );
+
         }
+
     }
 };
 
 
-/* =========================================
-   GOOGLE LOGIN
-========================================= */
+/*
+ * =========================================
+ * GOOGLE LOGIN
+ * =========================================
+ */
 
 async function handleGoogleLogin(
     request,
     env
 ) {
 
-    let body;
-
-    try {
-        body = await request.json();
-    } catch {
-        return json(
-            {
-                error: "Invalid JSON"
-            },
-            400
-        );
-    }
-
+    const body =
+        await request.json();
 
     const credential =
         body.credential;
@@ -226,23 +258,21 @@ async function handleGoogleLogin(
     const csrf =
         body.csrf;
 
-
     if (
         !credential ||
         !csrf
     ) {
+
         return json(
             {
-                error: "Missing credentials"
+                error:
+                    "Missing credentials"
             },
             400
         );
+
     }
 
-
-    /* =========================================
-       CSRF COOKIE
-    ========================================= */
 
     const cookieHeader =
         request.headers.get("Cookie") || "";
@@ -259,18 +289,17 @@ async function handleGoogleLogin(
         !csrfCookie ||
         csrfCookie !== csrf
     ) {
+
         return json(
             {
-                error: "Invalid CSRF token"
+                error:
+                    "Invalid CSRF token"
             },
             403
         );
+
     }
 
-
-    /* =========================================
-       GOOGLE TOKEN
-    ========================================= */
 
     const payload =
         await verifyGoogleToken(
@@ -280,23 +309,22 @@ async function handleGoogleLogin(
 
 
     if (!payload) {
+
         return json(
             {
-                error: "Invalid Google token"
+                error:
+                    "Invalid Google token"
             },
             401
         );
+
     }
 
 
-    /*
-     * Google `sub` используется как
-     * постоянный идентификатор пользователя.
-     */
-
     const sessionPayload = {
+
         sub:
-            payload.sub || "",
+            payload.sub,
 
         name:
             payload.name || "",
@@ -311,6 +339,7 @@ async function handleGoogleLogin(
             Math.floor(
                 Date.now() / 1000
             ) + 3600
+
     };
 
 
@@ -323,19 +352,19 @@ async function handleGoogleLogin(
 
 
     return new Response(
+
         JSON.stringify({
             success: true,
             user: sessionPayload
         }),
+
         {
             status: 200,
 
             headers: {
-                "Content-Type":
-                    "application/json; charset=utf-8",
 
-                "Cache-Control":
-                    "no-store",
+                "Content-Type":
+                    "application/json",
 
                 "Set-Cookie":
                     `livenet_session=${session}; ` +
@@ -344,15 +373,21 @@ async function handleGoogleLogin(
                     "HttpOnly; " +
                     "Secure; " +
                     "SameSite=Lax"
+
             }
+
         }
+
     );
+
 }
 
 
-/* =========================================
-   /api/me
-========================================= */
+/*
+ * =========================================
+ * /api/me
+ * =========================================
+ */
 
 async function handleMe(
     request,
@@ -371,9 +406,11 @@ async function handleMe(
 
 
     if (!session) {
+
         return json({
             authenticated: false
         });
+
     }
 
 
@@ -393,9 +430,11 @@ async function handleMe(
                     Date.now() / 1000
                 )
         ) {
+
             return json({
                 authenticated: false
             });
+
         }
 
 
@@ -409,181 +448,115 @@ async function handleMe(
         return json({
             authenticated: false
         });
+
     }
+
 }
 
 
-/* =========================================
-   GOOGLE JWT VERIFICATION
-========================================= */
+/*
+ * =========================================
+ * GOOGLE JWT VERIFICATION
+ * =========================================
+ */
 
 async function verifyGoogleToken(
     token,
     clientId
 ) {
 
-    if (
-        !token ||
-        !clientId
-    ) {
-        return null;
-    }
-
-
-    const parts =
-        token.split(".");
-
-
-    if (
-        parts.length !== 3
-    ) {
-        return null;
-    }
-
-
-    let header;
-    let payload;
-
-
     try {
 
-        header =
+        const parts =
+            token.split(".");
+
+        if (parts.length !== 3) {
+            return null;
+        }
+
+
+        const header =
             JSON.parse(
-                b64urlDecode(
-                    parts[0]
-                )
+                b64urlDecode(parts[0])
             );
 
 
-        payload =
+        const payload =
             JSON.parse(
-                b64urlDecode(
-                    parts[1]
-                )
+                b64urlDecode(parts[1])
             );
 
-    } catch {
 
-        return null;
-    }
-
-
-    const signature =
-        b64urlToBytes(
-            parts[2]
-        );
+        const signature =
+            b64urlToBytes(parts[2]);
 
 
-    /* =========================================
-       ISSUER
-    ========================================= */
+        if (
+            payload.iss !==
+                "https://accounts.google.com" &&
+            payload.iss !==
+                "accounts.google.com"
+        ) {
 
-    if (
-        payload.iss !==
-            "https://accounts.google.com" &&
-        payload.iss !==
-            "accounts.google.com"
-    ) {
-        return null;
-    }
+            return null;
+
+        }
 
 
-    /* =========================================
-       AUDIENCE
-    ========================================= */
+        if (
+            payload.aud !== clientId
+        ) {
 
-    if (
-        payload.aud !== clientId
-    ) {
-        return null;
-    }
+            return null;
+
+        }
 
 
-    /* =========================================
-       EXPIRATION
-    ========================================= */
+        if (
+            !payload.exp ||
+            payload.exp <
+                Math.floor(
+                    Date.now() / 1000
+                )
+        ) {
 
-    if (
-        !payload.exp ||
-        payload.exp <
-            Math.floor(
-                Date.now() / 1000
-            )
-    ) {
-        return null;
-    }
+            return null;
+
+        }
 
 
-    /* =========================================
-       GOOGLE JWKS
-    ========================================= */
-
-    let keysResponse;
-
-    try {
-
-        keysResponse =
+        const keysResponse =
             await fetch(
                 GOOGLE_JWKS_URL
             );
 
-    } catch {
 
-        return null;
-    }
-
-
-    if (
-        !keysResponse.ok
-    ) {
-        return null;
-    }
+        if (!keysResponse.ok) {
+            return null;
+        }
 
 
-    let keys;
-
-    try {
-
-        keys =
+        const keys =
             await keysResponse.json();
 
-    } catch {
 
-        return null;
-    }
-
-
-    if (
-        !keys ||
-        !Array.isArray(keys.keys)
-    ) {
-        return null;
-    }
+        const jwk =
+            keys.keys.find(
+                key =>
+                    key.kid ===
+                    header.kid
+            );
 
 
-    const jwk =
-        keys.keys.find(
-            key =>
-                key.kid ===
-                header.kid
-        );
+        if (!jwk) {
+            return null;
+        }
 
 
-    if (!jwk) {
-        return null;
-    }
-
-
-    let cryptoKey;
-
-    try {
-
-        cryptoKey =
+        const cryptoKey =
             await crypto.subtle.importKey(
                 "jwk",
-
                 jwk,
-
                 {
                     name:
                         "RSASSA-PKCS1-v1_5",
@@ -591,31 +564,18 @@ async function verifyGoogleToken(
                     hash:
                         "SHA-256"
                 },
-
                 false,
-
-                [
-                    "verify"
-                ]
+                ["verify"]
             );
 
-    } catch {
 
-        return null;
-    }
-
-
-    const data =
-        new TextEncoder().encode(
-            `${parts[0]}.${parts[1]}`
-        );
+        const data =
+            new TextEncoder().encode(
+                `${parts[0]}.${parts[1]}`
+            );
 
 
-    let valid;
-
-    try {
-
-        valid =
+        const valid =
             await crypto.subtle.verify(
                 "RSASSA-PKCS1-v1_5",
 
@@ -626,24 +586,33 @@ async function verifyGoogleToken(
                 data
             );
 
-    } catch {
+
+        if (!valid) {
+            return null;
+        }
+
+
+        return payload;
+
+    } catch (error) {
+
+        console.error(
+            "Google token verification error:",
+            error
+        );
 
         return null;
+
     }
 
-
-    if (!valid) {
-        return null;
-    }
-
-
-    return payload;
 }
 
 
-/* =========================================
-   JSON HELPER
-========================================= */
+/*
+ * =========================================
+ * HELPERS
+ * =========================================
+ */
 
 function json(
     data,
@@ -651,25 +620,28 @@ function json(
 ) {
 
     return new Response(
+
         JSON.stringify(data),
+
         {
             status,
 
             headers: {
+
                 "Content-Type":
                     "application/json; charset=utf-8",
 
                 "Cache-Control":
                     "no-store"
+
             }
+
         }
+
     );
+
 }
 
-
-/* =========================================
-   COOKIE HELPER
-========================================= */
 
 function getCookie(
     header,
@@ -693,31 +665,27 @@ function getCookie(
                 .split("=");
 
 
-        if (
-            key === name
-        ) {
+        if (key === name) {
 
             return value.join("=");
+
         }
+
     }
 
 
     return null;
+
 }
 
-
-/* =========================================
-   BASE64URL ENCODE
-========================================= */
 
 function b64urlEncode(
     text
 ) {
 
     const bytes =
-        new TextEncoder().encode(
-            text
-        );
+        new TextEncoder()
+            .encode(text);
 
 
     let binary = "";
@@ -731,28 +699,17 @@ function b64urlEncode(
             String.fromCharCode(
                 byte
             );
+
     }
 
 
     return btoa(binary)
-        .replace(
-            /\+/g,
-            "-"
-        )
-        .replace(
-            /\//g,
-            "_"
-        )
-        .replace(
-            /=/g,
-            ""
-        );
+        .replace(/\+/g, "-")
+        .replace(/\//g, "_")
+        .replace(/=/g, "");
+
 }
 
-
-/* =========================================
-   BASE64URL DECODE
-========================================= */
 
 function b64urlDecode(
     value
@@ -760,14 +717,8 @@ function b64urlDecode(
 
     value =
         value
-            .replace(
-                /-/g,
-                "+"
-            )
-            .replace(
-                /_/g,
-                "/"
-            );
+            .replace(/-/g, "+")
+            .replace(/_/g, "/");
 
 
     while (
@@ -775,6 +726,7 @@ function b64urlDecode(
     ) {
 
         value += "=";
+
     }
 
 
@@ -792,12 +744,9 @@ function b64urlDecode(
 
     return new TextDecoder()
         .decode(bytes);
+
 }
 
-
-/* =========================================
-   BASE64URL → BYTES
-========================================= */
 
 function b64urlToBytes(
     value
@@ -805,14 +754,8 @@ function b64urlToBytes(
 
     value =
         value
-            .replace(
-                /-/g,
-                "+"
-            )
-            .replace(
-                /_/g,
-                "/"
-            );
+            .replace(/-/g, "+")
+            .replace(/_/g, "/");
 
 
     while (
@@ -820,6 +763,7 @@ function b64urlToBytes(
     ) {
 
         value += "=";
+
     }
 
 
@@ -832,4 +776,5 @@ function b64urlToBytes(
         c =>
             c.charCodeAt(0)
     );
+
 }

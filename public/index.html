@@ -6802,6 +6802,837 @@ setInterval(
 </script>
 
 <!-- END LiveNet Channel Center v2 -->
+<!-- =========================================================
+     LiveNet Channel Center
+     No Twitch API required
+========================================================= -->
+
+<style>
+#livenet-channel-center {
+    width: min(1100px, calc(100% - 32px));
+    margin: 40px auto;
+    font-family: Inter, Arial, sans-serif;
+    color: #fff;
+}
+
+.lncc-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding: 22px;
+    border-radius: 20px;
+    background: linear-gradient(
+        135deg,
+        rgba(30, 144, 255, .18),
+        rgba(80, 40, 180, .12)
+    );
+    border: 1px solid rgba(120, 180, 255, .18);
+    backdrop-filter: blur(12px);
+}
+
+.lncc-title {
+    margin: 0;
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -.5px;
+}
+
+.lncc-subtitle {
+    margin: 5px 0 0;
+    opacity: .65;
+    font-size: 14px;
+}
+
+.lncc-refresh {
+    border: 0;
+    border-radius: 12px;
+    padding: 10px 15px;
+    color: #fff;
+    background: rgba(255,255,255,.08);
+    cursor: pointer;
+    transition: .2s;
+}
+
+.lncc-refresh:hover {
+    background: rgba(255,255,255,.16);
+    transform: translateY(-1px);
+}
+
+.lncc-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.lncc-filter {
+    border: 1px solid rgba(255,255,255,.1);
+    background: rgba(255,255,255,.05);
+    color: #fff;
+    padding: 9px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.lncc-filter:hover {
+    background: rgba(255,255,255,.1);
+}
+
+.lncc-filter.active {
+    background: #258cff;
+    border-color: #258cff;
+}
+
+#lncc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+}
+
+.lncc-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+    padding: 20px;
+    min-height: 190px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.075),
+            rgba(255,255,255,.025)
+        );
+    border: 1px solid rgba(255,255,255,.1);
+    box-shadow: 0 12px 35px rgba(0,0,0,.18);
+    backdrop-filter: blur(14px);
+    transition: transform .2s, border-color .2s, box-shadow .2s;
+}
+
+.lncc-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(80,160,255,.4);
+    box-shadow: 0 18px 45px rgba(0,0,0,.25);
+}
+
+.lncc-card::after {
+    content: "";
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    right: -60px;
+    top: -60px;
+    border-radius: 50%;
+    background: rgba(40,140,255,.12);
+    filter: blur(25px);
+    pointer-events: none;
+}
+
+.lncc-platform {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    font-weight: 700;
+    opacity: .75;
+    margin-bottom: 12px;
+}
+
+.lncc-platform-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.lncc-name {
+    margin: 0;
+    font-size: 23px;
+    font-weight: 800;
+}
+
+.lncc-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+    font-size: 13px;
+    opacity: .8;
+}
+
+.lncc-status-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #777;
+    box-shadow: 0 0 8px rgba(255,255,255,.15);
+}
+
+.lncc-status-dot.online {
+    background: #35d07f;
+    box-shadow: 0 0 12px rgba(53,208,127,.7);
+}
+
+.lncc-status-dot.live {
+    background: #ff304f;
+    box-shadow: 0 0 14px rgba(255,48,79,.8);
+}
+
+.lncc-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 8px;
+}
+
+.lncc-watch {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #fff;
+    background: #258cff;
+    padding: 10px 15px;
+    border-radius: 11px;
+    font-size: 13px;
+    font-weight: 700;
+    transition: .2s;
+}
+
+.lncc-watch:hover {
+    background: #3d9bff;
+    transform: translateY(-1px);
+}
+
+.lncc-copy {
+    border: 1px solid rgba(255,255,255,.1);
+    background: rgba(255,255,255,.06);
+    color: #fff;
+    border-radius: 11px;
+    padding: 10px 13px;
+    cursor: pointer;
+}
+
+.lncc-loading,
+.lncc-error,
+.lncc-empty {
+    padding: 30px;
+    text-align: center;
+    border-radius: 18px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid rgba(255,255,255,.08);
+    opacity: .8;
+}
+
+.lncc-footer {
+    margin-top: 16px;
+    text-align: right;
+    font-size: 12px;
+    opacity: .5;
+}
+
+@media (max-width: 600px) {
+    #livenet-channel-center {
+        width: min(100% - 20px, 1100px);
+        margin: 25px auto;
+    }
+
+    .lncc-header {
+        padding: 18px;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .lncc-title {
+        font-size: 24px;
+    }
+
+    .lncc-refresh {
+        width: 100%;
+    }
+
+    #lncc-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+
+<section id="livenet-channel-center">
+
+    <div class="lncc-header">
+        <div>
+            <h2 class="lncc-title">📡 LiveNet Channel Center</h2>
+            <p class="lncc-subtitle">
+                Все каналы LiveNet в одном месте
+            </p>
+        </div>
+
+        <button
+            class="lncc-refresh"
+            id="lncc-refresh"
+            type="button"
+        >
+            🔄 Обновить
+        </button>
+    </div>
+
+    <div class="lncc-filters">
+        <button
+            class="lncc-filter active"
+            data-filter="all"
+            type="button"
+        >
+            Все
+        </button>
+
+        <button
+            class="lncc-filter"
+            data-filter="live"
+            type="button"
+        >
+            🔴 LIVE
+        </button>
+
+        <button
+            class="lncc-filter"
+            data-filter="available"
+            type="button"
+        >
+            🟢 Доступны
+        </button>
+
+        <button
+            class="lncc-filter"
+            data-filter="offline"
+            type="button"
+        >
+            ⚫ Offline
+        </button>
+    </div>
+
+    <div id="lncc-grid">
+        <div class="lncc-loading">
+            📡 Загружаем каналы LiveNet...
+        </div>
+    </div>
+
+    <div class="lncc-footer">
+        Последнее обновление:
+        <span id="lncc-updated">—</span>
+    </div>
+
+</section>
+
+
+<script>
+(function () {
+
+    "use strict";
+
+    const API_URL = "/api/status";
+
+    let channels = [];
+    let currentFilter = "all";
+
+    const grid = document.getElementById("lncc-grid");
+    const refreshButton = document.getElementById("lncc-refresh");
+    const updatedElement = document.getElementById("lncc-updated");
+
+    if (!grid) {
+        console.error("LiveNet Channel Center: grid not found");
+        return;
+    }
+
+
+    /* =====================================================
+       PLATFORM INFO
+    ===================================================== */
+
+    function getPlatformInfo(platform) {
+
+        const p = String(platform || "").toLowerCase();
+
+        if (p === "twitch") {
+            return {
+                icon: "🟣",
+                color: "#9146ff"
+            };
+        }
+
+        if (p === "kick") {
+            return {
+                icon: "🟢",
+                color: "#53fc18"
+            };
+        }
+
+        if (
+            p.includes("этоя") ||
+            p.includes("etoyatv")
+        ) {
+            return {
+                icon: "🔵",
+                color: "#3498ff"
+            };
+        }
+
+        return {
+            icon: "📡",
+            color: "#258cff"
+        };
+    }
+
+
+    /* =====================================================
+       STATUS INFO
+    ===================================================== */
+
+    function getStatusInfo(channel) {
+
+        const status =
+            String(channel.status || "").toLowerCase();
+
+        if (
+            status === "live" ||
+            status === "online"
+        ) {
+            return {
+                text: status === "live"
+                    ? "🔴 LIVE"
+                    : "🟢 Онлайн",
+
+                className:
+                    status === "live"
+                        ? "live"
+                        : "online"
+            };
+        }
+
+        if (status === "offline") {
+            return {
+                text: "⚫ Offline",
+                className: ""
+            };
+        }
+
+        if (status === "available") {
+            return {
+                text: "🟢 Канал доступен",
+                className: "online"
+            };
+        }
+
+        return {
+            text: "⚪ Неизвестно",
+            className: ""
+        };
+    }
+
+
+    /* =====================================================
+       SAFE HTML
+    ===================================================== */
+
+    function escapeHTML(value) {
+
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+
+    /* =====================================================
+       RENDER
+    ===================================================== */
+
+    function render() {
+
+        let visibleChannels = channels.filter(function (channel) {
+
+            const status =
+                String(channel.status || "").toLowerCase();
+
+            if (currentFilter === "all") {
+                return true;
+            }
+
+            if (currentFilter === "live") {
+                return (
+                    status === "live" ||
+                    status === "online"
+                );
+            }
+
+            if (currentFilter === "available") {
+                return status === "available";
+            }
+
+            if (currentFilter === "offline") {
+                return status === "offline";
+            }
+
+            return true;
+        });
+
+
+        if (!visibleChannels.length) {
+
+            grid.innerHTML = `
+                <div class="lncc-empty">
+                    📭 Каналов с таким статусом нет
+                </div>
+            `;
+
+            return;
+        }
+
+
+        grid.innerHTML =
+            visibleChannels.map(function (channel) {
+
+                const platform =
+                    getPlatformInfo(channel.platform);
+
+                const status =
+                    getStatusInfo(channel);
+
+
+                const name =
+                    escapeHTML(
+                        channel.name || "Без названия"
+                    );
+
+                const platformName =
+                    escapeHTML(
+                        channel.platform || "LiveNet"
+                    );
+
+                const url =
+                    channel.url || "#";
+
+
+                let extraInfo = "";
+
+
+                if (
+                    channel.title &&
+                    String(channel.title).trim()
+                ) {
+
+                    extraInfo += `
+                        <div style="
+                            margin-top:8px;
+                            font-size:13px;
+                            opacity:.65;
+                            line-height:1.4;
+                        ">
+                            ${escapeHTML(channel.title)}
+                        </div>
+                    `;
+                }
+
+
+                if (
+                    typeof channel.viewers === "number"
+                ) {
+
+                    extraInfo += `
+                        <div style="
+                            margin-top:6px;
+                            font-size:12px;
+                            opacity:.55;
+                        ">
+                            👁 ${channel.viewers.toLocaleString(
+                                "ru-RU"
+                            )} зрителей
+                        </div>
+                    `;
+                }
+
+
+                return `
+                    <article
+                        class="lncc-card"
+                        data-status="${escapeHTML(
+                            channel.status || ""
+                        )}"
+                    >
+
+                        <div
+                            class="lncc-platform"
+                            style="color:${platform.color}"
+                        >
+                            <span>${platform.icon}</span>
+                            ${platformName}
+                        </div>
+
+                        <h3 class="lncc-name">
+                            ${name}
+                        </h3>
+
+                        <div class="lncc-status">
+
+                            <span
+                                class="lncc-status-dot ${status.className}"
+                            ></span>
+
+                            <span>
+                                ${status.text}
+                            </span>
+
+                        </div>
+
+                        ${extraInfo}
+
+                        <div class="lncc-actions">
+
+                            <a
+                                class="lncc-watch"
+                                href="${escapeHTML(url)}"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Смотреть →
+                            </a>
+
+                            <button
+                                class="lncc-copy"
+                                type="button"
+                                data-copy="${escapeHTML(url)}"
+                            >
+                                🔗
+                            </button>
+
+                        </div>
+
+                    </article>
+                `;
+
+            }).join("");
+
+
+        /* Copy buttons */
+
+        grid.querySelectorAll(
+            ".lncc-copy"
+        ).forEach(function (button) {
+
+            button.addEventListener(
+                "click",
+                async function () {
+
+                    const url =
+                        button.dataset.copy;
+
+                    if (!url) return;
+
+                    try {
+
+                        await navigator.clipboard.writeText(url);
+
+                        const oldText =
+                            button.textContent;
+
+                        button.textContent = "✓";
+
+                        setTimeout(function () {
+                            button.textContent = oldText;
+                        }, 1200);
+
+                    } catch (error) {
+
+                        console.error(
+                            "Clipboard error:",
+                            error
+                        );
+
+                    }
+
+                }
+            );
+
+        });
+
+    }
+
+
+    /* =====================================================
+       LOAD API
+    ===================================================== */
+
+    async function loadChannels() {
+
+        grid.innerHTML = `
+            <div class="lncc-loading">
+                📡 Обновляем список каналов...
+            </div>
+        `;
+
+        refreshButton.disabled = true;
+
+        try {
+
+            const response =
+                await fetch(
+                    API_URL,
+                    {
+                        method: "GET",
+                        cache: "no-store",
+                        headers: {
+                            "Accept":
+                                "application/json"
+                        }
+                    }
+                );
+
+
+            if (!response.ok) {
+                throw new Error(
+                    "HTTP " + response.status
+                );
+            }
+
+
+            const data =
+                await response.json();
+
+
+            if (
+                !data ||
+                !Array.isArray(data.services)
+            ) {
+                throw new Error(
+                    "Некорректный ответ API"
+                );
+            }
+
+
+            channels =
+                data.services.filter(function (service) {
+
+                    return service.id !== "livenet";
+
+                });
+
+
+            render();
+
+
+            const now =
+                new Date();
+
+            updatedElement.textContent =
+                now.toLocaleTimeString(
+                    "ru-RU",
+                    {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                        second: "2-digit"
+                    }
+                );
+
+
+        } catch (error) {
+
+            console.error(
+                "LiveNet Channel Center:",
+                error
+            );
+
+
+            grid.innerHTML = `
+                <div class="lncc-error">
+                    ❌ Не удалось получить список каналов
+                    <br>
+                    <small>
+                        Попробуйте обновить страницу
+                    </small>
+                </div>
+            `;
+
+        } finally {
+
+            refreshButton.disabled = false;
+
+        }
+
+    }
+
+
+    /* =====================================================
+       FILTERS
+    ===================================================== */
+
+    document
+        .querySelectorAll(".lncc-filter")
+        .forEach(function (button) {
+
+            button.addEventListener(
+                "click",
+                function () {
+
+                    document
+                        .querySelectorAll(
+                            ".lncc-filter"
+                        )
+                        .forEach(function (item) {
+
+                            item.classList.remove(
+                                "active"
+                            );
+
+                        });
+
+
+                    button.classList.add("active");
+
+
+                    currentFilter =
+                        button.dataset.filter ||
+                        "all";
+
+
+                    render();
+
+                }
+            );
+
+        });
+
+
+    /* =====================================================
+       MANUAL REFRESH
+    ===================================================== */
+
+    refreshButton.addEventListener(
+        "click",
+        loadChannels
+    );
+
+
+    /* =====================================================
+       AUTO REFRESH
+       Every 30 seconds
+    ===================================================== */
+
+    setInterval(
+        loadChannels,
+        30000
+    );
+
+
+    /* =====================================================
+       INITIAL LOAD
+    ===================================================== */
+
+    loadChannels();
+
+})();
+</script>
 
 </body>
 </html>
